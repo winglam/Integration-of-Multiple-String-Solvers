@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Nfa.html">
+<link rel="next" href="Languageops.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Options" rel="Chapter" href="Options.html">
+<link title="Hashset" rel="Chapter" href="Hashset.html">
+<link title="Charset" rel="Chapter" href="Charset.html">
+<link title="Nfa" rel="Chapter" href="Nfa.html">
+<link title="Depgraph" rel="Chapter" href="Depgraph.html">
+<link title="Languageops" rel="Chapter" href="Languageops.html">
+<link title="Solve" rel="Chapter" href="Solve.html">
+<link title="Interface" rel="Chapter" href="Interface.html">
+<link title="Dprle" rel="Chapter" href="Dprle.html"><link title="Language Definitions" rel="Section" href="#6_LanguageDefinitions">
+<link title="Dependency Graphs" rel="Section" href="#6_DependencyGraphs">
+<title>Depgraph</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Nfa.html" title="Nfa">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Languageops.html" title="Languageops">Next</a>
+</div>
+<h1>Module <a href="type_Depgraph.html">Depgraph</a></h1>
+
+<pre><span class="keyword">module</span> Depgraph: <code class="code">sig</code> <a href="Depgraph.html">..</a> <code class="code">end</code></pre><div class="info module top">
+We represent systems of constraints as directed usually-acyclic
+    dependency graphs. Most of the program state is captured by a
+    stack of these graphs.<br>
+</div>
+<hr width="100%">
+<br>
+Constant(s)<br>
+
+<pre><span id="VALdef_mapping_size"><span class="keyword">val</span> def_mapping_size</span> : <code class="type">int</code></pre>
+<pre><span id="VALdef_output_size"><span class="keyword">val</span> def_output_size</span> : <code class="type">int</code></pre>
+<pre><span id="TYPEnodeid"><span class="keyword">type</span> <code class="type"></code>nodeid</span> = <code class="type">string</code> </pre>
+
+
+<pre><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = <code class="type">int</code> </pre>
+
+
+<pre><span id="TYPEtransition"><span class="keyword">type</span> <code class="type"></code>transition</span> = <code class="type"><a href="Depgraph.html#TYPEstate">state</a> * <a href="Depgraph.html#TYPEstate">state</a></code> </pre>
+
+<br>
+<h6 id="6_LanguageDefinitions">Language Definitions</h6><br>
+
+<pre><span id="VALnext_transition_list"><span class="keyword">val</span> next_transition_list</span> : <code class="type">int Pervasives.ref</code></pre><div class="info ">
+We use tranition lists to capture multiple alternative solutions
+    within a single NFA. This is defined here, but used primarily in
+    languageops.ml<br>
+</div>
+
+<pre><span id="TYPEtrans_list_id"><span class="keyword">type</span> <code class="type"></code>trans_list_id</span> = <code class="type">int</code> </pre>
+
+
+<pre><span id="TYPEtrans_list"><span class="keyword">type</span> <code class="type"></code>trans_list</span> = <code class="type"><a href="Depgraph.html#TYPEtrans_list_id">trans_list_id</a> * <a href="Depgraph.html#TYPEtransition">transition</a> list</code> </pre>
+
+
+<pre><span id="VALnew_trans_list_id"><span class="keyword">val</span> new_trans_list_id</span> : <code class="type">unit -> int</code></pre>
+<pre><span id="VALnew_trans_list"><span class="keyword">val</span> new_trans_list</span> : <code class="type">unit -> <a href="Depgraph.html#TYPEtrans_list">trans_list</a></code></pre><br>
+A submachine represents some part (subset of state space) of one
+    or more bigger NFAs. Each such "bigger" NFA is referenced by node
+    id, a list of potential start states, and a list of potential
+    final states. Separate from that mapping we also store an NFA;
+    this matches the language of the node prior to it getting
+    submachine status.<br>
+
+<pre><span id="TYPEsubmapping"><span class="keyword">type</span> <code class="type"></code>submapping</span> = <code class="type">(<a href="Depgraph.html#TYPEnodeid">nodeid</a>,<br>        <a href="Depgraph.html#TYPEtrans_list">trans_list</a> Pervasives.ref Pervasives.ref *<br>        <a href="Depgraph.html#TYPEtrans_list">trans_list</a> Pervasives.ref Pervasives.ref)<br>       Hashtbl.t</code> </pre>
+
+
+<pre><span id="TYPEsubmachine"><span class="keyword">type</span> <code class="type"></code>submachine</span> = <code class="type"><a href="Nfa.html#TYPEnfa">Nfa.nfa</a> * <a href="Depgraph.html#TYPEsubmapping">submapping</a></code> </pre>
+
+<br>
+A supermachine represents at least two concatenated submachines,
+    separated by sets of epsilon transitions, defined as a pair of<ul>
+<li>the NFA that represents the full set of possible assignments</li>
+<li>a sequence of triplets of the form:</li>
+<li>set of 'start' transitions for this submachine</li>
+<li>node id of this submachine</li>
+<li>set of 'final' transitions for this submachine</li>
+</ul>
+
+    Adjacent transition sets overlap; for example, for a sequence
+    <code class="code">a;b</code>, the final transition set for a is the start transition set
+    for b. We use a shared list representation so that changes to the
+    transition sets directly affect all relevant submachines.<br>
+
+<pre><span id="TYPEsupermapping"><span class="keyword">type</span> <code class="type"></code>supermapping</span> = <code class="type"><a href="Depgraph.html#TYPEtrans_list">trans_list</a> Pervasives.ref Pervasives.ref * <a href="Depgraph.html#TYPEnodeid">nodeid</a> *<br>       <a href="Depgraph.html#TYPEtrans_list">trans_list</a> Pervasives.ref Pervasives.ref</code> </pre>
+
+
+<pre><span id="TYPEsupermachine"><span class="keyword">type</span> <code class="type"></code>supermachine</span> = <code class="type"><a href="Nfa.html#TYPEnfa">Nfa.nfa</a> * <a href="Depgraph.html#TYPEsupermapping">supermapping</a> list</code> </pre>
+
+
+<pre><code><span id="TYPElang"><span class="keyword">type</span> <code class="type"></code>lang</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTlang.Unrestricted"><span class="constructor">Unrestricted</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTlang.Machine"><span class="constructor">Machine</span></span> <span class="keyword">of</span> <code class="type"><a href="Nfa.html#TYPEnfa">Nfa.nfa</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTlang.SubMachine"><span class="constructor">SubMachine</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEsubmachine">submachine</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTlang.SuperMachine"><span class="constructor">SuperMachine</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEsupermachine">supermachine</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+A node's language is one of<ul>
+<li><code class="code">Unrestricted</code>: Equivalent to sigmastar</li>
+<li><code class="code">Machine</code>: A normal NFA</li>
+<li><code class="code">SubMachine</code>: See <a href="Depgraph.html#TYPEsubmachine"><code class="code">Depgraph.submachine</code></a></li>
+<li><code class="code">SuperMachine</code>: See <a href="Depgraph.html#TYPEsupermachine"><code class="code">Depgraph.supermachine</code></a></li>
+</ul>
+
+    <code class="code">SubMachine</code> and <code class="code">SuperMachine</code> only used while solving CI-groups; after
+    a specific assignment is selected, these are converted to regular NFAs. Legal
+    transitions:
+<p>
+
+   <code class="code"> Unrestricted -&gt; Machine
+     Machine -&gt; SubMachine 
+     Machine -&gt; SuperMachine
+     SuperMachine -&gt; SubMachine
+     SuperMachine, SubMachine -&gt; Machine </code><br>
+</div>
+
+<br>
+<h6 id="6_DependencyGraphs">Dependency Graphs</h6><br>
+<br>
+Nodes represent variables and constants; edges represent direct
+    dependencies between the nodes. <code class="code">inedge</code> Represents the possible
+    kinds of inbound edges; <code class="code">outedge</code> encodes the corresponding 
+    kinds of outbound edges. 
+<p>
+
+    Note that, for concatenation, we encode the order in the type
+    constructors. For example, if node <code class="code">s1</code> has an <code class="code">OutConcatLeft(s2,
+    b)</code> edge, then we have <code class="code">b alias s1 . s2</code> and node <code class="code">s2</code> will have
+    a corresponding edge <code class="code">OutConcatRight(s1, b)</code>.<br>
+
+<pre><code><span id="TYPEinedge"><span class="keyword">type</span> <code class="type"></code>inedge</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinedge.InConcat"><span class="constructor">InConcat</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a> * <a href="Depgraph.html#TYPEnodeid">nodeid</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinedge.InIsect"><span class="constructor">InIsect</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEoutedge"><span class="keyword">type</span> <code class="type"></code>outedge</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToutedge.OutConcatLeft"><span class="constructor">OutConcatLeft</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a> * <a href="Depgraph.html#TYPEnodeid">nodeid</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToutedge.OutConcatRight"><span class="constructor">OutConcatRight</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a> * <a href="Depgraph.html#TYPEnodeid">nodeid</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToutedge.OutIsect"><span class="constructor">OutIsect</span></span> <span class="keyword">of</span> <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEnode"><span class="keyword">type</span> <code class="type"></code>node</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnode.id">id</span>&nbsp;: <code class="type"><a href="Depgraph.html#TYPEnodeid">nodeid</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnode.lang">lang</span>&nbsp;: <code class="type"><a href="Depgraph.html#TYPElang">lang</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTnode.inb">inb</span>&nbsp;: <code class="type"><a href="Depgraph.html#TYPEinedge">inedge</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTnode.outb">outb</span>&nbsp;: <code class="type"><a href="Depgraph.html#TYPEoutedge">outedge</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+Dependency graph node<br>
+</div>
+
+
+<pre><span id="TYPEgraph"><span class="keyword">type</span> <code class="type"></code>graph</span> = <code class="type">(<a href="Depgraph.html#TYPEnodeid">nodeid</a>, <a href="Depgraph.html#TYPEnode">node</a>) Hashtbl.t</code> </pre>
+
+
+<pre><span id="VALnew_node"><span class="keyword">val</span> new_node</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPElang">lang</a> -> <a href="Depgraph.html#TYPEnode">node</a></code></pre><div class="info ">
+Add a new node to the specified graph<br>
+<b>Returns</b> The new node; <code class="code">graph</code> maps <code class="code">id -&gt; new node</code><br>
+</div>
+
+<pre><span id="VALcopy_graph"><span class="keyword">val</span> copy_graph</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEgraph">graph</a></code></pre><div class="info ">
+Copy a dependency graph<br>
+<b>Returns</b> A deep copy of <code class="code">graph</code><br>
+</div>
+
+<pre><span id="VALfind_node"><span class="keyword">val</span> find_node</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEnode">node</a></code></pre><div class="info ">
+<b>Returns</b> The node associated with <code class="code">id</code> in <code class="code">graph</code>. A new
+    node with <code class="code">lang=None</code> is created if no existing binding
+    is found.<br>
+</div>
+
+<pre><span id="VALprint_lang"><span class="keyword">val</span> print_lang</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> unit</code></pre><div class="info ">
+Pretty print a node's language<br>
+</div>
+
+<pre><span id="VALprintnode"><span class="keyword">val</span> printnode</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnode">node</a> -> unit</code></pre>
+<pre><span id="VALprint_graph"><span class="keyword">val</span> print_graph</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> unit</code></pre><div class="info ">
+Pretty print a dependency graph<br>
+</div>
+
+<pre><span id="VALadd_concat"><span class="keyword">val</span> add_concat</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -><br>       <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> unit</code></pre><div class="info ">
+Add a concatenation constraint to <code class="code">graph</code> (<i>L(</i><code class="code">lhs . rhs</code><i>)</i>
+    subset <i>L(</i>target<i>)</i>). If <code class="code">lhs</code>, <code class="code">rhs</code>, or <code class="code">target</code> it not
+    bound in <code class="code">graph</code>, then it is created.<br>
+</div>
+<div class="param_info"><code class="code">graph</code> : A dependency graph</div>
+<div class="param_info"><code class="code">lhs</code> : The left-hand side of the "constraining" concatenation</div>
+<div class="param_info"><code class="code">rhs</code> : The right-hand side of the "constratining" concatenation</div>
+<div class="param_info"><code class="code">target</code> : The "constrained" node</div>
+
+<pre><span id="VALadd_isect"><span class="keyword">val</span> add_isect</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> unit</code></pre><div class="info ">
+Add a subset constraint to <code class="code">graph</code> (<i>L(</i><code class="code">target</code><i>)</i> subset <i>    L(</i><code class="code">source</code><i>)</i>. If either <code class="code">source</code> or <code class="code">target</code> is not bound in
+    <code class="code">graph</code>, then it is created.<br>
+</div>
+
+<pre><span id="VALremove_inb"><span class="keyword">val</span> remove_inb</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEinedge">inedge</a> -> unit</code></pre><div class="info ">
+Remove an inbound edge from the specified graph. Note: The
+    <code class="code">target</code> node is created if it did not exist.<br>
+</div>
+
+<pre><span id="VALremove_outb"><span class="keyword">val</span> remove_outb</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEoutedge">outedge</a> -> unit</code></pre><div class="info ">
+Remove an outbound edge from the specified graph. Note: The
+    <code class="code">source</code> node is created if it did not exist.<br>
+</div>
+
+<pre><span id="EXCEPTIONRename"><span class="keyword">exception</span> Rename</span></pre>
+
+<pre><span id="VALalias_node"><span class="keyword">val</span> alias_node</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">graph</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">nodeid</a> -> unit</code></pre><div class="info ">
+Rename a node, or merge two existing nodes. If <code class="code">newid</code> already 
+   exists in the given graph, then the nodes are merged by copying
+   <code class="code">curid</code>'s edges to <code class="code">newid</code>.<br>
+<b>Raises</b> <code>Rename</code> If the renaming causes a single node to have two inbound
+    concat edge pairs. (Currently caught by the parser and presented
+    to the user as an error message.)<br>
+</div>
+</body></html>

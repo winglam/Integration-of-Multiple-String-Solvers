@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Charset.html">
+<link rel="next" href="Depgraph.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Options" rel="Chapter" href="Options.html">
+<link title="Hashset" rel="Chapter" href="Hashset.html">
+<link title="Charset" rel="Chapter" href="Charset.html">
+<link title="Nfa" rel="Chapter" href="Nfa.html">
+<link title="Depgraph" rel="Chapter" href="Depgraph.html">
+<link title="Languageops" rel="Chapter" href="Languageops.html">
+<link title="Solve" rel="Chapter" href="Solve.html">
+<link title="Interface" rel="Chapter" href="Interface.html">
+<link title="Dprle" rel="Chapter" href="Dprle.html"><link title="Basic transition function handling" rel="Section" href="#6_Basictransitionfunctionhandling">
+<link title="NFA Construction" rel="Section" href="#6_NFAConstruction">
+<link title="Basic NFA operations" rel="Section" href="#6_BasicNFAoperations">
+<link title="DFA-related operations" rel="Section" href="#6_DFArelatedoperations">
+<link title="Language Operations" rel="Section" href="#6_LanguageOperations">
+<title>Nfa</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Charset.html" title="Charset">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Depgraph.html" title="Depgraph">Next</a>
+</div>
+<h1>Module <a href="type_Nfa.html">Nfa</a></h1>
+
+<pre><span class="keyword">module</span> Nfa: <code class="code">sig</code> <a href="Nfa.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Nondeterministic finite state automata, implemented using explicit
+    Hashtbl representations for delta (transitions that consume a
+    symbol) and epsilon (transitions that do not consume a symbol).<br>
+</div>
+<hr width="100%">
+<br>
+Constants<br>
+
+<pre><span id="VALdef_machine_size"><span class="keyword">val</span> def_machine_size</span> : <code class="type">int</code></pre>
+<pre><span id="VALdef_delta_size"><span class="keyword">val</span> def_delta_size</span> : <code class="type">int</code></pre>
+<pre><span id="VALdef_eps_size"><span class="keyword">val</span> def_eps_size</span> : <code class="type">int</code></pre><br>
+We model characters (i.e. elements of the alphabet) as integers;
+    see also <a href="Charset.html"><code class="code">Charset</code></a>.<br>
+
+<pre><span id="TYPEcharset"><span class="keyword">type</span> <code class="type"></code>charset</span> = <code class="type"><a href="Charset.html#TYPEset">Charset.set</a></code> </pre>
+
+
+<pre><code><span id="TYPEsymbol"><span class="keyword">type</span> <code class="type"></code>symbol</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsymbol.Character"><span class="constructor">Character</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsymbol.Epsilon"><span class="constructor">Epsilon</span></span></code></td>
+
+</tr></table>
+
+
+<br>
+We model the transition function <code class="code">delta</code> as a mapping <code class="code">state -&gt;
+    (state -&gt; character set)</code>. Epsilon transitions are modeled
+    separately by a mapping <code class="code">state -&gt; state set</code>:<br>
+
+<pre><span id="TYPEdelta"><span class="keyword">type</span> <code class="type">'s</code> delta</span> = <code class="type">('s, ('s, <a href="Nfa.html#TYPEcharset">charset</a>) Hashtbl.t) Hashtbl.t</code> </pre>
+
+
+<pre><span id="TYPEepsilon"><span class="keyword">type</span> <code class="type">'s</code> epsilon</span> = <code class="type">('s, 's <a href="Hashset.html#TYPEhashset">Hashset.hashset</a>) Hashtbl.t</code> </pre>
+
+
+<pre><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = <code class="type">int</code> </pre>
+
+
+<pre><code><span id="TYPEnfa"><span class="keyword">type</span> <code class="type"></code>nfa</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.s">s</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.f">f</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.delta">delta</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a> <a href="Nfa.html#TYPEdelta">delta</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.epsilon">epsilon</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a> <a href="Nfa.html#TYPEepsilon">epsilon</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.q">q</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTnfa.next_q">next_q</span>&nbsp;: <code class="type"><a href="Nfa.html#TYPEstate">state</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+Nfa with state type <code class="code">'a</code>, a single start state <code class="code">s</code>, and a single
+    accepting state <code class="code">f</code>:<br>
+</div>
+
+<br>
+<h6 id="6_Basictransitionfunctionhandling">Basic transition function handling</h6><br>
+
+<pre><span id="VALall_delta"><span class="keyword">val</span> all_delta</span> : <code class="type">?create:bool -> 's <a href="Nfa.html#TYPEdelta">delta</a> -> 's -> ('s, <a href="Nfa.html#TYPEcharset">charset</a>) Hashtbl.t</code></pre><div class="info ">
+Get the rhs <code class="code">(state -&gt; character set)</code> mapping for a given 
+    origin state <code class="code">s</code> in transition function <code class="code">d</code><br>
+<b>Returns</b> A mapping <code class="code">state -&gt; charset</code> containing all states
+    reachable from <code class="code">s</code> by a direct (non-epsilon) transition, with the
+    associated set of transition symbols.<br>
+</div>
+<div class="param_info"><code class="code">create</code> : Whether the inner hashtable should be instantiated if
+                  none currently exists</div>
+
+<pre><span id="VALwhich_symbols"><span class="keyword">val</span> which_symbols</span> : <code class="type">?create:bool -> 's <a href="Nfa.html#TYPEdelta">delta</a> -> 's -> 's -> <a href="Nfa.html#TYPEcharset">charset</a></code></pre><div class="info ">
+Get the character set by applying <code class="code">(delta s1) s2</code><br>
+<b>Returns</b> A <code class="code">charset</code> of all non-epsilon transition symbols that
+    reach <code class="code">s2</code> from <code class="code">s1</code> through a direct edge.<br>
+</div>
+<div class="param_info"><code class="code">create</code> : Whether the inner hashtable and
+                  the inner character set should be created if they do
+                  not already exist</div>
+
+<pre><span id="VALwhich_states"><span class="keyword">val</span> which_states</span> : <code class="type">?create:bool -> 's <a href="Nfa.html#TYPEepsilon">epsilon</a> -> 's -> 's <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code></pre><div class="info ">
+Get the rhs state set in the epsilon mapping <code class="code">e</code><br>
+<b>Returns</b> The set of states reachable from <code class="code">s1</code> through
+    a single epsilon-transition. If no such states exist,
+    an empty set is created.<br>
+</div>
+<div class="param_info"><code class="code">create</code> : Add empty state set if none is found</div>
+
+<pre><span id="VALcopy_table"><span class="keyword">val</span> copy_table</span> : <code class="type">('p, ('p, 'q) Hashtbl.t) Hashtbl.t -><br>       ('r, ('r, 'q) Hashtbl.t) Hashtbl.t -> ('p -> 'r) -> unit</code></pre><div class="info ">
+Copy a delta or epsilon, applying a transformation to each element<br>
+</div>
+
+<pre><span id="VALnested_ht_iter"><span class="keyword">val</span> nested_ht_iter</span> : <code class="type">('a, 'b) Hashtbl.t -><br>       ('p, 'q) Hashtbl.t -> ('a -> 'b -> 'p -> 'q -> unit) -> unit</code></pre><div class="info ">
+For all mappings <code class="code">p -&gt; q</code> in hashtable <code class="code">a</code> and for all <code class="code">r -&gt; s</code> in
+    hashtable <code class="code">b</code>, execute <code class="code">f p q r s</code>. Used by <a href="Nfa.html#VALintersect"><code class="code">Nfa.intersect</code></a><br>
+</div>
+
+<pre><span id="VALfmap"><span class="keyword">val</span> fmap</span> : <code class="type">'a <a href="Hashset.html#TYPEhashset">Hashset.hashset</a> -> ('a -> 'b) -> ('a, 'b) Hashtbl.t</code></pre><br>
+<h6 id="6_NFAConstruction">NFA Construction</h6><br>
+
+<pre><span id="VALnew_nfa_states"><span class="keyword">val</span> new_nfa_states</span> : <code class="type"><a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Create an empty NFA with start state <code class="code">s</code> and accepting state <code class="code">f</code>;
+    note that <code class="code">s</code> and <code class="code">f</code> should not be equal.<br>
+<b>Returns</b> An NFA consisting of states <code class="code">s</code> and <code class="code">f</code>, with no transitions.<br>
+</div>
+
+<pre><span id="VALnew_state"><span class="keyword">val</span> new_state</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a></code></pre><div class="info ">
+Add a new state<br>
+<b>Returns</b> The integer id of the state that was added<br>
+</div>
+
+<pre><span id="VALadd_state"><span class="keyword">val</span> add_state</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> unit</code></pre><div class="info ">
+Add a specific state<br>
+</div>
+
+<pre><span id="VALadd_trans"><span class="keyword">val</span> add_trans</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEsymbol">symbol</a> -> <a href="Nfa.html#TYPEstate">state</a> -> unit</code></pre><div class="info ">
+Add single transition <code class="code">s1 -c-&gt; s2</code><br>
+</div>
+
+<pre><span id="VALadd_all_trans"><span class="keyword">val</span> add_all_trans</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstate">state</a> -> unit</code></pre><div class="info ">
+Add transitions <code class="code">s1 -c-&gt; s2</code> for all <code class="code">c</code><br>
+</div>
+
+<pre><span id="VALadd_set_trans"><span class="keyword">val</span> add_set_trans</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEcharset">charset</a> -> <a href="Nfa.html#TYPEstate">state</a> -> unit</code></pre><div class="info ">
+Add transitions <code class="code">s1 -c-&gt; s2</code> for all <code class="code">c</code> in <code class="code">l</code><br>
+</div>
+
+<pre><span id="VALnew_sigmastar"><span class="keyword">val</span> new_sigmastar</span> : <code class="type">unit -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Construct an NFA that accepts <br>
+</div>
+<br>
+<h6 id="6_BasicNFAoperations">Basic NFA operations</h6><br>
+
+<pre><span id="VALprint_nfa"><span class="keyword">val</span> print_nfa</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> unit</code></pre><div class="info ">
+Pretty print an NFA.<br>
+</div>
+
+<pre><span id="VALnfa_to_dot"><span class="keyword">val</span> nfa_to_dot</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> string</code></pre><div class="info ">
+Convert an NFA to Graphviz dot format<br>
+<b>Returns</b> A string containing a (currently rather rough)
+            dot file representation of the NFA, where
+            nodes are states and edges are transitions.<br>
+</div>
+
+<pre><span id="VALneighbors"><span class="keyword">val</span> neighbors</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstate">state</a> list</code></pre><div class="info ">
+Get all immediate outbound neighbors of a given state<br>
+<b>Returns</b> All states reachable from <code class="code">s</code> in <code class="code">nfa</code> through a single
+    transition (<code class="code">nfa</code> is unchanged)<br>
+</div>
+<br>
+We use integer sets for the epsilon closure; this is vaguely
+    because we do a lot of comparing between closures<br>
+
+<pre><span class="keyword">module</span> <a href="Nfa.StateSet.html">StateSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="code">sig</code><div class="sig_block">
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type"><a href="Nfa.html#TYPEstate">Nfa.state</a></code> </pre>
+
+
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -> 'a -> int</code></pre></div><code class="code">end</code><code class="code">)</code></pre>
+<pre><span id="TYPEstateset"><span class="keyword">type</span> <code class="type"></code>stateset</span> = <code class="type">StateSet.t</code> </pre>
+
+
+<pre><span id="VALeps_closure"><span class="keyword">val</span> eps_closure</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstateset">stateset</a></code></pre><div class="info ">
+Epsilon closure for a given NFA state<br>
+<b>Returns</b> The set of states transitively reachable through epsilon
+            transitions, starting at <code class="code">q</code>, including <code class="code">q</code><br>
+</div>
+
+<pre><span id="VALrhs"><span class="keyword">val</span> rhs</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> int -> <a href="Nfa.html#TYPEstateset">stateset</a></code></pre><div class="info ">
+Find all states <code class="code">q'</code> such that <code class="code">q</code> reaches <code class="code">q'</code> on <code class="code">c</code>
+    through a single transition.<br>
+<b>Returns</b> The set of reachable states<br>
+</div>
+
+<pre><span id="VALforward_fold_nfa"><span class="keyword">val</span> forward_fold_nfa</span> : <code class="type">(<a href="Nfa.html#TYPEstate">state</a> -> 'a -> 'a) -> <a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> 'a -> 'a</code></pre><div class="info ">
+Generic forward walk over an NFA (depth first; visits all states
+    forward-reachable from <code class="code">s</code>). Not-quite tail-recursive.<br>
+</div>
+
+<pre><span id="VALbackward_mapping"><span class="keyword">val</span> backward_mapping</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> (<a href="Nfa.html#TYPEstate">state</a>, <a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a>) Hashtbl.t</code></pre><div class="info ">
+Construct a reverse reachability mapping<br>
+<b>Returns</b> A mapping <code class="code">s -&gt; R</code> for all states <code class="code">s</code> in <code class="code">nfa.q</code>, where <code class="code">R</code>
+    contains all the states that have an edge to <code class="code">s</code><br>
+</div>
+
+<pre><span id="VALbackward_reachable"><span class="keyword">val</span> backward_reachable</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code></pre><div class="info ">
+Backward reachability from a specified state<br>
+<b>Returns</b> All states that are backward-reachable from <code class="code">s</code> in <code class="code">nfa</code><br>
+</div>
+
+<pre><span id="VALelim_dead_states"><span class="keyword">val</span> elim_dead_states</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> unit</code></pre><div class="info ">
+Eliminate states that do not reach the final state.<br>
+</div>
+
+<pre><span id="VALreverse"><span class="keyword">val</span> reverse</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Reverse all transitions, swap start and final states; used by 
+    <a href="Nfa.html#VALminimize"><code class="code">Nfa.minimize</code></a><br>
+<b>Returns</b> A reversed copy of <code class="code">n</code><br>
+</div>
+
+<pre><span id="VALcopy_nfa"><span class="keyword">val</span> copy_nfa</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Copy an NFA<br>
+<b>Returns</b> a copy of <code class="code">nfa</code><br>
+</div>
+
+<pre><span id="VALextract_nfa"><span class="keyword">val</span> extract_nfa</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEstate">state</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Extract a subNFA from a bigger NFA<br>
+<b>Returns</b> A copy of <code class="code">nfa</code> with start state <code class="code">s</code>, final state <code class="code">f</code>,
+             and a subset of <code class="code">nfa</code>'s states<br>
+</div>
+<div class="param_info"><code class="code">nfa</code> : NFA to (partially) copy</div>
+<div class="param_info"><code class="code">s</code> : Start state for the result</div>
+<div class="param_info"><code class="code">f</code> : Final state for the result</div>
+
+<pre><span id="VALmerge_nfas"><span class="keyword">val</span> merge_nfas</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> unit</code></pre><div class="info ">
+Merge two NFAs<br>
+</div>
+
+<pre><span id="VALnormalize_nfa"><span class="keyword">val</span> normalize_nfa</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> int -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Rebuild NFA with contiquous integer state space.<br>
+<b>Returns</b> NFA with <code class="code">base</code> as the lowest state ID and
+                <code class="code">base + (size nfa.q) - 1</code> as the highest<br>
+</div>
+<br>
+<h6 id="6_DFArelatedoperations">DFA-related operations</h6><br>
+
+<pre><span id="VALnfa_to_dfa"><span class="keyword">val</span> nfa_to_dfa</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Determinize an NFA (necessary for e.g. compliment)<br>
+<b>Returns</b> An NFA that looks mostly like a DFA: all states have
+            outbound edges for every alphabet symbol, and no
+            epsilon transitions are used *except* for transitions
+            to the (single) final state.<br>
+</div>
+
+<pre><span id="VALcomplement"><span class="keyword">val</span> complement</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> unit</code></pre><div class="info ">
+Compute the complement of a given determinized NFA. Note: Changes
+    its parameter in place.<br>
+</div>
+
+<pre><span id="VALminimize"><span class="keyword">val</span> minimize</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Minimize an NFA using Brzozowski's minimization algorithm<br>
+<b>Returns</b> A minimized copy of <code class="code">n</code><br>
+</div>
+<br>
+<h6 id="6_LanguageOperations">Language Operations</h6><br>
+
+<pre><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -><br>       <a href="Nfa.html#TYPEnfa">nfa</a> -><br>       <a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a> -><br>       <a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a> -><br>       (<a href="Nfa.html#TYPEstate">state</a>, <a href="Nfa.html#TYPEstate">state</a>) Hashtbl.t * (<a href="Nfa.html#TYPEstate">state</a>, <a href="Nfa.html#TYPEstate">state</a>) Hashtbl.t * <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Annotated NFA concatenation using a single epsilon-transition.<br>
+<b>Returns</b> A tree-tuple <code class="code">(p1', p2', m3)</code> So that <code class="code">m3</code> is an NFA with
+    language <code class="code">L(m3) = L(m1) concat L(m2)</code>; <code class="code">p1'</code> subset <code class="code">m3.q</code> is the
+    set of states that correspond to states in <code class="code">p1</code>; and <code class="code">p2'</code> subset
+    <code class="code">m3.q</code> is the set of states that correspond to states in
+    <code class="code">p2</code>. (Note: for the current concat implementation, <code class="code">p1 = p1'</code> for
+    all calls to concat).<br>
+</div>
+
+<pre><span id="VALsimple_concat"><span class="keyword">val</span> simple_concat</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Concat without the state-converting frills<br>
+<b>Returns</b> An NFA that accepts <code class="code">L(m1).L(m2)</code><br>
+</div>
+
+<pre><span id="VALunion"><span class="keyword">val</span> union</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Applicative NFA union<br>
+<b>Returns</b> An NFA that accepts <code class="code">L(a) cup L(b)</code><br>
+</div>
+
+<pre><span id="VALintersect"><span class="keyword">val</span> intersect</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -><br>       <a href="Nfa.html#TYPEnfa">nfa</a> -><br>       <a href="Nfa.html#TYPEstate">state</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a> -> (<a href="Nfa.html#TYPEstate">state</a>, <a href="Nfa.html#TYPEstate">state</a> list) Hashtbl.t * <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Annotated NFA intersection using the cross-product construction<br>
+<b>Returns</b> A tuple <code class="code">(p1', m3)</code> So that <code class="code">m3</code> is an NFA with language
+    <code class="code">L(m3) = L(m1) cap L(m2)</code>; <code class="code">p1'</code> is a mapping from
+    states in <code class="code">p1</code> to their corresponding states in <code class="code">m3.q</code><br>
+</div>
+
+<pre><span id="VALsimple_intersect"><span class="keyword">val</span> simple_intersect</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a></code></pre><div class="info ">
+Intersection without the state-converting frills<br>
+</div>
+
+<pre><span id="EXCEPTIONFound_it"><span class="keyword">exception</span> Found_it</span></pre>
+
+<pre><span id="VALis_empty"><span class="keyword">val</span> is_empty</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> bool</code></pre><div class="info ">
+Language emptiness<br>
+<b>Returns</b> <code class="code">true</code> if <code class="code">nfa</code> accepts no strings; <code class="code">false</code> otherwise<br>
+</div>
+
+<pre><span id="VALnfa_eq"><span class="keyword">val</span> nfa_eq</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> bool</code></pre><div class="info ">
+Language equality<br>
+<b>Returns</b> <code class="code">true</code> if <code class="code">L(a) = L(b)</code>; false otherwise<br>
+</div>
+
+<pre><span id="VALnfa_subseteq"><span class="keyword">val</span> nfa_subseteq</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> <a href="Nfa.html#TYPEnfa">nfa</a> -> bool</code></pre><div class="info ">
+Language subseteq<br>
+<b>Returns</b> <code class="code">true</code> if <code class="code">L(a) subseteq L(b)</code>; false otherwise<br>
+</div>
+
+<pre><span id="VALgen_string"><span class="keyword">val</span> gen_string</span> : <code class="type"><a href="Nfa.html#TYPEnfa">nfa</a> -> string option</code></pre></body></html>

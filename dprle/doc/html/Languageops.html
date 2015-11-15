@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Depgraph.html">
+<link rel="next" href="Solve.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Options" rel="Chapter" href="Options.html">
+<link title="Hashset" rel="Chapter" href="Hashset.html">
+<link title="Charset" rel="Chapter" href="Charset.html">
+<link title="Nfa" rel="Chapter" href="Nfa.html">
+<link title="Depgraph" rel="Chapter" href="Depgraph.html">
+<link title="Languageops" rel="Chapter" href="Languageops.html">
+<link title="Solve" rel="Chapter" href="Solve.html">
+<link title="Interface" rel="Chapter" href="Interface.html">
+<link title="Dprle" rel="Chapter" href="Dprle.html"><link title="Forward solving for non-CI-groups" rel="Section" href="#6_ForwardsolvingfornonCIgroups">
+<link title="Concat-Intersect Group Operations" rel="Section" href="#6_ConcatIntersectGroupOperations">
+<link title="Converting Processed CI-Groups into Assignments" rel="Section" href="#6_ConvertingProcessedCIGroupsintoAssignments">
+<title>Languageops</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Depgraph.html" title="Depgraph">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Solve.html" title="Solve">Next</a>
+</div>
+<h1>Module <a href="type_Languageops.html">Languageops</a></h1>
+
+<pre><span class="keyword">module</span> Languageops: <code class="code">sig</code> <a href="Languageops.html">..</a> <code class="code">end</code></pre><div class="info module top">
+This module defines operations on <a href="Depgraph.html#TYPElang"><code class="code">Depgraph.lang</code></a>.<br>
+</div>
+<hr width="100%">
+<br>
+This module defines operations on <a href="Depgraph.html#TYPElang"><code class="code">Depgraph.lang</code></a>.<br>
+
+<pre><span id="EXCEPTIONIllegalLangOp"><span class="keyword">exception</span> IllegalLangOp</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="EXCEPTIONLangOpFail"><span class="keyword">exception</span> LangOpFail</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="VALsimple_intersect"><span class="keyword">val</span> simple_intersect</span> : <code class="type"><a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> <a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> <a href="Depgraph.html#TYPElang">Depgraph.lang</a></code></pre><div class="info ">
+Intersect two languages (used by <a href="Languageops.html#VALforward_intersect"><code class="code">Languageops.forward_intersect</code></a>,
+    <a href="Languageops.html#VALgroup_intersect"><code class="code">Languageops.group_intersect</code></a>, and <a href="Languageops.html#VALmerge_subnfas"><code class="code">Languageops.merge_subnfas</code></a>.<br>
+<b>Raises</b> <code>IllegalLangOp</code> if either <code class="code">l1</code> or <code class="code">l2</code> is a <code class="code">SuperMachine</code> or
+    a <code class="code">SubMachine</code><br>
+<b>Returns</b> <code class="code">l1 cap l2</code><br>
+</div>
+
+<pre><span id="VALlang_eq"><span class="keyword">val</span> lang_eq</span> : <code class="type"><a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> <a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> bool</code></pre><div class="info ">
+Language equality<br>
+<b>Raises</b> <code>IllegalLangOp</code> if either <code class="code">l1</code> or <code class="code">l2</code> is a <code class="code">SuperMachine</code> or
+    a <code class="code">SubMachine</code><br>
+<b>Returns</b> <code class="code">l1 ?= l2</code><br>
+</div>
+
+<pre><span id="VALgen_strings"><span class="keyword">val</span> gen_strings</span> : <code class="type"><a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> string option</code></pre><div class="info ">
+Generate strings from a language<br>
+<b>Returns</b> A list of unique strings (length may be less than <code class="code">n</code>)<br>
+</div>
+
+<pre><span id="VALlang_subseteq"><span class="keyword">val</span> lang_subseteq</span> : <code class="type"><a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> <a href="Depgraph.html#TYPElang">Depgraph.lang</a> -> bool</code></pre><div class="info ">
+Language subseteq<br>
+<b>Raises</b> <code>IllegalLangOp</code> if either <code class="code">l1</code> or <code class="code">l2</code> is a <code class="code">SuperMachine</code> or
+    a <code class="code">SubMachine</code><br>
+<b>Returns</b> <code class="code">l1 ?subseteq l2</code><br>
+</div>
+<br>
+<h6 id="6_ForwardsolvingfornonCIgroups">Forward solving for non-CI-groups</h6><br>
+
+<pre><span id="VALforward_concat"><span class="keyword">val</span> forward_concat</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -><br>       <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> unit</code></pre><div class="info ">
+Solve a simple concat constraint
+<p>
+
+    See also: <a href="Languageops.html#VALgroup_concat"><code class="code">Languageops.group_concat</code></a><br>
+<b>Raises</b> <code>IllegalLangOp</code> if either <code class="code">lhs</code> or <code class="code">rhs</code>'s language is a
+      <code class="code">SuperMachine</code> or <code class="code">SubMachine</code><br>
+</div>
+
+<pre><span id="VALforward_intersect"><span class="keyword">val</span> forward_intersect</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> unit</code></pre><div class="info ">
+Solve a simple intersect (i.e., subset) constraint
+<p>
+
+    See also: <a href="Languageops.html#VALgroup_intersect"><code class="code">Languageops.group_intersect</code></a><br>
+<b>Raises</b> <code>IllegalLangOp</code> If <code class="code">source</code> of <code class="code">target</code>'s language is a <code class="code">SuperMachine</code>
+    or <code class="code">SubMachine</code> (raised by <a href="Languageops.html#VALsimple_intersect"><code class="code">Languageops.simple_intersect</code></a>).<br>
+</div>
+<br>
+<h6 id="6_ConcatIntersectGroupOperations">Concat-Intersect Group Operations</h6><br>
+
+<pre><span id="VALref_flatten"><span class="keyword">val</span> ref_flatten</span> : <code class="type"><a href="Depgraph.html#TYPEsupermapping">Depgraph.supermapping</a> list -> <a href="Nfa.html#TYPEstate">Nfa.state</a> list</code></pre><div class="info ">
+Given a list of supermapping constraints (i.e., epsilon
+    transitions that represent potential solutions), return a flat
+    list of all states touching those epsilon transitions.<br>
+<b>Returns</b> A list of states<br>
+</div>
+
+<pre><span id="VALgroup_concat"><span class="keyword">val</span> group_concat</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -><br>       <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> unit</code></pre><div class="info ">
+Solve a concat constraint in a CI-group
+<p>
+
+    See also: <a href="Languageops.html#VALforward_concat"><code class="code">Languageops.forward_concat</code></a>
+<p>
+
+    The operands (i.e., <code class="code">lhs</code> and <code class="code">rhs</code>) are converted to submachines,
+    while <code class="code">target</code> becomes a supermachine. If <code class="code">lhs</code> or <code class="code">rhs</code> was a
+    supermachine, then all its dependent submachines are updated to be
+    submachines of <code class="code">target</code> instead.<br>
+<b>Raises</b><ul><li><code>IllegalLangOp</code> If the language of one of the operands
+    is found to be of the wrong type, or if the target node's
+    language is anything other than Unrestricted.</li>
+<li><code>LangOpFail</code> If the state-in-old-machine to state-in-new-machine
+    mappings are not populated correctly (corresponds to <code class="code">Not_found</code> in
+    the underlying datastructure).</li>
+</ul>
+</div>
+
+<pre><span id="VALgroup_intersect"><span class="keyword">val</span> group_intersect</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> -> unit</code></pre><div class="info ">
+Solve an intersect (i.e., subset) constraint in a CI-group
+<p>
+
+    See also: <a href="Languageops.html#VALforward_intersect"><code class="code">Languageops.forward_intersect</code></a><br>
+</div>
+<br>
+<h6 id="6_ConvertingProcessedCIGroupsintoAssignments">Converting Processed CI-Groups into Assignments</h6><br>
+<br>
+Given a CI-group with <code class="code">SubMachine</code> and <code class="code">SuperMachine</code> language
+    assignments, extract <code class="code">Machine</code> assignments for all nodes of
+    interest<br>
+
+<pre><span id="TYPEassignment"><span class="keyword">type</span> <code class="type"></code>assignment</span> = <code class="type">(<a href="Depgraph.html#TYPEtrans_list_id">Depgraph.trans_list_id</a>, <a href="Depgraph.html#TYPEtransition">Depgraph.transition</a>) Hashtbl.t</code> </pre>
+<div class="info ">
+An assignment maps each transition list to a single
+    transition (i.e., an elemtent in that list).<br>
+</div>
+
+
+<pre><span id="VALget_assignment"><span class="keyword">val</span> get_assignment</span> : <code class="type"><a href="Languageops.html#TYPEassignment">assignment</a> -><br>       <a href="Depgraph.html#TYPEtrans_list">Depgraph.trans_list</a> Pervasives.ref Pervasives.ref -><br>       <a href="Nfa.html#TYPEstate">Nfa.state</a> -> <a href="Depgraph.html#TYPEtransition">Depgraph.transition</a></code></pre><div class="info ">
+Get the assignment associated with the given transition list<br>
+<b>Returns</b> The value associated with <code class="code">l</code> in <code class="code">a</code>, or a pair <code class="code">(alt, alt)</code>
+            if <code class="code">l</code> not in <code class="code">l</code><br>
+</div>
+
+<pre><span id="VALmerge_subnfas"><span class="keyword">val</span> merge_subnfas</span> : <code class="type"><a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -><br>       <a href="Languageops.html#TYPEassignment">assignment</a> -> <a href="Depgraph.html#TYPEsubmapping">Depgraph.submapping</a> -> <a href="Depgraph.html#TYPElang">Depgraph.lang</a></code></pre><div class="info ">
+For a SubMachine dependent on multiple SuperMachines, compute and
+    return the intersection of the different subNFAs.
+<p>
+
+    See also: <a href="Depgraph.html#TYPEsubmapping"><code class="code">Depgraph.submapping</code></a>, <a href="Depgraph.html#TYPElang"><code class="code">Depgraph.lang</code></a><br>
+<b>Raises</b> <code>IllegalLangOp</code> If any of the referenced SuperMachines
+           have not already been converted to plain old NFAs.<br>
+<b>Returns</b> The intersected langauge of all sub-NFAs defined by <code class="code">sub</code>
+            using the given assignment <code class="code">a</code>. As a side effect, the
+            NFA representation for the supermachines is updated.<br>
+</div>
+
+<pre><span id="VALcreate_graph"><span class="keyword">val</span> create_graph</span> : <code class="type"><a href="Languageops.html#TYPEassignment">assignment</a> -><br>       <a href="Depgraph.html#TYPEnodeid">Depgraph.nodeid</a> <a href="Hashset.html#TYPEhashset">Hashset.hashset</a> -> <a href="Depgraph.html#TYPEgraph">Depgraph.graph</a> -> <a href="Depgraph.html#TYPEgraph">Depgraph.graph</a></code></pre><div class="info ">
+Solving a CI-group ends with the creation of zero or more 
+    copies of the dependency graph. This is where we turn 
+    <code class="code">Super</code>- and <code class="code">SubMachines</code> back into normal NFAs.<br>
+<b>Raises</b> <code>IllegalLangOp</code> If something bad happened<br>
+<b>Returns</b> A copy of <code class="code">curgraph</code> containing the requested
+            satisfying assignment for <code class="code">group</code><br>
+</div>
+</body></html>

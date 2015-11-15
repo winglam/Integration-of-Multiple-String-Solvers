@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Hashset.html">
+<link rel="next" href="Nfa.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Options" rel="Chapter" href="Options.html">
+<link title="Hashset" rel="Chapter" href="Hashset.html">
+<link title="Charset" rel="Chapter" href="Charset.html">
+<link title="Nfa" rel="Chapter" href="Nfa.html">
+<link title="Depgraph" rel="Chapter" href="Depgraph.html">
+<link title="Languageops" rel="Chapter" href="Languageops.html">
+<link title="Solve" rel="Chapter" href="Solve.html">
+<link title="Interface" rel="Chapter" href="Interface.html">
+<link title="Dprle" rel="Chapter" href="Dprle.html"><title>Charset</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Hashset.html" title="Hashset">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Nfa.html" title="Nfa">Next</a>
+</div>
+<h1>Module <a href="type_Charset.html">Charset</a></h1>
+
+<pre><span class="keyword">module</span> Charset: <code class="code">sig</code> <a href="Charset.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Charsets are just hashsets of integers in the range
+    0-255<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEset"><span class="keyword">type</span> <code class="type"></code>set</span> = <code class="type">int <a href="Hashset.html#TYPEhashset">Hashset.hashset</a></code> </pre>
+
+
+<pre><span id="VALdefault_set_size"><span class="keyword">val</span> default_set_size</span> : <code class="type">int</code></pre>
+<pre><span id="EXCEPTIONIllegalChar"><span class="keyword">exception</span> IllegalChar</span></pre>
+
+<pre><span id="VALvalid_char"><span class="keyword">val</span> valid_char</span> : <code class="type">int -> bool</code></pre>
+<pre><span id="VALchar_as_string"><span class="keyword">val</span> char_as_string</span> : <code class="type">int -> string</code></pre>
+<pre><span id="VALstring_to_int"><span class="keyword">val</span> string_to_int</span> : <code class="type">string -> int</code></pre>
+<pre><span id="VALdigit_list_to_int"><span class="keyword">val</span> digit_list_to_int</span> : <code class="type">string -> int</code></pre>
+<pre><span id="VALcreate_empty"><span class="keyword">val</span> create_empty</span> : <code class="type">unit -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALcreate_full"><span class="keyword">val</span> create_full</span> : <code class="type">unit -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALcopy"><span class="keyword">val</span> copy</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALmem"><span class="keyword">val</span> mem</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> int -> bool</code></pre>
+<pre><span id="VALsize"><span class="keyword">val</span> size</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> int</code></pre>
+<pre><span id="VALempty"><span class="keyword">val</span> empty</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> bool</code></pre>
+<pre><span id="VALiter"><span class="keyword">val</span> iter</span> : <code class="type">(int -> unit) -> <a href="Charset.html#TYPEset">set</a> -> unit</code></pre>
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> int -> unit</code></pre>
+<pre><span id="VALremove"><span class="keyword">val</span> remove</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> int -> unit</code></pre>
+<pre><span id="VALminus"><span class="keyword">val</span> minus</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALcup"><span class="keyword">val</span> cup</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALcap"><span class="keyword">val</span> cap</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a> -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALchoose"><span class="keyword">val</span> choose</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> int</code></pre>
+<pre><span id="VALfrom_list"><span class="keyword">val</span> from_list</span> : <code class="type">int list -> <a href="Charset.html#TYPEset">set</a></code></pre>
+<pre><span id="VALprint_charset"><span class="keyword">val</span> print_charset</span> : <code class="type"><a href="Charset.html#TYPEset">set</a> -> unit</code></pre></body></html>
