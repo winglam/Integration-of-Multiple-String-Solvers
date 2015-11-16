@@ -1,0 +1,6 @@
+c1 < [ s: a
+       f: b
+       d: a -> b on {'a'}
+     ];
+v1 < c1;
+strings(v1);
