@@ -1,0 +1,16 @@
+//string variable of fixed size 12 characters
+var v : 12;
+//simple SQL context-free grammar
+cfg SqlSmall := "SELECT " (Letter)+ " FROM " (Letter)+ " WHERE " Cond;
+cfg Cond := Val "=" Val | Cond " OR " Cond;
+cfg Val := (Letter)+ | "'" (LetterOrDigit)* "'" | (Digit)+;
+cfg LetterOrDigit := Letter | Digit;
+cfg Letter := ['a'-'z'] ;
+cfg Digit  := ['0'-'9'] ;
+
+//the SELECT query
+val q := concat("SELECT msg FROM messages WHERE topicid='", v, "'");
+
+//constraints
+assert q in SqlSmall;           //q is valid SQL
+assert q contains "OR '1'='1'"; //q contains tautology

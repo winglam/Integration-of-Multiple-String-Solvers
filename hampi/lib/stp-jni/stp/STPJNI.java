@@ -30,7 +30,8 @@ package stp;
  */
 public final class STPJNI {
     static {
-//    	System.out.println("java.library.path = " + System.getProperty("java.library.path"));
+        System.setProperty("java.library.path", System.getProperty("java.library.path") + ":./lib");
+        System.out.println("java.library.path = " + System.getProperty("java.library.path"));
         System.loadLibrary("STPJNI");
     }
 
