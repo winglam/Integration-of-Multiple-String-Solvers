@@ -1,0 +1,7 @@
+var v1 : 1;
+reg c1 := concat("a");
+reg c2 := concat("b");
+assert v1 in c1;
+assert v1 in c2;
+
+
