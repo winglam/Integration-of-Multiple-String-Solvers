@@ -1,11 +1,11 @@
 # Sigma = 'w' 'x' 'y' 'z'
 
-# L(c1) = .* w .* 
+# L(c1) = .* w .*
 c1 < [ s: a
-       f: b 
+       f: b
        d: a -> b on {'w'}
-       a -> a on {'x','y','z'} 
-       b -> b on {'w','x','y,'z'} 
+       a -> a on {'x','y','z'}
+       b -> b on {'w','x','y,'z'}
      ];
 
 # L(c2) = (wx)*
@@ -15,7 +15,7 @@ c2 < [ s: p
        q -> p on {'x'}
      ];
 
-# their intersection should be (wx)+ 
+# their intersection should be (wx)+
 v1 < c1;
 v1 < c2;
 solve();

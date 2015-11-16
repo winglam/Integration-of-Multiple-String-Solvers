@@ -6,6 +6,6 @@ reg c1 := concat(star(or("w", "x", "y", "z")), "w", star(or("w", "x", "y", "z"))
 reg c2 := star(concat("w", "x"));
 
 //constraints
-assert v1 in c1;           
+assert v1 in c1;
 assert v1 in c2;
 
