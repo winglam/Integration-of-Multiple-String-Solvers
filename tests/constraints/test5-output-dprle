@@ -7,5 +7,6 @@ c2 < [ s: a
        d: a -> b on {'b'}
 ];
 v1 < c1;
-v1 < c2
+v1 < c2;
+solve();
 strings(v1);

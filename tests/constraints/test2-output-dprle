@@ -4,4 +4,5 @@ c1 < [ s: a
        e: b -> c on {'b'}
      ];
 v1 < c1;
+solve();
 strings(v1);
