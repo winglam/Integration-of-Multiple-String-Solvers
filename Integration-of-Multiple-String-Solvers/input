@@ -1,0 +1,13 @@
+// Variables we want to solve
+// SolveFor(v1, v2, ...)
+
+SolveFor(v1);
+
+// Variable's length
+Length(v1, 1);
+
+// Regex
+Reg(c1, concat("a"));
+
+// Assert that v1 is in c1
+AssertIn(v1, c1);
