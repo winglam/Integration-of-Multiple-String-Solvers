@@ -116,7 +116,7 @@ public class DPRLEParser extends Parser {
 					buildRegex("concat(" + str.substring(str.indexOf(",") + 1)));
 		} else if (str.startsWith("or")) {
 			return new Alt(buildRegex(str.substring(str.indexOf("(") + 1, str.indexOf(","))),
-					buildRegex("concat(" + str.substring(str.indexOf(",") + 1)));
+					buildRegex("or(" + str.substring(str.indexOf(",") + 1)));
 		} else {
 			throw new Exception("Invalid format in DPRLE buildRegex");
 		}
