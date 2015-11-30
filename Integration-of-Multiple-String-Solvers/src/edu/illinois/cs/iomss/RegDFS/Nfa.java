@@ -74,7 +74,7 @@ Method rename works as follows:
 
 */
 
-class Nfa {
+public class Nfa {
 	private Integer startState;
 	private Integer exitState; // This is the unique accept state
 	private Map<Integer, List<Transition>> trans;
@@ -239,7 +239,7 @@ class Nfa {
 
 	// Nested class for creating distinctly named states when constructing NFAs
 
-	static class NameSource {
+	public static class NameSource {
 		private int nextName = 0;
 
 		public Integer next() {

@@ -1,4 +1,17 @@
-c1 < ;
+c1 < [s: n3
+f: n99998
+d:
+n2 -> n99998 on epsilon
+n3 -> n99998 on epsilon
+n4 -> n99998 on epsilon
+n0 -> n1 on {'b'}
+n1 -> n4 on {'x'}
+n1 -> n2 on {'G'}
+n2 -> n0 on {'a'}
+n3 -> n0 on {'a'}
+n4 -> n0 on {'a'}
+]
+;
 v1 < c1;
 solve();
 strings(v1);

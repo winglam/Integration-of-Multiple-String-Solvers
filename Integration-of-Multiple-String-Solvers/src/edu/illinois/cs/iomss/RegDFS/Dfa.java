@@ -14,7 +14,7 @@ import java.util.Set;
 * (an Integer).
 */
 
-class Dfa {
+public class Dfa {
 	private Integer startState;
 	private Set<Integer> acceptStates;
 	private Map<Integer, Map<String, Integer>> trans;
