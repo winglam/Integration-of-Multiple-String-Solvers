@@ -62,15 +62,15 @@ public class DPRLEParser extends Parser {
 	}
 
 	private String regToString(String str) throws Exception {
-		String res = "[";
+		String res = "[" + System.getProperty("line.separator");
 		MyRegex regex = buildRegex(str);
 		Nfa nfa = regex.mkNfa(new Nfa.NameSource());
 		Dfa dfa = nfa.toDfa();
 		res += "s: n" + dfa.getStart() + System.getProperty("line.separator");
-		res += "f: n99998" + System.getProperty("line.separator");
+		res += "f: acc_state" + System.getProperty("line.separator");
 		res += "d:" + System.getProperty("line.separator");
 		for (int end : dfa.getAccept()) {
-			res += "n" + end + " -> n99998 on epsilon" + System.getProperty("line.separator");
+			res += "n" + end + " -> acc_state on epsilon" + System.getProperty("line.separator");
 		}
 		
 		// The transitions

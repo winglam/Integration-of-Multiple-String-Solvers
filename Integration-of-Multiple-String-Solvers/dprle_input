@@ -1,9 +1,10 @@
-c1 < [s: n3
-f: n99998
+c1 < [
+s: n3
+f: acc_state
 d:
-n2 -> n99998 on epsilon
-n3 -> n99998 on epsilon
-n4 -> n99998 on epsilon
+n2 -> acc_state on epsilon
+n3 -> acc_state on epsilon
+n4 -> acc_state on epsilon
 n0 -> n1 on {'b'}
 n1 -> n4 on {'x'}
 n1 -> n2 on {'G'}

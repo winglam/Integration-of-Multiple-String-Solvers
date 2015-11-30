@@ -1,10 +1,9 @@
 // Variables we want to solve
 // SolveFor(v1, v2, ...)
-
 SolveFor(v1);
 
 // Variable's length
-Length(v1, 1);
+Length(v1, 4);
 
 // Regex
 Reg(c1, star(concat("a", "b", or("G", concat("x")))));
