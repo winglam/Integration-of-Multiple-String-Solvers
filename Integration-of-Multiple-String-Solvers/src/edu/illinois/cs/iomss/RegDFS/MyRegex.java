@@ -7,5 +7,5 @@ package edu.illinois.cs.iomss.RegDFS;
 //
 
 public abstract class MyRegex {
-	abstract public Nfa mkNfa(Nfa.NameSource names);
+    abstract public Nfa mkNfa(Nfa.NameSource names);
 }
