@@ -1,13 +1,18 @@
 package edu.illinois.cs.iomss.Solvers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import edu.illinois.cs.iomss.MainLanguage.Condition;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
-import edu.illinois.cs.iomss.RegDFS.*;
+import edu.illinois.cs.iomss.RegDFS.Alt;
+import edu.illinois.cs.iomss.RegDFS.Dfa;
+import edu.illinois.cs.iomss.RegDFS.MyRegex;
+import edu.illinois.cs.iomss.RegDFS.Nfa;
+import edu.illinois.cs.iomss.RegDFS.Seq;
+import edu.illinois.cs.iomss.RegDFS.Star;
+import edu.illinois.cs.iomss.RegDFS.Sym;
 
 public class DPRLEParser extends Parser {
 

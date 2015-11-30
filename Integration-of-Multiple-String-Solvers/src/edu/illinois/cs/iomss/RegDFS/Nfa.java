@@ -2,9 +2,14 @@ package edu.illinois.cs.iomss.RegDFS;
 
 //Example 139 from page 109 of Java Precisely second edition (The MIT Press 2005)
 //Author: Peter Sestoft (sestoft@itu.dk)
-
-import java.util.*;
-import java.io.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 //Regular expressions, NFAs, DFAs, and dot graphs
 
