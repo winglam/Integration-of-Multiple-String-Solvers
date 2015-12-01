@@ -2,15 +2,16 @@ c1 < [
 s: n3
 f: acc_state
 d:
-n2 -> acc_state on epsilon
+n0 -> acc_state on epsilon
 n3 -> acc_state on epsilon
-n4 -> acc_state on epsilon
-n0 -> n1 on {'b'}
-n1 -> n4 on {'x'}
-n1 -> n2 on {'G'}
-n2 -> n0 on {'a'}
-n3 -> n0 on {'a'}
-n4 -> n0 on {'a'}
+n5 -> acc_state on epsilon
+n0 -> n1 on {'a'}
+n1 -> n2 on {'b'}
+n2 -> n4 on {'b'}
+n3 -> n1 on {'a'}
+n4 -> n0 on {'x'}
+n4 -> n5 on {'G'}
+n5 -> n1 on {'a'}
 ]
 ;
 v1 < c1;

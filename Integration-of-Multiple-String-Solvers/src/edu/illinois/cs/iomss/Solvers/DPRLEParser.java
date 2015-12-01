@@ -87,10 +87,21 @@ public class DPRLEParser extends Parser {
         return res;
     }
 
+    private String splitString(String str) {
+        if (str.length() == 1)
+            return "\"" + str + "\"";
+        else
+            return "concat(\"" + str.charAt(0) + "\", " + splitString(str.substring(1)) + ")";
+    }
+       
     private MyRegex buildRegex(String str) throws Exception {
         str = str.trim();
         if (str.startsWith("\"")) { // string literal
-            return new Sym(str);
+            if (str.length() == 3) {    // a single char, this is good.
+                return new Sym(str);
+            } else {
+                return buildRegex(splitString(str.substring(1, str.length() - 1)));
+            }
         }
         int numArgument = 1;
         int lvl = 0;
