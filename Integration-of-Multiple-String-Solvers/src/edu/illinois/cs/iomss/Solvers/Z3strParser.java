@@ -5,11 +5,6 @@ import java.util.List;
 
 import edu.illinois.cs.iomss.MainLanguage.Condition;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
-import edu.illinois.cs.iomss.RegDFS.Alt;
-import edu.illinois.cs.iomss.RegDFS.MyRegex;
-import edu.illinois.cs.iomss.RegDFS.Seq;
-import edu.illinois.cs.iomss.RegDFS.Star;
-import edu.illinois.cs.iomss.RegDFS.Sym;
 
 public class Z3strParser extends Parser {
 
@@ -25,8 +20,9 @@ public class Z3strParser extends Parser {
         result = new ArrayList<String>();
         for (Condition cond : conditions) {
             String temp = conditionToString(cond);
-            if (temp != "")
+            if (temp != "") {
                 result.add(temp + ";");
+            }
         }
 
         result.add("(check-sat)");
@@ -62,13 +58,14 @@ public class Z3strParser extends Parser {
         int lvl = 0;
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == '(')
+            if (c == '(') {
                 lvl++;
-            else if (c == ')')
+            } else if (c == ')') {
                 lvl--;
-            else if (c == ',') {
-                if (lvl == 1)
+            } else if (c == ',') {
+                if (lvl == 1) {
                     numArgument++;
+                }
             }
         }
         if (str.startsWith("star")) {
@@ -86,6 +83,6 @@ public class Z3strParser extends Parser {
         } else {
             throw new Exception("Invalid format in Z3str buildRegex");
         }
-       
+
     }
 }
