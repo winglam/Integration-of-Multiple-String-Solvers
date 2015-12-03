@@ -6,6 +6,7 @@ import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
 import edu.illinois.cs.iomss.Solvers.DPRLEParser;
 import edu.illinois.cs.iomss.Solvers.HampiParser;
 import edu.illinois.cs.iomss.Solvers.Parser;
+import edu.illinois.cs.iomss.Solvers.Z3strParser;
 
 public class MainWrapper {
 
@@ -26,6 +27,11 @@ public class MainWrapper {
                 Parser dprle = new DPRLEParser(input);
                 dprle.parse();
                 dprle.outputToFile("dprle_input");
+                
+                // Generate DPRLE constraints
+                Parser z3str = new Z3strParser(input);
+                z3str.parse();
+                z3str.outputToFile("z3str_input");
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block

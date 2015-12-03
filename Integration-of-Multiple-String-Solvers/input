@@ -1,4 +1,6 @@
-// Variables we want to solve
+// Variable Declarations
+String(v1)
+
 // SolveFor(v1, v2, ...)
 SolveFor(v1);
 

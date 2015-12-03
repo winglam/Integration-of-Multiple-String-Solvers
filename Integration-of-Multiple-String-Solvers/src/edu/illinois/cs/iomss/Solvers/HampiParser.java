@@ -29,19 +29,25 @@ public class HampiParser extends Parser {
 
     private String conditionToString(Condition cond) throws Exception {
         switch (cond.function) {
-        case "SolveFor":
+        case SolveFor:
             solveFor = cond.parameters.get(0);
             return "";
-        case "Length":
+        case Reg:
+            return "reg " + cond.parameters.get(0) + " := " + cond.parameters.get(1);
+        case AssertIn:
+            return "assert " + cond.parameters.get(0) + " in " + cond.parameters.get(1);
+        case Length:
             String var = cond.parameters.get(0);
             if (!var.equals(solveFor)) {
                 throw new Exception();
             }
             return "var " + solveFor + " : " + cond.parameters.get(1);
-        case "Reg":
-            return "reg " + cond.parameters.get(0) + " := " + cond.parameters.get(1);
-        case "AssertIn":
-            return "assert " + cond.parameters.get(0) + " in " + cond.parameters.get(1);
+        case Int:
+            System.out.println("Warning: Hampi can't handle int function");
+            return "";
+        case String:
+            System.out.println("Warning: Hampi can't handle string function");
+            return "";
         default:
             throw new Exception("Unknown function in Hampi");
         }

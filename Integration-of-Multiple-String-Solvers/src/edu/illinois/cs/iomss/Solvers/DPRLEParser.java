@@ -40,20 +40,30 @@ public class DPRLEParser extends Parser {
         }
     }
 
+    public enum Function {
+        SolveFor, Reg, AssertIn, Length, Int;
+    }
+
     private String conditionToString(Condition cond) throws Exception {
         String res = "";
         switch (cond.function) {
-        case "SolveFor":
+        case SolveFor:
             solveFor = new ArrayList<>(cond.parameters);
             break;
-        case "Length":
-            System.out.println("Warning: DPRLE can't handle constraint length condition");
-            break;
-        case "Reg":
+        case Reg:
             res = cond.parameters.get(0) + " < " + regToString(cond.parameters.get(1));
             break;
-        case "AssertIn":
+        case AssertIn:
             res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
+            break;
+        case Length:
+            System.out.println("Warning: DPRLE can't handle length function");
+            break;
+        case Int:
+            System.out.println("Warning: DPRLE can't handle int function");
+            break;
+        case String:
+            System.out.println("Warning: DPRLE can't handle string function");
             break;
         default:
             throw new Exception("Unknown function in DPRLE");
@@ -93,11 +103,11 @@ public class DPRLEParser extends Parser {
         else
             return "concat(\"" + str.charAt(0) + "\", " + splitString(str.substring(1)) + ")";
     }
-       
+
     private MyRegex buildRegex(String str) throws Exception {
         str = str.trim();
         if (str.startsWith("\"")) { // string literal
-            if (str.length() == 3) {    // a single char, this is good.
+            if (str.length() == 3) { // a single char, this is good.
                 return new Sym(str);
             } else {
                 return buildRegex(splitString(str.substring(1, str.length() - 1)));

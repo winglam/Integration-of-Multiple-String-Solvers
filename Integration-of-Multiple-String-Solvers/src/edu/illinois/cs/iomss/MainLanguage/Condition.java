@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Condition {
-    public String function;
+    public MainLanguage.Function function;
     public List<String> parameters;
 
     public Condition(String cond) throws Exception {
@@ -12,7 +12,8 @@ public class Condition {
         if (leftParen == -1 || leftParen == 0 || !cond.endsWith(")")) {
             throw new Exception("Invalid condition: " + cond);
         }
-        function = cond.substring(0, leftParen);
+        this.function = MainLanguage.Function.valueOf(cond.substring(0, leftParen));
+        
         cond = cond.substring(leftParen + 1, cond.length() - 1);
         int lvl = 0, start = 0, i = 0;
         parameters = new ArrayList<String>();

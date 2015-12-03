@@ -7,6 +7,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainLanguage {
+
+    public enum Function {
+        SolveFor,
+        Reg,
+        AssertIn,
+        Length,
+        Int,
+        String;
+    }
+
     private List<Condition> conditions;
 
     public MainLanguage(String inputFile) throws Exception {
