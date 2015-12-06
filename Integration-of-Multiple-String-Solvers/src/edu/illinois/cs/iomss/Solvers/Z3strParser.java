@@ -21,7 +21,7 @@ public class Z3strParser extends Parser {
         for (Condition cond : conditions) {
             String temp = conditionToString(cond);
             if (temp != "") {
-                result.add(temp + ";");
+                result.add(temp);
             }
         }
 
