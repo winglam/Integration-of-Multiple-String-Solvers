@@ -27,7 +27,6 @@ public class MainWrapper {
         for (int i = 0; i <= outerDirIndex; i++) {
             sb.append(parsedPathArr.get(i) + Globals.fileSep);
         }
-
         if (args.length != 1) {
             System.out.println("Need only one argument as an input file");
         } else {
@@ -42,8 +41,8 @@ public class MainWrapper {
                 // Set a system property
                 // TODO doesn't seem to work, need a way to set System environment variable
                 String hampiPath = sb.toString() + "hampi" + Globals.fileSep;
-                System.setProperty("LD_LIBRARY_PATH", hampiPath + "lib");
 
+                System.setProperty("LD_LIBRARY_PATH", hampiPath + "lib");
                 System.out.println("----------------------------------------------");
                 System.out.println("Executing: HAMPI\n");
                 List<String> commandList = new LinkedList<String>();
@@ -101,9 +100,12 @@ public class MainWrapper {
         System.out.println("Output:");
         long startTime = System.nanoTime();
         Command.exec(cmdArgs);
-        long endTime = System.nanoTime() - startTime;
+        long endTime = System.nanoTime();
+        double runningTime = (endTime - startTime) * 1e-9;
+
         System.out.println();
         System.out.println("Command ran: " + commandList);
-        System.out.println("Time taken: " + endTime);
+        System.out.printf("Time taken: %.9f sec", runningTime);
+        System.out.println();
     }
 }
