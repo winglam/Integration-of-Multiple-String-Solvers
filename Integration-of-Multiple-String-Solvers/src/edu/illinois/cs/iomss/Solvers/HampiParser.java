@@ -6,11 +6,11 @@ import java.util.List;
 import edu.illinois.cs.iomss.MainLanguage.Condition;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
 
-public class HampiParser extends Parser {
+public class HAMPIParser extends Parser {
 
     private String solveFor; // variable we want to solve;
 
-    public HampiParser(MainLanguage conditions) {
+    public HAMPIParser(MainLanguage conditions) {
         super(conditions);
     }
 
@@ -43,13 +43,13 @@ public class HampiParser extends Parser {
             }
             return "var " + solveFor + " : " + cond.parameters.get(1);
         case Int:
-            System.out.println("Warning: Hampi can't handle int function");
+            System.out.println("Warning: HAMPI can't handle int function");
             return "";
         case String:
-            System.out.println("Warning: Hampi can't handle string function");
+            System.out.println("Warning: HAMPI can't handle string function");
             return "";
         default:
-            throw new Exception("Unknown function in Hampi");
+            throw new Exception("Unknown function in HAMPI");
         }
     }
 }
