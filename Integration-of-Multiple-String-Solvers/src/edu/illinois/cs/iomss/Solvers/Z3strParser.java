@@ -34,7 +34,7 @@ public class Z3strParser extends Parser {
         case SolveFor:
             return "";
         case Reg:
-            return "(define-fun " + cond.parameters.get(0) + " () Regex(" + parseReg(cond.parameters.get(1)) + "))";
+            return "(define-fun " + cond.parameters.get(0) + " () Regex " + parseReg(cond.parameters.get(1)) + ")";
         case AssertIn:
             return "(assert (RegexIn " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
         case Length:
@@ -69,16 +69,16 @@ public class Z3strParser extends Parser {
             }
         }
         if (str.startsWith("star")) {
-            return "RegexStar(" + (parseReg(str.substring(str.indexOf("(") + 1, str.length() - 1))) + ")";
+            return "(RegexStar " + (parseReg(str.substring(str.indexOf("(") + 1, str.length() - 1))) + ")";
         }
         if (numArgument == 1) {
             return parseReg(str.substring(str.indexOf("(") + 1, str.length() - 1));
         }
         if (str.startsWith("concat")) {
-            return "RegexConcat(" + (parseReg(str.substring(str.indexOf("(") + 1, str.indexOf(","))) + " "
+            return "(RegexConcat " + (parseReg(str.substring(str.indexOf("(") + 1, str.indexOf(","))) + " "
                     + parseReg("concat(" + str.substring(str.indexOf(",") + 1))) + ")";
         } else if (str.startsWith("or")) {
-            return "RegexUnion(" + (parseReg(str.substring(str.indexOf("(") + 1, str.indexOf(","))) + " "
+            return "(RegexUnion " + (parseReg(str.substring(str.indexOf("(") + 1, str.indexOf(","))) + " "
                     + parseReg("or(" + str.substring(str.indexOf(",") + 1))) + ")";
         } else {
             throw new Exception("Invalid format in Z3str buildRegex");

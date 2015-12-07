@@ -30,8 +30,9 @@ public class DPRLEParser extends Parser {
         result = new ArrayList<String>();
         for (Condition cond : conditions) {
             String temp = conditionToString(cond);
-            if (temp != "")
+            if (temp != "") {
                 result.add(temp + ";");
+            }
         }
 
         result.add("solve();");
@@ -57,7 +58,7 @@ public class DPRLEParser extends Parser {
             res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
             break;
         case Length:
-            System.out.println("Warning: DPRLE can't handle length function");
+            res = getLengthConstraint(cond.parameters.get(0), Integer.parseInt(cond.parameters.get(1)));
             break;
         case Int:
             System.out.println("Warning: DPRLE can't handle int function");
@@ -71,16 +72,31 @@ public class DPRLEParser extends Parser {
         return res;
     }
 
+    private String getLengthConstraint(String var, int len) {
+        String res = "";
+        res += var + "_length < [" + newLine;
+        res += "s: n0" + newLine;
+        res += "f: acc_state" + newLine;
+        res += "d:" + newLine;
+        for (int i = 1; i <= len; i++) {
+            res += "n" + (i - 1) + " -> " + "n" + i + " on any" + newLine;
+        }
+        res += "n" + len + " -> acc_state on epsilon" + newLine;
+        res += "];" + newLine;
+        res += var + " < " + var + "_length";
+        return res;
+    }
+
     private String regToString(String str) throws Exception {
-        String res = "[" + System.getProperty("line.separator");
+        String res = "[" + newLine;
         MyRegex regex = buildRegex(str);
         Nfa nfa = regex.mkNfa(new Nfa.NameSource());
         Dfa dfa = nfa.toDfa();
-        res += "s: n" + dfa.getStart() + System.getProperty("line.separator");
-        res += "f: acc_state" + System.getProperty("line.separator");
-        res += "d:" + System.getProperty("line.separator");
+        res += "s: n" + dfa.getStart() + newLine;
+        res += "f: acc_state" + newLine;
+        res += "d:" + newLine;
         for (int end : dfa.getAccept()) {
-            res += "n" + end + " -> acc_state on epsilon" + System.getProperty("line.separator");
+            res += "n" + end + " -> acc_state on epsilon" + newLine;
         }
 
         // The transitions
@@ -90,18 +106,19 @@ public class DPRLEParser extends Parser {
             for (String lab : s1Trans.keySet()) {
                 Integer s2 = s1Trans.get(lab);
                 lab = lab.replace('"', '\'');
-                res += "n" + s1 + " -> n" + s2 + " on {" + lab + "}" + System.getProperty("line.separator");
+                res += "n" + s1 + " -> n" + s2 + " on {" + lab + "}" + newLine;
             }
         }
-        res += "]" + System.getProperty("line.separator");
+        res += "]" + newLine;
         return res;
     }
 
     private String splitString(String str) {
-        if (str.length() == 1)
+        if (str.length() == 1) {
             return "\"" + str + "\"";
-        else
+        } else {
             return "concat(\"" + str.charAt(0) + "\", " + splitString(str.substring(1)) + ")";
+        }
     }
 
     private MyRegex buildRegex(String str) throws Exception {
@@ -117,13 +134,14 @@ public class DPRLEParser extends Parser {
         int lvl = 0;
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == '(')
+            if (c == '(') {
                 lvl++;
-            else if (c == ')')
+            } else if (c == ')') {
                 lvl--;
-            else if (c == ',') {
-                if (lvl == 1)
+            } else if (c == ',') {
+                if (lvl == 1) {
                     numArgument++;
+                }
             }
         }
         if (str.startsWith("star")) {

@@ -21,17 +21,17 @@ public class MainWrapper {
                 // Generate Hampi constraints
                 Parser hampi = new HampiParser(input);
                 hampi.parse();
-                hampi.outputToFile("hampi_input.hmp");
+                hampi.outputToFile(args[0] + ".hampi");
 
                 // Generate DPRLE constraints
                 Parser dprle = new DPRLEParser(input);
                 dprle.parse();
-                dprle.outputToFile("dprle_input");
-                
-                // Generate DPRLE constraints
+                dprle.outputToFile(args[0] + ".dprle");
+
+                // Generate Z3str constraints
                 Parser z3str = new Z3strParser(input);
                 z3str.parse();
-                z3str.outputToFile("z3str_input");
+                z3str.outputToFile(args[0] + ".z3str");
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block

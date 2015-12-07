@@ -8,6 +8,8 @@ import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
 
 public abstract class Parser {
 
+    public static String newLine = System.lineSeparator();
+
     protected MainLanguage constraints;
     protected List<String> result;
 
