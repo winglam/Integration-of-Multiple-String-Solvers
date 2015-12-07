@@ -5,10 +5,10 @@ String(v1)
 SolveFor(v1);
 
 // Variable's length
-Length(v1, 4);
+Length(v1, 5);
 
 // Regex
-Reg(c1, star(concat("ab", "b", or("G", concat("x")))));
+Reg(c1, star(concat("ab", "b", or("G", concat("x"), "C"), "x")));
 
 // Assert that v1 is in c1
 AssertIn(v1, c1);

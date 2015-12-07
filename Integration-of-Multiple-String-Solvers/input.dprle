@@ -6,23 +6,26 @@ n0 -> n1 on any
 n1 -> n2 on any
 n2 -> n3 on any
 n3 -> n4 on any
-n4 -> acc_state on epsilon
+n4 -> n5 on any
+n5 -> acc_state on epsilon
 ];
 v1 < v1_length;
 c1 < [
-s: n3
+s: n0
 f: acc_state
 d:
 n0 -> acc_state on epsilon
-n3 -> acc_state on epsilon
-n5 -> acc_state on epsilon
+n2 -> acc_state on epsilon
 n0 -> n1 on {'a'}
-n1 -> n2 on {'b'}
-n2 -> n4 on {'b'}
-n3 -> n1 on {'a'}
-n4 -> n0 on {'x'}
-n4 -> n5 on {'G'}
-n5 -> n1 on {'a'}
+n1 -> n5 on {'b'}
+n2 -> n1 on {'a'}
+n3 -> n2 on {'x'}
+n4 -> n2 on {'x'}
+n5 -> n6 on {'b'}
+n6 -> n7 on {'C'}
+n6 -> n3 on {'x'}
+n6 -> n4 on {'G'}
+n7 -> n2 on {'x'}
 ]
 ;
 v1 < c1;
