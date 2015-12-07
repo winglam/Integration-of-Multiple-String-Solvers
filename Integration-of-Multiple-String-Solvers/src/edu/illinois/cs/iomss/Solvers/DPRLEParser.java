@@ -106,7 +106,11 @@ public class DPRLEParser extends Parser {
             for (String lab : s1Trans.keySet()) {
                 Integer s2 = s1Trans.get(lab);
                 lab = lab.replace('"', '\'');
-                res += "n" + s1 + " -> n" + s2 + " on {" + lab + "}" + newLine;
+                if (lab.length() == 2) { // transition on epsilon
+                    res += "n" + s1 + " -> n" + s2 + " on epsilon" + newLine;
+                } else {
+                    res += "n" + s1 + " -> n" + s2 + " on {" + lab + "}" + newLine;
+                }
             }
         }
         res += "]" + newLine;
@@ -124,7 +128,7 @@ public class DPRLEParser extends Parser {
     private MyRegex buildRegex(String str) throws Exception {
         str = str.trim();
         if (str.startsWith("\"")) { // string literal
-            if (str.length() == 3) { // a single char, this is good.
+            if (str.length() <= 3) { // a single char or epsilon, this is good.
                 return new Sym(str);
             } else {
                 return buildRegex(splitString(str.substring(1, str.length() - 1)));

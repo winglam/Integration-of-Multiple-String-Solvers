@@ -1,5 +1,0 @@
-var v1 : 5;
-reg c1 := concat("ab", "b", or("G", concat("x")));
-reg c2 := "....";
-assert v1 in c1;
-assert v1 in c2;

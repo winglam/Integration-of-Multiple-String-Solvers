@@ -1,0 +1,5 @@
+String(v1);
+SolveFor(v1);
+Length(v1, 0);
+Reg(c1, "");
+AssertIn(v1, c1);

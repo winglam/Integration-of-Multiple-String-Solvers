@@ -9,12 +9,7 @@ import java.util.Scanner;
 public class MainLanguage {
 
     public enum Function {
-        SolveFor,
-        Reg,
-        AssertIn,
-        Length,
-        Int,
-        String;
+        SolveFor, Reg, AssertIn, Length, Int, String;
     }
 
     private List<Condition> conditions;
@@ -24,13 +19,20 @@ public class MainLanguage {
         conditions = new ArrayList<Condition>();
         while (cin.hasNextLine()) {
             String line = cin.nextLine();
-            line.trim();
-            if (line.startsWith("//") || line.length() == 0)
+            int ind = line.indexOf("//");
+            if (ind != -1) {
+                line = line.substring(0, ind);
+            }
+            line = line.trim();
+            if (line.length() == 0) {
                 continue;
+            }
             String[] cond = line.split(";");
             for (String subcond : cond) {
-                subcond.trim();
-                conditions.add(new Condition(subcond));
+                subcond = subcond.trim();
+                if (subcond.length() > 0) {
+                    conditions.add(new Condition(subcond));
+                }
             }
         }
         cin.close();
