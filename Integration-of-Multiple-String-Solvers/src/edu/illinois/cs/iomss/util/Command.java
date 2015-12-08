@@ -1,7 +1,7 @@
 /**
  * This file was copied over from an existing project
  * known as DTDetector.
- * 
+ *
  * Copyright 2012 University of Washington. All Rights Reserved.
  * @author Sai Zhang
  */
@@ -21,10 +21,11 @@ import java.io.PrintWriter;
  * executes its argument and pipes both stdout and stderr to System.out. Each
  * line in the piped output from stdout is prefixed with "OUT>" and the output
  * from stderr is prefixed with "ERR>"
- * 
+ *
  * <p>
- * Credit: Producer code modified (and augmented) from Michael Daconta's "Java Traps" column
- * ("When Runtime.exec() won't"), found at http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html
+ * Credit: Producer code modified (and augmented) from Michael Daconta's
+ * "Java Traps" column ("When Runtime.exec() won't"), found at
+ * http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html
  */
 public class Command {
 
@@ -49,19 +50,23 @@ public class Command {
         int exitFlag = 0;
 
         if (verbose) {
-            exitFlag = Command.exec(command, System.out, prompt, gobbleChars);
+            exitFlag = Command.exec(command, System.out, prompt, gobbleChars, null);
         } else {
             out = new ByteArrayOutputStream();
-            exitFlag = Command.exec(command, new PrintStream(out), prompt, gobbleChars);
+            exitFlag = Command.exec(command, new PrintStream(out), prompt, gobbleChars, null);
         }
 
         if (!okToFail && exitFlag != 0) {
             throw new Error("Non-zero exit flag when running command " + java.util.Arrays.toString(command)
-                    + System.getProperty("line.separator") + (verbose ? "" // already output to System.out
+                    + System.getProperty("line.separator") + (verbose ? "" // already
+                                                                           // output
+                                                                           // to
+                                                                           // System.out
                             : " output: " + String.valueOf(out)));
         }
 
-        // System.out.println("exit flag: " + exitFlag + ",  out string: " + String.valueOf(out));
+        // System.out.println("exit flag: " + exitFlag + ", out string: " +
+        // String.valueOf(out));
         return exitFlag;
     }
 
@@ -69,7 +74,7 @@ public class Command {
      * Helper class for Command. A StreamGobbler thread is Responsible for
      * redirecting an InputStream, prefixing its redirected output with a
      * user-specified String (see construtors for more details).
-     * 
+     *
      */
     public static class StreamGobbler extends Thread {
         InputStream is;
@@ -151,21 +156,21 @@ public class Command {
     /**
      * Runs cmd, redirecting stdout and stderr to System.out.
      */
-    public static int exec(String cmd) {
-        return exec(tokenize(cmd), System.out);
+    public static int exec(String cmd, String[] envp) {
+        return exec(tokenize(cmd), System.out, envp);
     }
 
     /**
      * Runs cmd, redirecting stdout and stderr to System.out.
      */
-    public static int exec(String[] cmd) {
-        return exec(cmd, System.out);
+    public static int exec(String[] cmd, String[] envp) {
+        return exec(cmd, System.out, envp);
     }
 
     /**
      * Runs cmd, redirecting stdout and stderr to `out' and prefixing the output
      * from stout with "OUT>" and the output from stderr with "ERR>".
-     * 
+     *
      * Returns whatever exit number is returned by the subprocess invoking the
      * command.
      */
@@ -173,20 +178,19 @@ public class Command {
     // return exec(cmd, out, new File(System.getProperty("user.dir")));
     // }
 
-    public static int exec(String[] cmd, PrintStream out) {
-        return exec(cmd, out, "");
+    public static int exec(String[] cmd, PrintStream out, String[] envp) {
+        return exec(cmd, out, "", envp);
     }
 
-    public static int exec(String[] cmd, PrintStream out, String prompt) {
-        return exec(cmd, out, prompt, false);
+    public static int exec(String[] cmd, PrintStream out, String prompt, String[] envp) {
+        return exec(cmd, out, prompt, false, envp);
     }
 
-    public static int exec(String[] cmd, PrintStream out, String prompt, boolean gobbleChars) {
+    public static int exec(String[] cmd, PrintStream out, String prompt, boolean gobbleChars, String[] envp) {
         int exitVal;
         try {
             Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec(cmd);
-
+            Process proc = rt.exec(cmd, envp);
             // any error message?
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), prompt, out, gobbleChars);
 

@@ -11,21 +11,21 @@ n5 -> acc_state on epsilon
 ];
 v1 < v1_length;
 c1 < [
-s: n0
+s: n2
 f: acc_state
 d:
 n0 -> acc_state on epsilon
 n2 -> acc_state on epsilon
 n0 -> n1 on {'a'}
-n1 -> n5 on {'b'}
+n1 -> n7 on {'b'}
 n2 -> n1 on {'a'}
-n3 -> n2 on {'x'}
-n4 -> n2 on {'x'}
-n5 -> n6 on {'b'}
-n6 -> n7 on {'C'}
-n6 -> n3 on {'x'}
-n6 -> n4 on {'G'}
-n7 -> n2 on {'x'}
+n3 -> n0 on {'x'}
+n4 -> n0 on {'x'}
+n5 -> n4 on {'G'}
+n5 -> n3 on {'C'}
+n5 -> n6 on {'x'}
+n6 -> n0 on {'x'}
+n7 -> n5 on {'b'}
 ]
 ;
 v1 < c1;

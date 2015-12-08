@@ -17,7 +17,8 @@ import edu.illinois.cs.iomss.util.Globals;
 public class MainWrapper {
 
     public static void main(String[] args) throws Exception {
-        // System.out.println(System.getProperties().getProperty("java.class.path", null));
+        // System.out.println(System.getProperties().getProperty("java.class.path",
+        // null));
         File binDir = new File(System.getProperties().getProperty("java.class.path", null));
         // System.out.println(binDir.getAbsolutePath());
         List<String> parsedPathArr = Arrays.asList(binDir.getAbsolutePath().split(Globals.fileSep));
@@ -39,11 +40,12 @@ public class MainWrapper {
                 hampi.outputToFile(args[0] + ".hampi");
 
                 // Set a system property
-                // TODO doesn't seem to work, need a way to set System environment variable
+                // TODO doesn't seem to work, need a way to set System
+                // environment variable
                 String hampiPath = sb.toString() + "hampi" + Globals.fileSep;
 
-                System.setProperty("LD_LIBRARY_PATH", hampiPath + "lib");
-                System.out.println("----------------------------------------------");
+                // System.setProperty("LD_LIBRARY_PATH", hampiPath + "lib");
+                System.out.println("--------------------------dddddddddd--------------------");
                 System.out.println("Executing: HAMPI\n");
                 List<String> commandList = new LinkedList<String>();
                 commandList.add("java");
@@ -51,7 +53,9 @@ public class MainWrapper {
                 commandList.add(hampiPath + "bin" + Globals.pathSep + hampiPath + "lib/*");
                 commandList.add("hampi.Hampi");
                 commandList.add(args[0] + ".hampi");
-                executeCommand(commandList);
+                String[] envp = new String[1];
+                envp[0] = "LD_LIBRARY_PATH=" + hampiPath + "lib";
+                executeCommand(commandList, envp);
                 System.out.println("----------------------------------------------\n");
 
                 // Generate DPRLE constraints
@@ -96,10 +100,14 @@ public class MainWrapper {
     }
 
     private static void executeCommand(List<String> commandList) {
+        executeCommand(commandList, null);
+    }
+
+    private static void executeCommand(List<String> commandList, String[] envp) {
         String[] cmdArgs = commandList.toArray(new String[0]);
         System.out.println("Output:");
         long startTime = System.nanoTime();
-        Command.exec(cmdArgs);
+        Command.exec(cmdArgs, envp);
         long endTime = System.nanoTime();
         double runningTime = (endTime - startTime) * 1e-9;
 
