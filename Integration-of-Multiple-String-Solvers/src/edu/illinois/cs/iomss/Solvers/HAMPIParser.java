@@ -77,7 +77,6 @@ public class HAMPIParser extends Parser {
                 }
             }
         }
-        System.out.println(numArgument + ":" + str);
         if (str.startsWith("star")) {
             return "star(" + parseRegex(str.substring(str.indexOf("(") + 1, str.length() - 1)) + ")";
         }
