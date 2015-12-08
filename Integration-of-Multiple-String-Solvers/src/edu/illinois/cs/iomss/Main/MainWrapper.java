@@ -44,8 +44,6 @@ public class MainWrapper {
                 // environment variable
                 String hampiPath = sb.toString() + "hampi" + Globals.fileSep;
 
-                // System.setProperty("LD_LIBRARY_PATH", hampiPath + "lib");
-                System.out.println("--------------------------dddddddddd--------------------");
                 System.out.println("Executing: HAMPI\n");
                 List<String> commandList = new LinkedList<String>();
                 commandList.add("java");
