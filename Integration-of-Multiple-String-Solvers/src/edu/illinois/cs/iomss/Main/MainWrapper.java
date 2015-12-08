@@ -38,7 +38,6 @@ public class MainWrapper {
                 Parser hampi = new HAMPIParser(input);
                 hampi.parse();
                 hampi.outputToFile(args[0] + ".hampi");
-
                 // Set a system property
                 // TODO doesn't seem to work, need a way to set System
                 // environment variable
