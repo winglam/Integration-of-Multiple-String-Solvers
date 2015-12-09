@@ -1,4 +1,4 @@
-v_length < [
+v < [
 s: n0
 f: acc_state
 d:
@@ -10,8 +10,8 @@ n4 -> n5 on any
 n5 -> n6 on any
 n6 -> n7 on any
 n7 -> acc_state on epsilon
-];
-v < v_length;
+]
+;
 c1 < [
 s: n0
 f: acc_state

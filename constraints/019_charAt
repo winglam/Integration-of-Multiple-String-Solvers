@@ -1,0 +1,6 @@
+String(str);
+String(x);
+SolveFor(x);
+Int(var2);
+Int(var3);
+CharAtEqual("Hello world!", 0, x);

@@ -1,7 +1,7 @@
 // test comment
 String(v1);
 SolveFor(v1);
-Length(v1, 3); // test comment
+SolLength(v1, 3); // test comment
 // .(a.)*
 Reg(c1, concat(".", star("a.")));
 AssertIn(v1, c1);

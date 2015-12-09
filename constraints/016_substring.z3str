@@ -1,0 +1,7 @@
+(declare-variable x String)
+(declare-variable vi1 Int)
+(declare-variable vi2 Int)
+(assert (= "efg" (Substring x 1 3)))
+(assert (= "bef" (Substring x 0 3)))
+(check-sat)
+(get-model)

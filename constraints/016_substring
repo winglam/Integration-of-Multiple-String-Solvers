@@ -1,0 +1,6 @@
+String(x);
+Int(vi1);
+Int(vi2);
+SolveFor(x);
+SubstringEqual(x, 1, 3, "efg");
+SubstringEqual(x, 0, 3, "bef");

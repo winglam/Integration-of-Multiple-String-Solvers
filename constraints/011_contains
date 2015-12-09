@@ -1,0 +1,4 @@
+String(x);
+SolveFor(x)
+SolLength(x, 10);
+Contains(x, "abcdefg");

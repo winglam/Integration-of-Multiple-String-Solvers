@@ -1,0 +1,6 @@
+String(x);
+Int(i);
+SolveFor(x);
+SolLength(x, 6);
+Length("abcd", =, i);
+Length(x, >, (+ i 1));

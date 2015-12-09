@@ -1,0 +1,4 @@
+String(x);
+Int(i);
+SolveFor(x);
+Length(x, >=, 3);

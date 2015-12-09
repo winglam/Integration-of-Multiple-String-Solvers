@@ -30,6 +30,7 @@ public class Z3strParser extends Parser {
     }
 
     private String conditionToString(Condition cond) throws Exception {
+        String var;
         switch (cond.function) {
         case SolveFor:
             return "";
@@ -39,15 +40,32 @@ public class Z3strParser extends Parser {
             return "(define-fun " + cond.parameters.get(0) + " () Regex " + val + ")";
         case AssertIn:
             return "(assert (RegexIn " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
-        case Length:
-            String var = cond.parameters.get(0);
+        case SolLength:
+            var = cond.parameters.get(0);
             return "(assert (= (Length " + var + ") " + cond.parameters.get(1) + "))";
         case Int:
             return "(declare-variable " + cond.parameters.get(0) + " Int)";
         case String:
             return "(declare-variable " + cond.parameters.get(0) + " String)";
+        case Contains:
+            return "(assert (Contains " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
+        case NotContains:
+            return "(assert (not (Contains " + cond.parameters.get(0) + " " + cond.parameters.get(1) + ")))";
+        case Length:
+            var = cond.parameters.get(0);
+            return "(assert (" + cond.parameters.get(1) + " (Length " + var + ") " + cond.parameters.get(2) + "))";
+        case SubstringEqual:
+            return "(assert (= " + cond.parameters.get(3) + " (Substring " + cond.parameters.get(0) + " "
+                    + cond.parameters.get(1) + " " + cond.parameters.get(2) + ")))";
+        case CharAtEqual:
+            return "(assert (= " + cond.parameters.get(2) + " (CharAt " + cond.parameters.get(0) + " "
+                    + cond.parameters.get(1) + ")))";
+        case StartsWith:
+            return "(assert (StartsWith " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
+        case EndsWith:
+            return "(assert (EndsWith " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
         default:
-            throw new Exception("Unknown function in Hampi");
+            throw new Exception("Unknown function in Z3str");
         }
     }
 
@@ -57,7 +75,8 @@ public class Z3strParser extends Parser {
             return "(Str2Reg " + str + ")";
         } else if (!str.contains("(")) { // must be a variable name
             if (!values.containsKey(str)) {
-                throw new Exception("Undefined variable: " + str);
+                return str;
+                // throw new Exception("Undefined variable: " + str);
             } else {
                 return values.get(str);
             }

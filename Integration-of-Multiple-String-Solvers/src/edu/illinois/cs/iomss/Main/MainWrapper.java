@@ -28,66 +28,88 @@ public class MainWrapper {
         for (int i = 0; i <= outerDirIndex; i++) {
             sb.append(parsedPathArr.get(i) + Globals.fileSep);
         }
-        if (args.length != 1) {
+        if (args.length < 1) {
             System.out.println("Need only one argument as an input file");
         } else {
             try {
                 MainLanguage input = new MainLanguage(args[0]);
+                boolean parseOnly = (args.length > 1 && args[1].equals("-p"));
 
-                // Generate Hampi constraints
+                // Generate HAMPI constraints
                 Parser hampi = new HAMPIParser(input);
-                hampi.parse();
-                hampi.outputToFile(args[0] + ".hampi");
-                // Set a system property
-                // TODO doesn't seem to work, need a way to set System
-                // environment variable
-                String hampiPath = sb.toString() + "hampi" + Globals.fileSep;
+                try {
+                    hampi.parse();
+                    hampi.outputToFile(args[0] + ".hampi");
+                } catch (Exception e) {
+                    System.out.println("Error in generating HAMPI");
+                    e.printStackTrace();
+                }
 
-                System.out.println("Executing: HAMPI\n");
-                List<String> commandList = new LinkedList<String>();
-                commandList.add("java");
-                commandList.add("-cp");
-                commandList.add(hampiPath + "bin" + Globals.pathSep + hampiPath + "lib/*");
-                commandList.add("hampi.Hampi");
-                commandList.add(args[0] + ".hampi");
-                String[] envp = new String[1];
-                envp[0] = "LD_LIBRARY_PATH=" + hampiPath + "lib";
-                executeCommand(commandList, envp);
+                if (!parseOnly) {
+                    // Executing HAMPI
+                    String hampiPath = sb.toString() + "hampi" + Globals.fileSep;
+                    System.out.println("Executing: HAMPI\n");
+                    List<String> commandList = new LinkedList<String>();
+                    commandList.add("java");
+                    commandList.add("-cp");
+                    commandList.add(hampiPath + "bin" + Globals.pathSep + hampiPath + "lib/*");
+                    commandList.add("hampi.Hampi");
+                    commandList.add(args[0] + ".hampi");
+                    String[] envp = new String[1];
+                    envp[0] = "LD_LIBRARY_PATH=" + hampiPath + "lib";
+                    executeCommand(commandList, envp);
+                }
                 System.out.println("----------------------------------------------\n");
 
                 // Generate DPRLE constraints
                 Parser dprle = new DPRLEParser(input);
-                dprle.parse();
-                dprle.outputToFile(args[0] + ".dprle");
+                try {
+                    dprle.parse();
+                    dprle.outputToFile(args[0] + ".dprle");
+                } catch (Exception e) {
+                    System.out.println("Error in generating DPRLE");
+                    e.printStackTrace();
+                }
 
-                System.out.println("----------------------------------------------");
-                System.out.println("Executing: DPRLE\n");
-                commandList.clear();
-                commandList.add(sb.toString() + "dprle" + Globals.fileSep + "bin" + Globals.fileSep + "dprle");
-                commandList.add(args[0] + ".dprle");
-                executeCommand(commandList);
+                if (!parseOnly) {
+                    // Executing DPRLE
+                    System.out.println("----------------------------------------------");
+                    System.out.println("Executing: DPRLE\n");
+                    List<String> commandList = new LinkedList<String>();
+                    commandList.add(sb.toString() + "dprle" + Globals.fileSep + "bin" + Globals.fileSep + "dprle");
+                    commandList.add(args[0] + ".dprle");
+                    executeCommand(commandList);
+                }
                 System.out.println("----------------------------------------------\n");
 
                 // Generate Z3str constraints
                 Parser z3str = new Z3strParser(input);
-                z3str.parse();
-                z3str.outputToFile(args[0] + ".z3str");
+                try {
+                    z3str.parse();
+                    z3str.outputToFile(args[0] + ".z3str");
+                } catch (Exception e) {
+                    System.out.println("Error in generating Z3str");
+                    e.printStackTrace();
+                }
 
-                System.out.println("----------------------------------------------");
-                System.out.println("Executing: Z3-str\n");
-                commandList.clear();
-                commandList.add(sb.toString() + "Z3-str" + Globals.fileSep + "Z3-str.py");
-                commandList.add("-f");
-                commandList.add(args[0] + ".z3str");
-                executeCommand(commandList);
+                if (!parseOnly) {
+                    // Executing Z3str
+                    System.out.println("----------------------------------------------");
+                    System.out.println("Executing: Z3-str\n");
+                    List<String> commandList = new LinkedList<String>();
+                    commandList.add(sb.toString() + "Z3-str" + Globals.fileSep + "Z3-str.py");
+                    commandList.add("-f");
+                    commandList.add(args[0] + ".z3str");
+                    executeCommand(commandList);
 
-                String[] outputFileArr = args[0].split(Globals.fileSep);
-                commandList.clear();
-                commandList.add(sb.toString() + "str");
-                commandList.add("-f");
-                commandList.add(sb.toString() + "tmp" + Globals.fileSep + "z3_str_convert" + Globals.fileSep
-                        + outputFileArr[outputFileArr.length - 1] + ".z3str");
-                executeCommand(commandList);
+                    String[] outputFileArr = args[0].split(Globals.fileSep);
+                    commandList.clear();
+                    commandList.add(sb.toString() + "str");
+                    commandList.add("-f");
+                    commandList.add(sb.toString() + "tmp" + Globals.fileSep + "z3_str_convert" + Globals.fileSep
+                            + outputFileArr[outputFileArr.length - 1] + ".z3str");
+                    executeCommand(commandList);
+                }
                 System.out.println("----------------------------------------------\n");
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block

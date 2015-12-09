@@ -41,10 +41,6 @@ public class DPRLEParser extends Parser {
         }
     }
 
-    public enum Function {
-        SolveFor, Reg, AssertIn, Length, Int;
-    }
-
     private String conditionToString(Condition cond) throws Exception {
         String res = "";
         switch (cond.function) {
@@ -59,7 +55,7 @@ public class DPRLEParser extends Parser {
         case AssertIn:
             res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
             break;
-        case Length:
+        case SolLength:
             res = getLengthConstraint(cond.parameters.get(0), Integer.parseInt(cond.parameters.get(1)));
             break;
         case Int:
@@ -67,6 +63,23 @@ public class DPRLEParser extends Parser {
             break;
         case String:
             System.out.println("Warning: DPRLE can't handle string function");
+            break;
+        case Contains:
+            res = getContainsConstraint(cond.parameters.get(0), cond.parameters.get(1));
+            break;
+        case NotContains:
+            throw new Exception("Error: DPRLE can't handle NotContains");
+        case Length:
+            throw new Exception("Error: DPRLE can't handle length");
+        case SubstringEqual:
+            throw new Exception("Error: DPRLE can't handle substring");
+        case CharAtEqual:
+            throw new Exception("Error: DPRLE can't handle charAt");
+        case StartsWith:
+            res = getStartsWithConstraint(cond.parameters.get(0), cond.parameters.get(1));
+            break;
+        case EndsWith:
+            res = getEndsWithConstraint(cond.parameters.get(0), cond.parameters.get(1));
             break;
         default:
             throw new Exception("Unknown function in DPRLE");
@@ -76,7 +89,7 @@ public class DPRLEParser extends Parser {
 
     private String getLengthConstraint(String var, int len) {
         String res = "";
-        res += var + "_length < [" + newLine;
+        res += var + " < [" + newLine;
         res += "s: n0" + newLine;
         res += "f: acc_state" + newLine;
         res += "d:" + newLine;
@@ -84,8 +97,59 @@ public class DPRLEParser extends Parser {
             res += "n" + (i - 1) + " -> " + "n" + i + " on any" + newLine;
         }
         res += "n" + len + " -> acc_state on epsilon" + newLine;
-        res += "];" + newLine;
-        res += var + " < " + var + "_length";
+        res += "]" + newLine;
+        return res;
+    }
+
+    private String getContainsConstraint(String var, String sub) {
+        String res = "";
+        res += var + " < [" + newLine;
+        res += "s: n0" + newLine;
+        res += "f: acc_state" + newLine;
+        res += "d:" + newLine;
+        sub = sub.substring(1, sub.length() - 1);
+        for (int i = 1; i <= sub.length(); i++) {
+            char x = sub.charAt(i - 1);
+            res += "n" + (i - 1) + " -> " + "n" + i + " on {'" + x + "'}" + newLine;
+        }
+        res += "n" + sub.length() + " -> acc_state on epsilon" + newLine;
+        res += "n0 -> n0 on any" + newLine;
+        res += "acc_state -> acc_state on any" + newLine;
+        res += "]" + newLine;
+        return res;
+    }
+
+    private String getStartsWithConstraint(String var, String sub) {
+        String res = "";
+        res += var + " < [" + newLine;
+        res += "s: n0" + newLine;
+        res += "f: acc_state" + newLine;
+        res += "d:" + newLine;
+        sub = sub.substring(1, sub.length() - 1);
+        for (int i = 1; i <= sub.length(); i++) {
+            char x = sub.charAt(i - 1);
+            res += "n" + (i - 1) + " -> " + "n" + i + " on {'" + x + "'}" + newLine;
+        }
+        res += "n" + sub.length() + " -> acc_state on epsilon" + newLine;
+        res += "acc_state -> acc_state on any" + newLine;
+        res += "]" + newLine;
+        return res;
+    }
+
+    private String getEndsWithConstraint(String var, String sub) {
+        String res = "";
+        res += var + " < [" + newLine;
+        res += "s: n0" + newLine;
+        res += "f: acc_state" + newLine;
+        res += "d:" + newLine;
+        sub = sub.substring(1, sub.length() - 1);
+        for (int i = 1; i <= sub.length(); i++) {
+            char x = sub.charAt(i - 1);
+            res += "n" + (i - 1) + " -> " + "n" + i + " on {'" + x + "'}" + newLine;
+        }
+        res += "n" + sub.length() + " -> acc_state on epsilon" + newLine;
+        res += "n0 -> n0 on any" + newLine;
+        res += "]" + newLine;
         return res;
     }
 

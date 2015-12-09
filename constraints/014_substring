@@ -1,0 +1,5 @@
+String(x);
+String(y);
+SolveFor(x);
+SubstringEqual(x, 1, 3, "efg");
+Length(x, =, 4);

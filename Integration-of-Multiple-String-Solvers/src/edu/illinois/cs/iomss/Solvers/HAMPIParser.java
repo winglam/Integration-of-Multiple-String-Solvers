@@ -39,7 +39,7 @@ public class HAMPIParser extends Parser {
             return "reg " + cond.parameters.get(0) + " := " + val;
         case AssertIn:
             return "assert " + cond.parameters.get(0) + " in " + cond.parameters.get(1);
-        case Length:
+        case SolLength:
             String var = cond.parameters.get(0);
             if (!var.equals(solveFor)) {
                 throw new Exception();
@@ -51,6 +51,20 @@ public class HAMPIParser extends Parser {
         case String:
             System.out.println("Warning: HAMPI can't handle string function");
             return "";
+        case Contains:
+            return "assert " + cond.parameters.get(0) + " contains " + cond.parameters.get(1);
+        case NotContains:
+            return "assert " + cond.parameters.get(0) + " not contains " + cond.parameters.get(1);
+        case Length:
+            throw new Exception("Error: HAMPI can't handle length");
+        case SubstringEqual:
+            throw new Exception("Error: HAMPI can't handle substring");
+        case CharAtEqual:
+            throw new Exception("Error: HAMPI can't handle charAt");
+        case StartsWith:
+            throw new Exception("Error: HAMPI can't handle startWith");
+        case EndsWith:
+            throw new Exception("Error: HAMPI can't handle endWith");
         default:
             throw new Exception("Unknown function in HAMPI");
         }

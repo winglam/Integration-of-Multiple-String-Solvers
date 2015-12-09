@@ -1,0 +1,3 @@
+var x : 3;
+assert x not contains "efg";
+assert x contains "ef";

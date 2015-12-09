@@ -1,0 +1,6 @@
+(declare-variable x String)
+(declare-variable z String)
+(assert (= (Length x) 3))
+(assert (StartsWith x "nba"))
+(check-sat)
+(get-model)

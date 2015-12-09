@@ -1,7 +1,7 @@
 // Sigma = 'q' 'r' 's' 't'
 String(v);
 SolveFor(v);
-Length(v, 5);
+SolLength(v, 5);
 // qr*
 Reg(c1, concat("q", star("r")));
 // rrs

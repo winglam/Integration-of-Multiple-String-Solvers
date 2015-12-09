@@ -1,0 +1,5 @@
+String(x);
+String(z);
+SolveFor(x);
+SolLength(x, 3);
+StartsWith(x, "nba");

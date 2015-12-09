@@ -1,0 +1,5 @@
+String(x);
+SolveFor(x)
+SolLength(x, 3);
+Contains(x, "efg");
+NotContains(x, "ef");

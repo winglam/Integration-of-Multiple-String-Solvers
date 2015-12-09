@@ -1,7 +1,7 @@
 // Sigma = 'w' 'x' 'y' 'z'
 String(v1);
 SolveFor(v1);
-Length(v1, 2);
+SolLength(v1, 2);
 // c1 = .* w .*
 Reg(c1, concat(star(or("w", "x", "y", "z")), "w", star(or("w", "x", "y", "z"))));
 // c2 = (wx)*
