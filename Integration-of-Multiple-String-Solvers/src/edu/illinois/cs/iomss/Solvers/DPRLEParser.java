@@ -52,7 +52,9 @@ public class DPRLEParser extends Parser {
             solveFor = new ArrayList<>(cond.parameters);
             break;
         case Reg:
-            res = cond.parameters.get(0) + " < " + parseRegex(cond.parameters.get(1));
+            String val = parseRegex(cond.parameters.get(1));
+            res = cond.parameters.get(0) + " < " + val;
+            values.put(cond.parameters.get(0), cond.parameters.get(1));
             break;
         case AssertIn:
             res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
@@ -133,39 +135,46 @@ public class DPRLEParser extends Parser {
             } else {
                 return buildRegex(splitString(str.substring(1, str.length() - 1)));
             }
-        }
-        int numArgument = 1;
-        int lvl = 0;
-        int firstSplit = -1;
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c == '(') {
-                lvl++;
-            } else if (c == ')') {
-                lvl--;
-            } else if (c == ',') {
-                if (lvl == 1) {
-                    numArgument++;
-                    if (firstSplit == -1) {
-                        firstSplit = i;
+        } else if (!str.contains("(")) { // must be a variable name
+            if (!values.containsKey(str)) {
+                throw new Exception("Undefined variable: " + str);
+            } else {
+                return buildRegex(values.get(str));
+            }
+        } else {
+            int numArgument = 1;
+            int lvl = 0;
+            int firstSplit = -1;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '(') {
+                    lvl++;
+                } else if (c == ')') {
+                    lvl--;
+                } else if (c == ',') {
+                    if (lvl == 1) {
+                        numArgument++;
+                        if (firstSplit == -1) {
+                            firstSplit = i;
+                        }
                     }
                 }
             }
-        }
-        if (str.startsWith("star")) {
-            return new Star(buildRegex(str.substring(str.indexOf("(") + 1, str.length() - 1)));
-        }
-        if (numArgument == 1) {
-            return buildRegex(str.substring(str.indexOf("(") + 1, str.length() - 1));
-        }
-        if (str.startsWith("concat")) {
-            return new Seq(buildRegex(str.substring(str.indexOf("(") + 1, firstSplit)),
-                    buildRegex("concat(" + str.substring(firstSplit + 1)));
-        } else if (str.startsWith("or")) {
-            return new Alt(buildRegex(str.substring(str.indexOf("(") + 1, firstSplit)),
-                    buildRegex("or(" + str.substring(firstSplit + 1)));
-        } else {
-            throw new Exception("Invalid format in DPRLE buildRegex");
+            if (str.startsWith("star")) {
+                return new Star(buildRegex(str.substring(str.indexOf("(") + 1, str.length() - 1)));
+            }
+            if (numArgument == 1) {
+                return buildRegex(str.substring(str.indexOf("(") + 1, str.length() - 1));
+            }
+            if (str.startsWith("concat")) {
+                return new Seq(buildRegex(str.substring(str.indexOf("(") + 1, firstSplit)),
+                        buildRegex("concat(" + str.substring(firstSplit + 1)));
+            } else if (str.startsWith("or")) {
+                return new Alt(buildRegex(str.substring(str.indexOf("(") + 1, firstSplit)),
+                        buildRegex("or(" + str.substring(firstSplit + 1)));
+            } else {
+                throw new Exception("Invalid format in DPRLE buildRegex");
+            }
         }
     }
 }

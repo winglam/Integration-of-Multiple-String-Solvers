@@ -34,7 +34,9 @@ public class Z3strParser extends Parser {
         case SolveFor:
             return "";
         case Reg:
-            return "(define-fun " + cond.parameters.get(0) + " () Regex " + parseRegex(cond.parameters.get(1)) + ")";
+            String val = parseRegex(cond.parameters.get(1));
+            values.put(cond.parameters.get(0), val);
+            return "(define-fun " + cond.parameters.get(0) + " () Regex " + val + ")";
         case AssertIn:
             return "(assert (RegexIn " + cond.parameters.get(0) + " " + cond.parameters.get(1) + "))";
         case Length:
@@ -53,40 +55,46 @@ public class Z3strParser extends Parser {
         str = str.trim();
         if (str.startsWith("\"")) { // string literal
             return "(Str2Reg " + str + ")";
-        }
-        int numArgument = 1;
-        int lvl = 0;
-        int firstSplit = -1;
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c == '(') {
-                lvl++;
-            } else if (c == ')') {
-                lvl--;
-            } else if (c == ',') {
-                if (lvl == 1) {
-                    numArgument++;
-                    if (firstSplit == -1) {
-                        firstSplit = i;
+        } else if (!str.contains("(")) { // must be a variable name
+            if (!values.containsKey(str)) {
+                throw new Exception("Undefined variable: " + str);
+            } else {
+                return values.get(str);
+            }
+        } else {
+            int numArgument = 1;
+            int lvl = 0;
+            int firstSplit = -1;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '(') {
+                    lvl++;
+                } else if (c == ')') {
+                    lvl--;
+                } else if (c == ',') {
+                    if (lvl == 1) {
+                        numArgument++;
+                        if (firstSplit == -1) {
+                            firstSplit = i;
+                        }
                     }
                 }
             }
+            if (str.startsWith("star")) {
+                return "(RegexStar " + (parseRegex(str.substring(str.indexOf("(") + 1, str.length() - 1))) + ")";
+            }
+            if (numArgument == 1) {
+                return parseRegex(str.substring(str.indexOf("(") + 1, str.length() - 1));
+            }
+            if (str.startsWith("concat")) {
+                return "(RegexConcat " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
+                        + parseRegex("concat(" + str.substring(firstSplit + 1))) + ")";
+            } else if (str.startsWith("or")) {
+                return "(RegexUnion " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
+                        + parseRegex("or(" + str.substring(firstSplit + 1))) + ")";
+            } else {
+                throw new Exception("Invalid format in Z3str buildRegex");
+            }
         }
-        if (str.startsWith("star")) {
-            return "(RegexStar " + (parseRegex(str.substring(str.indexOf("(") + 1, str.length() - 1))) + ")";
-        }
-        if (numArgument == 1) {
-            return parseRegex(str.substring(str.indexOf("(") + 1, str.length() - 1));
-        }
-        if (str.startsWith("concat")) {
-            return "(RegexConcat " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
-                    + parseRegex("concat(" + str.substring(firstSplit + 1))) + ")";
-        } else if (str.startsWith("or")) {
-            return "(RegexUnion " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
-                    + parseRegex("or(" + str.substring(firstSplit + 1))) + ")";
-        } else {
-            throw new Exception("Invalid format in Z3str buildRegex");
-        }
-
     }
 }

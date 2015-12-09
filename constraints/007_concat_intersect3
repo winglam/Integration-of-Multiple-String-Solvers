@@ -1,0 +1,14 @@
+// Sigma = 'q' 'r' 's'
+String(v);
+SolveFor(v);
+Length(v, 7);
+// q(rr)+
+Reg(c1, concat("q", "rr", star("rr")));
+// (rrr)+s
+Reg(c2, concat("rrr", star("rrr"), "s"));
+// q(rrrrr)+s
+Reg(c3, concat("q", "rrrrr", star("rrrrr"), "s"))
+// q(rr)+(rrr)+s
+Reg(c4, concat(c1, c2));
+AssertIn(v, c3)
+AssertIn(v, c4)

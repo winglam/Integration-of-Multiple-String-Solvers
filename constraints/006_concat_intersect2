@@ -1,0 +1,20 @@
+// Sigma = 'q' 'r' 's' 't'
+String(v);
+SolveFor(v);
+Length(v, 5);
+// qr*
+Reg(c1, concat("q", star("r")));
+// rrs
+Reg(c2, concat("r", "r", "s"));
+// qr*s
+Reg(c3, concat("q", star("r"), "s"));
+// t*
+Reg(c4, star("t"));
+// qrrst
+Reg(c5, concat("q", "r", "r", "s", "t"));
+// c1 . c2 . c4
+Reg(c6, concat(c1, c2, c4));
+
+// qr* . rrs . t* intersect qrrst
+AssertIn(v, c6);
+AssertIn(v, c5);

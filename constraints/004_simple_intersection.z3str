@@ -1,0 +1,8 @@
+(declare-variable v1 String)
+(assert (= (Length v1) 2))
+(define-fun c1 () Regex (RegexConcat (RegexStar (RegexUnion (Str2Reg "w") (RegexUnion (Str2Reg "x") (RegexUnion (Str2Reg "y") (Str2Reg "z"))))) (RegexConcat (Str2Reg "w") (RegexStar (RegexUnion (Str2Reg "w") (RegexUnion (Str2Reg "x") (RegexUnion (Str2Reg "y") (Str2Reg "z"))))))))
+(define-fun c2 () Regex (RegexStar (Str2Reg "wx")))
+(assert (RegexIn v1 c1))
+(assert (RegexIn v1 c2))
+(check-sat)
+(get-model)

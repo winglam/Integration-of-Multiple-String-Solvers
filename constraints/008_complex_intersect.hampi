@@ -1,0 +1,7 @@
+var v : 3;
+reg c1 := or(concat("a", star("a")), concat("b", star("a")));
+reg c2 := "a";
+reg c3 := concat(or(concat("a", star("a")), concat("b", star("a"))), "a");
+reg c4 := "aaa";
+assert v in c3;
+assert v in c4;

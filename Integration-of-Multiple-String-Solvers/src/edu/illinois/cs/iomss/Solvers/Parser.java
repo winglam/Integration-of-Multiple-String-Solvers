@@ -2,7 +2,9 @@ package edu.illinois.cs.iomss.Solvers;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
 
@@ -12,8 +14,10 @@ public abstract class Parser {
 
     protected MainLanguage constraints;
     protected List<String> result;
+    protected Map<String, String> values; // value of each variable
 
     public Parser(MainLanguage constraints) {
+        this.values = new HashMap<String, String>();
         this.constraints = constraints;
     }
 

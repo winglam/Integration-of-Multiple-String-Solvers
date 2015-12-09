@@ -1,0 +1,7 @@
+var v : 7;
+reg c1 := concat("q", concat("rr", star("rr")));
+reg c2 := concat("rrr", concat(star("rrr"), "s"));
+reg c3 := concat("q", concat("rrrrr", concat(star("rrrrr"), "s")));
+reg c4 := concat(concat("q", concat("rr", star("rr"))), concat("rrr", concat(star("rrr"), "s")));
+assert v in c3;
+assert v in c4;

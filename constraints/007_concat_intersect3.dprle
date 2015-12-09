@@ -1,0 +1,95 @@
+v_length < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on any
+n1 -> n2 on any
+n2 -> n3 on any
+n3 -> n4 on any
+n4 -> n5 on any
+n5 -> n6 on any
+n6 -> n7 on any
+n7 -> acc_state on epsilon
+];
+v < v_length;
+c1 < [
+s: n0
+f: acc_state
+d:
+n2 -> acc_state on epsilon
+n4 -> acc_state on epsilon
+n0 -> n1 on {'q'}
+n1 -> n3 on {'r'}
+n2 -> n5 on {'r'}
+n3 -> n2 on {'r'}
+n4 -> n5 on {'r'}
+n5 -> n4 on {'r'}
+]
+;
+c2 < [
+s: n0
+f: acc_state
+d:
+n6 -> acc_state on epsilon
+n0 -> n2 on {'r'}
+n1 -> n5 on {'r'}
+n2 -> n4 on {'r'}
+n3 -> n7 on {'r'}
+n3 -> n6 on {'s'}
+n4 -> n3 on {'r'}
+n5 -> n7 on {'r'}
+n5 -> n6 on {'s'}
+n7 -> n1 on {'r'}
+]
+;
+c3 < [
+s: n0
+f: acc_state
+d:
+n10 -> acc_state on epsilon
+n0 -> n3 on {'q'}
+n1 -> n11 on {'r'}
+n1 -> n10 on {'s'}
+n2 -> n4 on {'r'}
+n3 -> n5 on {'r'}
+n4 -> n6 on {'r'}
+n5 -> n7 on {'r'}
+n6 -> n11 on {'r'}
+n6 -> n10 on {'s'}
+n7 -> n8 on {'r'}
+n8 -> n9 on {'r'}
+n9 -> n1 on {'r'}
+n11 -> n12 on {'r'}
+n12 -> n2 on {'r'}
+]
+;
+c4 < [
+s: n0
+f: acc_state
+d:
+n12 -> acc_state on epsilon
+n0 -> n3 on {'q'}
+n1 -> n8 on {'r'}
+n2 -> n7 on {'r'}
+n3 -> n5 on {'r'}
+n4 -> n13 on {'r'}
+n5 -> n2 on {'r'}
+n6 -> n10 on {'r'}
+n6 -> n12 on {'s'}
+n7 -> n4 on {'r'}
+n8 -> n11 on {'r'}
+n8 -> n12 on {'s'}
+n9 -> n6 on {'r'}
+n9 -> n12 on {'s'}
+n10 -> n6 on {'r'}
+n10 -> n12 on {'s'}
+n11 -> n9 on {'r'}
+n11 -> n12 on {'s'}
+n13 -> n1 on {'r'}
+n13 -> n12 on {'s'}
+]
+;
+v < c3;
+v < c4;
+solve();
+strings(v);
