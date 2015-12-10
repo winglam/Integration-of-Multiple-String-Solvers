@@ -1,0 +1,8 @@
+String(str);
+String(x);
+SolveFor(x);
+Int(var2);
+Int(var3);
+CharAtEqual(str, var2, x);
+Length(str, <, 10);
+Compare(var2, >, 10)

@@ -1,0 +1,9 @@
+String(x);
+SolveFor(x);
+SolLength(x, 0);
+Reg(v1, star("ab"));
+Reg(v2, star("abab"));
+Reg(v3, star("ababac"));
+AssertIn(x, v1);
+AssertIn(x, v2);
+AssertIn(x, v3);

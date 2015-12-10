@@ -81,6 +81,10 @@ public class DPRLEParser extends Parser {
         case EndsWith:
             res = getEndsWithConstraint(cond.parameters.get(0), cond.parameters.get(1));
             break;
+        case IntCompare:
+            throw new Exception("Error: DPRLE can't handle compare");
+        case StringEqual:
+            res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
         default:
             throw new Exception("Unknown function in DPRLE");
         }

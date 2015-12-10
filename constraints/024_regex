@@ -1,0 +1,7 @@
+String(x);
+SolveFor(x);
+SolLength(x, 0);
+Reg(emp, "");
+AssertIn(x, emp);
+Reg(c, star("ced"));
+AssertIn(x, c);

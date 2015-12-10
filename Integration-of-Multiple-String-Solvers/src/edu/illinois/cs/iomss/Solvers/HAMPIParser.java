@@ -65,6 +65,10 @@ public class HAMPIParser extends Parser {
             throw new Exception("Error: HAMPI can't handle startWith");
         case EndsWith:
             throw new Exception("Error: HAMPI can't handle endWith");
+        case IntCompare:
+            throw new Exception("Error: HAMPI can't handle compare");
+        case StringEqual:
+            return "assert " + cond.parameters.get(0) + " in " + cond.parameters.get(1);
         default:
             throw new Exception("Unknown function in HAMPI");
         }

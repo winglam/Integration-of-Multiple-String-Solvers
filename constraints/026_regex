@@ -1,0 +1,7 @@
+String(x);
+SolveFor(x);
+SolLength(x, 10);
+Reg(emp, "cdeabcdcde");
+AssertIn(x, emp);
+Reg(c, star(or("abcd", "cde")));
+AssertIn(x, c);

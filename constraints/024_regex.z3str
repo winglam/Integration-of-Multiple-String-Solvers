@@ -1,0 +1,8 @@
+(declare-variable x String)
+(assert (= (Length x) 0))
+(define-fun emp () Regex (Str2Reg ""))
+(assert (RegexIn x emp))
+(define-fun c () Regex (RegexStar (Str2Reg "ced")))
+(assert (RegexIn x c))
+(check-sat)
+(get-model)

@@ -1,0 +1,5 @@
+var x : 0;
+reg emp := "";
+assert x in emp;
+reg c := star("ced");
+assert x in c;

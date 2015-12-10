@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MainLanguage {
 
     public enum Function {
-        SolveFor, Reg, AssertIn, SolLength, Int, String, Contains, NotContains, Length, SubstringEqual, CharAtEqual, StartsWith, EndsWith;
+        SolveFor, Reg, AssertIn, SolLength, Int, String, Contains, NotContains, Length, SubstringEqual, CharAtEqual, StartsWith, EndsWith, IntCompare, StringEqual;
     }
 
     private List<Condition> conditions;
