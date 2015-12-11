@@ -68,7 +68,7 @@ public class HAMPIParser extends Parser {
         case IntCompare:
             throw new Exception("Error: HAMPI can't handle compare");
         case StringEqual:
-            return "assert " + cond.parameters.get(0) + " in " + cond.parameters.get(1);
+            throw new Exception("Error: HAMPI can't handle stringequal");
         default:
             throw new Exception("Unknown function in HAMPI");
         }

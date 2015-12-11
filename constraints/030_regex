@@ -1,0 +1,5 @@
+String(x);
+SolveFor(x);
+Reg(c1, star(star("abcd")));
+AssertIn(x, c1);
+Length(x, =, 8);

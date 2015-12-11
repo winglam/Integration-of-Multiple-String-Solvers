@@ -5,7 +5,7 @@ String(v1)
 SolveFor(v1);
 
 // Variable's length
-Length(v1, 5);
+SolLength(v1, 5);
 
 // Regex
 Reg(c1, star(concat("ab", "b", or("G", concat("x"), "C"), "x")));

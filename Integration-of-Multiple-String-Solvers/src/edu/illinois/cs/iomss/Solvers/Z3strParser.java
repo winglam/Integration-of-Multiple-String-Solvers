@@ -67,6 +67,9 @@ public class Z3strParser extends Parser {
         case IntCompare:
             var = cond.parameters.get(0);
             return "(assert (" + cond.parameters.get(1) + " " + var + " " + cond.parameters.get(2) + "))";
+        case StringEqual:
+            var = cond.parameters.get(0);
+            return "(assert (= " + var + " " + cond.parameters.get(1) + "))";
         default:
             throw new Exception("Unknown function in Z3str");
         }

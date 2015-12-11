@@ -70,7 +70,7 @@ public class DPRLEParser extends Parser {
         case NotContains:
             throw new Exception("Error: DPRLE can't handle NotContains");
         case Length:
-            throw new Exception("Error: DPRLE can't handle length");
+            throw new Exception("Errorfa: DPRLE can't handle length");
         case SubstringEqual:
             throw new Exception("Error: DPRLE can't handle substring");
         case CharAtEqual:
@@ -84,7 +84,7 @@ public class DPRLEParser extends Parser {
         case IntCompare:
             throw new Exception("Error: DPRLE can't handle compare");
         case StringEqual:
-            res = cond.parameters.get(0) + " < " + cond.parameters.get(1);
+            throw new Exception("Error: DPRLE can't handle stringequal");
         default:
             throw new Exception("Unknown function in DPRLE");
         }
