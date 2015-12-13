@@ -1,0 +1,32 @@
+C < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on any
+n1 -> acc_state on epsilon
+]
+;
+A < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'w'}
+]
+;
+B < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'w'}
+]
+;
+C < A;
+C < B;
+push();
+solve();
+strings(C);
+pop();
+solve();
+strings(C);

@@ -11,5 +11,7 @@ C < B;
 
 push();
 solve();
+strings(C);
 pop();
 solve();
+strings(C);

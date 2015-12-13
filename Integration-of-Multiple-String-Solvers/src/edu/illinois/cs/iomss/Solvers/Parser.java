@@ -12,16 +12,14 @@ public abstract class Parser {
 
     public static String newLine = System.lineSeparator();
 
-    protected MainLanguage constraints;
     protected List<String> result;
     protected Map<String, String> values; // value of each variable
 
-    public Parser(MainLanguage constraints) {
+    public Parser() {
         this.values = new HashMap<String, String>();
-        this.constraints = constraints;
     }
 
-    public void parse() throws Exception {
+    public void parse(MainLanguage input) throws Exception {
         System.out.println("----------------------------------------------");
     }
 
@@ -30,6 +28,7 @@ public abstract class Parser {
         System.out.println("Generating: " + filename);
         PrintWriter outfile = new PrintWriter(filename);
         for (String line : result) {
+            System.out.println(line);
             outfile.println(line);
         }
         outfile.close();

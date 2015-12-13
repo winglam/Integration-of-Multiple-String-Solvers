@@ -3,8 +3,8 @@ package edu.illinois.cs.iomss.Solvers;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.illinois.cs.iomss.MainLanguage.Condition;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
+import edu.illinois.cs.iomss.MainLanguage.MStatement;
 
 public class HAMPIParser extends Parser {
 
@@ -18,9 +18,9 @@ public class HAMPIParser extends Parser {
     public void parse() throws Exception {
         super.parse();
         System.out.println("Parsing: HAMPI");
-        List<Condition> conditions = this.constraints.getConditions();
+        List<MStatement> conditions = this.constraints.getStatements();
         result = new ArrayList<String>();
-        for (Condition cond : conditions) {
+        for (MStatement cond : conditions) {
             String temp = conditionToString(cond);
             if (temp != "") {
                 result.add(temp + ";");
@@ -28,7 +28,7 @@ public class HAMPIParser extends Parser {
         }
     }
 
-    private String conditionToString(Condition cond) throws Exception {
+    private String conditionToString(MStatement cond) throws Exception {
         switch (cond.function) {
         case SolveFor:
             solveFor = cond.parameters.get(0);

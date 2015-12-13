@@ -1,0 +1,9 @@
+Push();
+Regex(A, "");
+Solve();
+Pop();
+Regex(A, ".");
+Solve();
+ShowString();
+
+

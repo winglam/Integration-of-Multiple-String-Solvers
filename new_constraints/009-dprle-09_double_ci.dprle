@@ -1,0 +1,59 @@
+c1 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n2 -> acc_state on epsilon
+n0 -> n1 on {'q'}
+n1 -> n2 on {'r'}
+n2 -> n2 on {'r'}
+]
+;
+c2 < [
+s: n0
+f: acc_state
+d:
+n2 -> acc_state on epsilon
+n0 -> n1 on {'r'}
+n1 -> n3 on {'r'}
+n3 -> n2 on {'s'}
+]
+;
+c3 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n2 on {'q'}
+n2 -> n3 on {'r'}
+n2 -> n1 on {'s'}
+n3 -> n3 on {'r'}
+n3 -> n1 on {'s'}
+]
+;
+c4 < [
+s: n0
+f: acc_state
+d:
+n0 -> acc_state on epsilon
+n1 -> acc_state on epsilon
+n0 -> n1 on {'t'}
+n1 -> n1 on {'t'}
+]
+;
+c5 < [
+s: n0
+f: acc_state
+d:
+n3 -> acc_state on epsilon
+n0 -> n1 on {'q'}
+n1 -> n2 on {'r'}
+n2 -> n4 on {'r'}
+n4 -> n5 on {'s'}
+n5 -> n3 on {'t'}
+]
+;
+c1 . c2 < c3;
+c1 . c2 . c4 < c5;
+solve();
+show();

@@ -1,0 +1,29 @@
+push();
+A < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on epsilon
+]
+;
+A < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on any
+n1 -> acc_state on epsilon
+]
+;
+solve();
+pop();
+A < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'.'}
+]
+;
+solve();
+strings();

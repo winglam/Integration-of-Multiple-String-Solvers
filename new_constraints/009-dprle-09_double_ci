@@ -1,0 +1,15 @@
+// Sigma = 'q' 'r' 's' 't'
+// L(c1) = qr*
+Regex(c1, Concat("q", Star("r")));
+// L(c2) = rrs
+Regex(c2, "rrs");
+// L(c3) = qr*s
+Regex(c3, Concat("q", Star("r"), "s"));
+// L(c4);
+Regex(c4, Star("t"));
+// L(c5) = qrrst
+Regex(c5, "qrrst");
+AssertInRegex(ConcatRegex(c1, c2), c3);
+AssertInRegex(ConcatRegex(c1, ConcatRegex(c2, c4)), c5);
+Solve();
+Show();

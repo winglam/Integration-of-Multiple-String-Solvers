@@ -1,0 +1,74 @@
+s1 < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on any
+n1 -> n2 on any
+n2 -> acc_state on epsilon
+]
+;
+c1 < [
+s: n2
+f: acc_state
+d:
+n0 -> acc_state on epsilon
+n1 -> acc_state on epsilon
+n4 -> acc_state on epsilon
+n5 -> acc_state on epsilon
+n8 -> acc_state on epsilon
+n0 -> n0 on {'z'}
+n0 -> n8 on {'y'}
+n0 -> n1 on {'w'}
+n0 -> n4 on {'x'}
+n1 -> n0 on {'z'}
+n1 -> n8 on {'y'}
+n1 -> n1 on {'w'}
+n1 -> n4 on {'x'}
+n2 -> n6 on {'z'}
+n2 -> n7 on {'y'}
+n2 -> n5 on {'w'}
+n2 -> n3 on {'x'}
+n3 -> n6 on {'z'}
+n3 -> n7 on {'y'}
+n3 -> n5 on {'w'}
+n3 -> n3 on {'x'}
+n4 -> n0 on {'z'}
+n4 -> n8 on {'y'}
+n4 -> n1 on {'w'}
+n4 -> n4 on {'x'}
+n5 -> n0 on {'z'}
+n5 -> n8 on {'y'}
+n5 -> n1 on {'w'}
+n5 -> n4 on {'x'}
+n6 -> n6 on {'z'}
+n6 -> n7 on {'y'}
+n6 -> n5 on {'w'}
+n6 -> n3 on {'x'}
+n7 -> n6 on {'z'}
+n7 -> n7 on {'y'}
+n7 -> n5 on {'w'}
+n7 -> n3 on {'x'}
+n8 -> n0 on {'z'}
+n8 -> n8 on {'y'}
+n8 -> n1 on {'w'}
+n8 -> n4 on {'x'}
+]
+;
+c2 < [
+s: n1
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n2 -> acc_state on epsilon
+n0 -> n2 on {'x'}
+n1 -> n0 on {'w'}
+n2 -> n0 on {'w'}
+]
+;
+s1 < c1;
+s1 < c2;
+solve();
+strings(s1);
+s1 ?< c1;
+s1 ?< c2;
+c1 ?< c2;

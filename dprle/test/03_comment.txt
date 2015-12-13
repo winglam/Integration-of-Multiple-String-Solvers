@@ -8,7 +8,7 @@ A < [ s: a
       epsilon];
 
 # more comment
-
+FixLength(A, 0);
 solve();
 
 # comment without newline

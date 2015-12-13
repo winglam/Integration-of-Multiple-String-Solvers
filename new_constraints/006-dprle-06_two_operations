@@ -1,0 +1,14 @@
+// Sigma = 'w' 'x' 'y' 'z'
+
+// L(c1) = .* w .*
+String(s1);
+FixedLength(s1, 2);
+Regex(c1, Concat(Star(Or("w","x","y","z")), "w", Star(Or("w","x","y","z"))));
+Regex(c2, Star(Concat("wx")));
+AssertIn(s1, c1);
+AssertIn(s1, c2);
+Solve();
+ShowString(s1);
+IsIn(s1, c1);
+IsIn(s1, c2);
+IsIn(c1, c2);

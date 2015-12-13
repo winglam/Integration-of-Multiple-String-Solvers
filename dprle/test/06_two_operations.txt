@@ -1,11 +1,11 @@
 # Sigma = 'u' 'v' 'w' 'x' 'y' 'z'
 
-# L(c1) = .* w .* 
+# L(c1) = .* w .*
 c1 < [ s: a
-            f: b 
+            f: b
             d: a -> b on { 'w' }
-            a -> a on { 'x', 'y', 'z' } 
-            b -> b on { 'w', 'x', 'y', 'z' } 
+            a -> a on { 'x', 'y', 'z' }
+            b -> b on { 'w', 'x', 'y', 'z' }
           ];
 
 # L(c2) = (wx)*
@@ -15,7 +15,7 @@ c2 < [ s: p
             q -> p on { 'x' }
           ];
 
-# this should be .*(wx)+ 
+# this should be .*(wx)+
 s1 < c1;
 s1 < c2;
 solve();

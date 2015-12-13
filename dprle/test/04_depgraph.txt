@@ -1,6 +1,6 @@
 # a comment
 c1 < [ s: a
-            f: b 
+            f: b
             d: a -> b on  epsilon];
 
 c2 < [ s: p
@@ -11,4 +11,4 @@ s1 < c1;
 s1 < v2;
 
 solve();
-shows();
+show();

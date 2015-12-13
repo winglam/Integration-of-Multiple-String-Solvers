@@ -1,0 +1,17 @@
+A < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on epsilon
+]
+;
+V < [
+s: n0
+f: acc_state
+d:
+n0 -> acc_state on epsilon
+]
+;
+V < A;
+solve();

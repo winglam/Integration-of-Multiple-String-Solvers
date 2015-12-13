@@ -8,3 +8,7 @@
 
 (check-sat)
 (get-model)
+
+
+(assert (= (Length z) 0 ) )
+Equal(Length(z), 0);

@@ -1,5 +1,5 @@
-m1 < [ s: a 
-            f: b 
+m1 < [ s: a
+            f: b
 	    d: a -> b on { 'a' } ];
 
 m2 < [ s: c
@@ -26,4 +26,3 @@ m2 . m3 < s2;
 solve_all();
 
 
-             

@@ -1,10 +1,10 @@
 # Sigma = 'q' 'r' 's'
 
-# L(c1) = qr* 
+# L(c1) = qr*
 c1 < [ s: a
-            f: b 
+            f: b
             d: a -> b on { 'q' }
-            b -> b on { 'r' } 
+            b -> b on { 'r' }
           ];
 
 # L(c2) = rrs
@@ -22,7 +22,7 @@ c3 < [ s: g
             h -> h on { 'r' }
             h -> i on { 's' }];
 
-# qr*rrs intersect qr*s 
+# qr*rrs intersect qr*s
 c1 . c2 < c3;
 
 solve_all();

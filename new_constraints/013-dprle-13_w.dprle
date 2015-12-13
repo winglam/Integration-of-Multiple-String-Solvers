@@ -1,0 +1,45 @@
+m1 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'a'}
+]
+;
+m2 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'b'}
+]
+;
+m3 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n1 on {'c'}
+]
+;
+s1 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n2 on {'a'}
+n2 -> n1 on {'b'}
+]
+;
+s2 < [
+s: n0
+f: acc_state
+d:
+n1 -> acc_state on epsilon
+n0 -> n2 on {'b'}
+n2 -> n1 on {'c'}
+]
+;
+m1 . m2 < s1;
+m2 . m3 < s2;
+solve_all();
