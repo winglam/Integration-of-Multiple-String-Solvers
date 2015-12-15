@@ -1,0 +1,4 @@
+String(a);
+FixedLength(a, 5);
+Equal(ConcatString("tesk", a), "testhello");
+SolveAll();
