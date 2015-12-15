@@ -98,7 +98,7 @@ public class Z3strParser extends Parser {
             break;
         case Regex:
             MRegex reg = (MRegex) statement;
-            String val = parseRegex(statementToString(reg.regex_statement));
+            String val = parseRegex(statement.parameters.get(1));
             res = "(define-fun " + reg.id + " () Regex " + val + ")";
             break;
         case AssertIn:

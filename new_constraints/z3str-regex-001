@@ -1,1 +1,6 @@
-
+String(x);
+String(y);
+Equal(x, "");
+Regex(a, Star("ced"));
+AssertIn(x, a);
+SolveAll();

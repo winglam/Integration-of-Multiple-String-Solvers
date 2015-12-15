@@ -1,1 +1,6 @@
-
+Int(i);
+String(X);
+Equal(i, IndexOf(X, "ab"));
+Equal(i, 0);
+Equal(Length(X), 0);
+SolveAll();

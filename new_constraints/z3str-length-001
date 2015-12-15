@@ -1,1 +1,4 @@
-
+Int(i);
+String(x);
+GreaterOrEqual(3, Length(x));
+SolveAll();
