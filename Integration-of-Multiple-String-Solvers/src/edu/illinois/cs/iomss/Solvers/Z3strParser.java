@@ -11,7 +11,6 @@ import edu.illinois.cs.iomss.MainLanguage.MConcatString;
 import edu.illinois.cs.iomss.MainLanguage.MContains;
 import edu.illinois.cs.iomss.MainLanguage.MEndsWith;
 import edu.illinois.cs.iomss.MainLanguage.MEqual;
-import edu.illinois.cs.iomss.MainLanguage.MExpression;
 import edu.illinois.cs.iomss.MainLanguage.MFixedLength;
 import edu.illinois.cs.iomss.MainLanguage.MGreaterOrEqual;
 import edu.illinois.cs.iomss.MainLanguage.MGreaterThan;
@@ -52,8 +51,8 @@ public class Z3strParser extends Parser {
                 result.add(temp + ";");
             }
         }
-        result.add("(check-sat)");
-        result.add("(get-model)");
+        result.add("(check-sat);");
+        result.add("(get-model);");
     }
 
     private String statementToString(MStatement statement) throws Exception {
@@ -145,26 +144,26 @@ public class Z3strParser extends Parser {
             break;
         case Equal:
             MEqual equ = (MEqual) statement;
-            res = "(assert (= " + statementToString(equ.expression1) + " " + statementToString(equ.expression1) + "))";
+            res = "(assert (= " + statementToString(equ.expression1) + " " + statementToString(equ.expression2) + "))";
             break;
         case LessThan:
             MLessThan lt = (MLessThan) statement;
-            res = "(assert (< " + statementToString(lt.int_expression1) + " " + statementToString(lt.int_expression1)
+            res = "(assert (< " + statementToString(lt.int_expression1) + " " + statementToString(lt.int_expression2)
                     + "))";
             break;
         case GreaterThan:
             MGreaterThan gt = (MGreaterThan) statement;
-            res = "(assert (> " + statementToString(gt.int_expression1) + " " + statementToString(gt.int_expression1)
+            res = "(assert (> " + statementToString(gt.int_expression1) + " " + statementToString(gt.int_expression2)
                     + "))";
             break;
         case LessOrEqual:
             MLessOrEqual loe = (MLessOrEqual) statement;
-            res = "(assert (<= " + statementToString(loe.int_expression1) + " " + statementToString(loe.int_expression1)
+            res = "(assert (<= " + statementToString(loe.int_expression1) + " " + statementToString(loe.int_expression2)
                     + "))";
             break;
         case GreaterOrEqual:
             MGreaterOrEqual goe = (MGreaterOrEqual) statement;
-            res = "(assert (>= " + statementToString(goe.int_expression1) + " " + statementToString(goe.int_expression1)
+            res = "(assert (>= " + statementToString(goe.int_expression1) + " " + statementToString(goe.int_expression2)
                     + "))";
             break;
         case Substring:
@@ -229,14 +228,16 @@ public class Z3strParser extends Parser {
         }
         return res;
     }
-
-    private String parseReg(List<MExpression> li, int cur, String func) throws Exception {
-        if (cur + 1 == li.size()) {
-            return statementToString(li.get(cur));
-        } else {
-            return "(" + func + " " + statementToString(li.get(cur)) + " " + parseReg(li, cur + 1, func) + ")";
-        }
-    }
+    //
+    // private String parseReg(List<MExpression> li, int cur, String func)
+    // throws Exception {
+    // if (cur + 1 == li.size()) {
+    // return statementToString(li.get(cur));
+    // } else {
+    // return "(" + func + " " + statementToString(li.get(cur)) + " " +
+    // parseReg(li, cur + 1, func) + ")";
+    // }
+    // }
 
     private String parseRegex(String str) throws Exception {
         str = str.trim();
