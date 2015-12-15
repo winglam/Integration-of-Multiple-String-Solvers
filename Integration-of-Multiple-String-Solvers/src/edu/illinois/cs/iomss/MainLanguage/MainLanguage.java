@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MainLanguage {
 
     public enum StatementType {
-        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, AssertNotIn, ConcatRegex, FixedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, NotContains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID, Not;
+        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, AssertNotIn, ConcatRegex, FixedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, NotContains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID, Not, Plus;
     }
 
     private List<MStatement> statements;

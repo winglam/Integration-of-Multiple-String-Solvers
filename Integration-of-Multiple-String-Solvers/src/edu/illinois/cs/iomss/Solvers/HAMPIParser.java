@@ -179,6 +179,8 @@ public class HAMPIParser extends Parser {
             break;
         case Not:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
+        case Plus:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
         default:
             throw new Exception(statement.toString() + ": " + statement.type);
         }

@@ -36,6 +36,9 @@ public class MExpression extends MStatement {
             return new MStringLIT(parameters);
         case INT_LIT:
             return new MIntLIT(parameters);
+        case Plus:
+            return new MPlus(parameters);
+
         default:
             throw new Exception();
         }

@@ -24,6 +24,7 @@ import edu.illinois.cs.iomss.MainLanguage.MLessOrEqual;
 import edu.illinois.cs.iomss.MainLanguage.MLessThan;
 import edu.illinois.cs.iomss.MainLanguage.MNot;
 import edu.illinois.cs.iomss.MainLanguage.MNotContains;
+import edu.illinois.cs.iomss.MainLanguage.MPlus;
 import edu.illinois.cs.iomss.MainLanguage.MRegex;
 import edu.illinois.cs.iomss.MainLanguage.MReplace;
 import edu.illinois.cs.iomss.MainLanguage.MStartsWith;
@@ -207,12 +208,12 @@ public class Z3strParser extends Parser {
             break;
         case IndexOf:
             MIndexOf ind = (MIndexOf) statement;
-            res = "(IndexOf " + statementToString(ind.string_expression1) + " "
+            res = "(Indexof " + statementToString(ind.string_expression1) + " "
                     + statementToString(ind.string_expression2) + ")";
             break;
         case LastIndexOf:
             MLastIndexOf lind = (MLastIndexOf) statement;
-            res = "(LastIndexOf " + statementToString(lind.string_expression1) + " "
+            res = "(LastIndexof " + statementToString(lind.string_expression1) + " "
                     + statementToString(lind.string_expression2) + ")";
             break;
         case ID:
@@ -222,6 +223,10 @@ public class Z3strParser extends Parser {
         case Not:
             MNot not = (MNot) statement;
             res = "(not " + statementToString(not.statement1) + ")";
+            break;
+        case Plus:
+            MPlus plus = (MPlus) statement;
+            res = "(+ " + statementToString(plus.int_expression1) + " " + statementToString(plus.int_expression2) + ")";
             break;
         default:
             throw new Exception(statement.toString() + ": " + statement.type);
