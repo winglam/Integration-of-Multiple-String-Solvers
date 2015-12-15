@@ -1,0 +1,5 @@
+Regex(a, Or(Concat("a", Star("a")), Concat("b", Star("a"))));
+Regex(b, Star("a"));
+Regex(c, "aaa");
+AssertInRegex(ConcatRegex(a, b), c);
+SolveAll();

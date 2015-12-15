@@ -1,0 +1,8 @@
+Regex(m1, "a");
+Regex(m2, "b");
+Regex(m3, "c");
+Regex(s1, "ab");
+Regex(s2, "bc");
+AssertInRegex(ConcatRegex(m1, m2), s1);
+AssertInRegex(ConcatRegex(m2, m3), s2);
+SolveAll();
