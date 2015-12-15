@@ -1,5 +1,0 @@
-reg c1 := concat("q",star("r"));
-reg c2 := "rrs";
-reg c3 := concat("q",star("r"),"s");
-var c3 : 4;
-assert concat(c1,c2) in c3;

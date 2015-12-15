@@ -1,5 +1,0 @@
-Regex(v1, Star("xyy"));
-Regex(v2, Or("yy", "z"));
-Regex(v3, Or("xyyyyz", "xyyz"));
-AssertInRegex(ConcatRegex(v1, v2), v3);
-SolveAll();

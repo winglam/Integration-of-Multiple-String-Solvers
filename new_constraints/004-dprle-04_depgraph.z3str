@@ -1,8 +1,0 @@
-(define-fun c1 () Regex (Str2Reg ""));
-(define-fun c2 () Regex (Str2Reg "d"));
-(declare-variable s1 String);
-(assert (= (Length s1) 0));
-(assert (RegexIn s1 c1));
-(assert (RegexIn s1 v2));
-(check-sat)
-(get-model)

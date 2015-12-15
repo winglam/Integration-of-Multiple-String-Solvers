@@ -1,8 +1,0 @@
-String(str);
-String(x);
-Int(var2);
-Int(var3);
-Equal(x, CharAt(str, var2));
-LessThan(Length(str), 10);
-GreaterThan(var2, 10);
-SolveAll();

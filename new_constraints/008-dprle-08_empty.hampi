@@ -1,3 +1,0 @@
-reg a := "";
-var V : 0;
-assert V in a;

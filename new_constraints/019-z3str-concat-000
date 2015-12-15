@@ -1,9 +1,0 @@
-String(a);
-String(b);
-String(c1);
-String(c2);
-String(x);
-Equal(a, ConcatString(ConcatString("te", c1), ConcatString("\t", c2)));
-Equal(a, b);
-Equal(x, "str  ");
-SolveAll();

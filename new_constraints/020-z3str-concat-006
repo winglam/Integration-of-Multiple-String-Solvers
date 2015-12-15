@@ -1,4 +1,0 @@
-String(a);
-FixedLength(a, 5);
-Equal(ConcatString("test", a), "testhello");
-SolveAll();

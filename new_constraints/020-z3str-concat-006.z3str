@@ -1,5 +1,0 @@
-(declare-variable a String);
-(assert (= (Length a) 5));
-(assert (= (Concat "test" a) "testhello"));
-(check-sat);
-(get-model);
