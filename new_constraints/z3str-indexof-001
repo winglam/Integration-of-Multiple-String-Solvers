@@ -1,1 +1,3 @@
-
+Int(i);
+Equal(i, IndexOf("abc", "b"));
+SolveAll();

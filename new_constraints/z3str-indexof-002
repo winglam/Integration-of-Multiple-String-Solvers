@@ -1,1 +1,8 @@
-
+String(get_fileName);
+String(name0);
+Int(i);
+Equal(i, IndexOf(get_fileName, ".php"));
+GreaterThan(i, 0);
+Equal(Plus(i, 4), Length(get_fileName));
+// Equal(name0, "efg");
+SolveAll();
