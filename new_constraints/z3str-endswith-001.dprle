@@ -1,0 +1,22 @@
+x < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on any
+n1 -> n2 on any
+n2 -> n3 on any
+n3 -> acc_state on epsilon
+]
+;
+x < [
+s: n0
+f: acc_state
+d:
+n0 -> n1 on {'n'}
+n1 -> n2 on {'b'}
+n2 -> n3 on {'a'}
+n3 -> acc_state on epsilon
+n0 -> n0 on any
+]
+;
+solve_all();
