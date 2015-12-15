@@ -38,7 +38,8 @@ public class MExpression extends MStatement {
             return new MIntLIT(parameters);
         case Plus:
             return new MPlus(parameters);
-
+        case Substring:
+            return new MSubstring(parameters);
         default:
             throw new Exception();
         }

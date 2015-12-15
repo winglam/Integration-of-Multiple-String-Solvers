@@ -1,1 +1,6 @@
+String(x);
+Equal(x, "cdeabcdcde");
+Regex(a, Star(Or("abcd", "cde")));
+AssertIn(x, a);
+SolveAll();
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage.StatementType;
 
-public class MSubstring extends MStatement {
+public class MSubstring extends MStringExpression {
 
     public MExpression string_expression1;
     public MExpression int_expression2;

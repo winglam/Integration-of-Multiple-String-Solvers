@@ -1,1 +1,5 @@
-
+String(y);
+String(z);
+Equal(z, "mn_efg_k");
+Equal(y, Replace("mn_efg_k", "efg", "abcd"));
+SolveAll();
