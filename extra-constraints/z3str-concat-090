@@ -1,0 +1,9 @@
+String(x);
+String(y);
+String(Y1);
+String(Y2);
+String(Y3);
+String(Y4);
+Equal(ConcatString(x, Y1), ConcatString(Y2, y));
+Equal(ConcatString(y, Y3), ConcatString(Y4, x));
+SolveAll();

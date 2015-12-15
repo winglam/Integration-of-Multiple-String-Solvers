@@ -1,0 +1,8 @@
+String(x1);
+String(x2);
+String(x3);
+String(y2);
+String(m2);
+Equal(ConcatString("ef", y2), ConcatString(x1, x2));
+Equal(ConcatString(x3, ConcatString("ce", m2)), ConcatString("ef", y2));
+SolveAll();

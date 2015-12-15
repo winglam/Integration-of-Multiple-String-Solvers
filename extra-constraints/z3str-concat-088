@@ -1,0 +1,7 @@
+String(X);
+String(ts0);
+String(ts1);
+String(ts2);
+Equal(X, ConcatString(ts0, ConcatString("abc", ts2));
+Equal(X, "abc");
+SolveAll();

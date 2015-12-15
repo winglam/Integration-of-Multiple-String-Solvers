@@ -1,0 +1,8 @@
+String(x);
+Int(i);
+Equal("b", CharAt(x, i));
+GreaterOrEqual(i, 4);
+LessThan(i, Length(x));
+LessThan(Length(x), 7);
+GreaterThan(Length(x), 2);
+SolveAll();

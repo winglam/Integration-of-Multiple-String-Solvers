@@ -1,0 +1,12 @@
+String(x1);
+String(x2);
+String(y1);
+String(y2);
+String(z);
+String(m1);
+String(m2);
+Equal(z, ConcatString(x1, ConcatString("abc", x2)));
+Equal(z, ConcatString(y1, ConcatString("ef", y2)));
+Equal(z, ConcatString(m1, ConcatString("ce", m2)));
+Equal(Length(z), 4);
+SolveAll();

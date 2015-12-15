@@ -1,0 +1,6 @@
+String(x);
+String(y1);
+String(y2);
+Equal(x, "abc\nefg  ");
+Equal(y1, "zzz");
+SolveAll();
