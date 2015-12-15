@@ -6,12 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import edu.illinois.cs.iomss.util.StringUtil;
-
 public class MainLanguage {
 
     public enum StatementType {
-        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, ConcatRegex, FixedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID;
+        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, AssertNotIn, ConcatRegex, FixedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, NotContains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID, Not;
     }
 
     private List<MStatement> statements;
@@ -34,70 +32,10 @@ public class MainLanguage {
         for (String subcond : cond) {
             subcond = subcond.trim();
             if (subcond.length() > 0) {
-                statements.add(parse(subcond));
+                statements.add(MStatement.parse(subcond));
             }
         }
         cin.close();
-    }
-
-    private MStatement parse(String s) throws Exception {
-        int leftParen = s.indexOf("(");
-        if (leftParen == -1 || leftParen == 0 || !s.endsWith(")")) {
-            throw new Exception("Invalid statement: " + s);
-        }
-        StatementType type = StringUtil.getType(s);
-
-        List<String> parameters = StringUtil.splitString(s);
-        switch (type) {
-        case String:
-            return new MString(parameters);
-        case Int:
-            return new MInt(parameters);
-        case Regex:
-            return new MRegex(parameters);
-        case AssertIn:
-            return new MAssertIn(parameters);
-        case AssertInRegex:
-            return new MAssertInRegex(parameters);
-        case Alias:
-            return new MAlias(parameters);
-        case Push:
-            return new MPush(parameters);
-        case Pop:
-            return new MPop(parameters);
-        case Solve:
-            return new MSolve(parameters);
-        case SolveAll:
-            return new MSolveAll(parameters);
-        case Show:
-            return new MShow(parameters);
-        case ShowString:
-            return new MShowString(parameters);
-        case IsIn:
-            return new MIsIn(parameters);
-        case Equal:
-            return new MEqual(parameters);
-        case LessThan:
-            return new MLessThan(parameters);
-        case GreaterThan:
-            return new MGreaterThan(parameters);
-        case LessOrEqual:
-            return new MLessOrEqual(parameters);
-        case GreaterOrEqual:
-            return new MGreaterOrEqual(parameters);
-        case Substring:
-            return new MSubstring(parameters);
-        case StartsWith:
-            return new MStartsWith(parameters);
-        case EndsWith:
-            return new MEndsWith(parameters);
-        case Contains:
-            return new MContains(parameters);
-        case FixedLength:
-            return new MFixedLength(parameters);
-        default:
-            throw new Exception("Invalid statement: " + s);
-        }
     }
 
     @Override

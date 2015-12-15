@@ -1,0 +1,5 @@
+reg c1 := "";
+reg c2 := "d";
+var s1 : 0;
+assert s1 in c1;
+assert s1 in v2;

@@ -1,0 +1,3 @@
+reg A := "";
+var V : 0;
+assert V in A;

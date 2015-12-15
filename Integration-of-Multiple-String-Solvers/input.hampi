@@ -1,3 +1,0 @@
-var v1 : 5;
-reg c1 := star(concat("ab", concat("b", concat(or("G", or("x", "C")), "x"))));
-assert v1 in c1;

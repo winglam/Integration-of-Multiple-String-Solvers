@@ -24,4 +24,4 @@ n0 -> acc_state on epsilon
 s1 < c1;
 s1 < v2;
 solve();
-shows();
+show();

@@ -9,7 +9,7 @@ Push();
 Pop();
 Solve();
 SolveAll();
-Shows();
+Show();
 ShowString(a);
 IsIn(a, b);
 Equal(a, b);
@@ -27,3 +27,5 @@ Equal("d", CharAt("d", 0));
 Equal("ce", Replace("cd", "d", "e"));
 Equal(x, ConcatRegex(a, b));
 Equal(b, ConcatString("a", "b"));
+
+LessOrEqual(Length(a), Length(b));

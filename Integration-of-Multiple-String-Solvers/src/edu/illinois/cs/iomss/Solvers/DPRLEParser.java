@@ -64,16 +64,17 @@ public class DPRLEParser extends Parser {
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         case STR_LIT:
             MStringLIT str = (MStringLIT) statement;
-            return str.s;
+            res = str.s;
+            break;
         case INT_LIT:
             MIntLIT intl = (MIntLIT) statement;
-            return String.valueOf(intl.number);
+            res = String.valueOf(intl.number);
+            break;
         case String:
             break;
         case Int:
             break;
         case Regex:
-            System.out.println(statement.parameters.get(1) + "#");
             String val = parseRegex(statement.parameters.get(1));
             res = statement.parameters.get(0) + " < " + val;
             values.put(statement.parameters.get(0), statement.parameters.get(1));
@@ -82,6 +83,8 @@ public class DPRLEParser extends Parser {
             MAssertIn asse = (MAssertIn) statement;
             res = statementToString(asse.id1) + " < " + statementToString(asse.id2);
             break;
+        case AssertNotIn:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
         case ConcatRegex:
             MConcatRegex conc = (MConcatRegex) statement;
             res = statementToString(conc.regex_expression1) + " . " + statementToString(conc.regex_expression2);
@@ -155,6 +158,8 @@ public class DPRLEParser extends Parser {
             res = getContainsConstraint(statementToString(cont.string_expression1),
                     statementToString(cont.string_expression2));
             break;
+        case NotContains:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
         case ConcatString:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         case Replace:
@@ -169,6 +174,8 @@ public class DPRLEParser extends Parser {
             MID id = (MID) statement;
             res = id.id;
             break;
+        case Not:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
         default:
             throw new Exception(statement.toString() + ": " + statement.type);
         }
