@@ -1,0 +1,4 @@
+String(x);
+FixedLength(x, 3);
+NotContains(x, "efg");
+SolveAll();

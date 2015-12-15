@@ -41,6 +41,8 @@ public class MStatement {
             return new MRegex(parameters);
         case AssertIn:
             return new MAssertIn(parameters);
+        case AssertNotIn:
+            return new MAssertNotIn(parameters);
         case AssertInRegex:
             return new MAssertInRegex(parameters);
         case Alias:
@@ -77,6 +79,8 @@ public class MStatement {
             return new MEndsWith(parameters);
         case Contains:
             return new MContains(parameters);
+        case NotContains:
+            return new MNotContains(parameters);
         case FixedLength:
             return new MFixedLength(parameters);
         default:

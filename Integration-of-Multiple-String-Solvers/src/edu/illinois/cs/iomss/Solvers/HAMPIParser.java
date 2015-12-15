@@ -102,7 +102,7 @@ public class HAMPIParser extends Parser {
             break;
         case AssertNotIn:
             MAssertNotIn assenot = (MAssertNotIn) statement;
-            res = "assert " + statementToString(assenot.id1) + "not in " + statementToString(assenot.id2);
+            res = "assert " + statementToString(assenot.id1) + " not in " + statementToString(assenot.id2);
             break;
         case ConcatRegex:
             MConcatRegex concr = (MConcatRegex) statement;
@@ -160,7 +160,7 @@ public class HAMPIParser extends Parser {
             break;
         case NotContains:
             MNotContains notcont = (MNotContains) statement;
-            res = "assert " + statementToString(notcont.string_expression1) + "not contains "
+            res = "assert " + statementToString(notcont.string_expression1) + " not contains "
                     + statementToString(notcont.string_expression2);
             break;
         case ConcatString:
