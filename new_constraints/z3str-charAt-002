@@ -1,0 +1,7 @@
+String(str);
+String(x);
+Int(var2);
+Int(var3);
+FixedLength(x, 1);
+Equal(x, CharAt("Hello world!", 20)));
+SolveAll();

@@ -1,6 +1,0 @@
-(define-fun a () Regex (Str2Reg ""));
-(declare-variable V String);
-(assert (= (Length V) 0));
-(assert (RegexIn V a));
-(check-sat)
-(get-model)
