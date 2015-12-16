@@ -1,1 +1,8 @@
-
+String(x);
+String(y);
+String(m);
+String(n);
+Equal(ConcatString(x, y), ConcatString(m, n));
+Equal(Length(m), 1);
+Equal(Length(n), 0);
+SolveAll();

@@ -1,1 +1,5 @@
-
+String(x);
+String(y);
+String(z);
+Equal(ConcatString("abc", x), ConcatString("abcefg", y));
+SolveAll();

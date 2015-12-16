@@ -1,1 +1,8 @@
-
+Int(i1);
+Int(i2);
+String(Str1);
+String(Str2);
+Equal(Str1, "###ab");
+Equal(i1, IndexOf(Str1, "##"));
+GreaterThan(i1, 0);
+SolveAll();

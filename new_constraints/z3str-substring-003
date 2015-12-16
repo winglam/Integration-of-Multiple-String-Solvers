@@ -1,1 +1,6 @@
-
+Int(vi1);
+Int(vi2);
+String(x);
+Equal("efg", Substring(x, 1, 3));
+Equal("bef", Substring(x, 0, 3));
+SolveAll();

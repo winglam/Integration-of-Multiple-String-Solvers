@@ -1,1 +1,4 @@
-
+String(a);
+String(b);
+Equal(ConcatString(a, b), "");
+SolveAll();

@@ -1,1 +1,4 @@
-
+String(x);
+String(y);
+EndsWith("nba", "nba");
+SolveAll();

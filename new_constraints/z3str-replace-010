@@ -1,1 +1,6 @@
-
+String(x);
+String(y);
+String(z);
+Equal(y, Replace(x, "'", "\\'"));
+Equal(z, Replace(x, "p", "_p"));
+SolveAll();
