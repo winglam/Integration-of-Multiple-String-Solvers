@@ -83,6 +83,8 @@ public class MStatement {
             return new MNotContains(parameters);
         case FixedLength:
             return new MFixedLength(parameters);
+        case Not:
+            return new MNot(parameters);
         default:
             throw new Exception("Invalid statement: " + s);
         }

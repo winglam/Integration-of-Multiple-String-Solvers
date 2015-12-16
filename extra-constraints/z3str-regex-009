@@ -1,1 +1,7 @@
-
+String(x);
+String(y);
+Regex(a, Star("abcd"));
+Regex(b, Star("abcdabcd"));
+GreaterThan(Length(x), 20);
+LessThan(Length(x), 25);
+SolveAll();

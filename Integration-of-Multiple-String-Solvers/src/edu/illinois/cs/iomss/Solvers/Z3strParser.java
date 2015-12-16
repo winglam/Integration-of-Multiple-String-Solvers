@@ -169,8 +169,8 @@ public class Z3strParser extends Parser {
             break;
         case Substring:
             MSubstring sub = (MSubstring) statement;
-            res = "(assert (Substring " + statementToString(sub.string_expression1) + " "
-                    + statementToString(sub.int_expression2) + " " + statementToString(sub.int_expression3) + "))";
+            res = "(Substring " + statementToString(sub.string_expression1) + " "
+                    + statementToString(sub.int_expression2) + " " + statementToString(sub.int_expression3) + ")";
             break;
         case StartsWith:
             MStartsWith start = (MStartsWith) statement;
@@ -222,7 +222,15 @@ public class Z3strParser extends Parser {
             break;
         case Not:
             MNot not = (MNot) statement;
-            res = "(not " + statementToString(not.statement1) + ")";
+            res = "(assert (not " + statementToString(not.statement1) + "))";
+            while (true) {
+                int indx = res.substring(1).indexOf("(assert");
+                if (indx == -1) {
+                    break;
+                }
+                indx++;
+                res = res.substring(0, indx) + res.substring(indx + 8, res.length() - 1);
+            }
             break;
         case Plus:
             MPlus plus = (MPlus) statement;
@@ -283,7 +291,7 @@ public class Z3strParser extends Parser {
             if (str.startsWith("Concat")) {
                 return "(RegexConcat " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
                         + parseRegex("Concat(" + str.substring(firstSplit + 1))) + ")";
-            } else if (str.startsWith("or")) {
+            } else if (str.startsWith("Or")) {
                 return "(RegexUnion " + (parseRegex(str.substring(str.indexOf("(") + 1, firstSplit)) + " "
                         + parseRegex("Or(" + str.substring(firstSplit + 1))) + ")";
             } else {

@@ -1,1 +1,6 @@
 
+String(x);
+String(z);
+FixedLength(x, 3);
+StartsWith(x, "nba");
+SolveAll();
