@@ -1,3 +1,20 @@
 \section{evaluation}
 \label{sec:evaluation}
-evaluation
+\begin{figure}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Constraint solver} & \dprle & \hampi & \zstr \\
+        \hline
+        \dprle & - & 30.5 & 13.0 \\
+        \hampi &  & .0? & .0? \\
+        \zstr & .0? & .0? & .0? \\
+        \hline
+    \end{tabular}
+    \caption{
+        The test prioritorization algorithms may choose a
+        different test order than the oroginal prioritorization algorithms.
+        This table shows the decrease in the APFD value, which is a metric of
+        prioritorization quality.}
+    \label{tab:enhancedprioresult}
+\end{figure}
