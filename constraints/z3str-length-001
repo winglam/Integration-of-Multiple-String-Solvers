@@ -1,0 +1,5 @@
+Int(i);
+String(x);
+RangedLength(x, 0, 100);
+GreaterOrEqual(3, Length(x));
+SolveAll();

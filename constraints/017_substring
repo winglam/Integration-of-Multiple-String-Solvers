@@ -1,8 +1,0 @@
-String(x);
-Int(vi1);
-Int(vi2);
-Int(vi3);
-Int(vi4);
-SolveFor(x);
-SubstringEqual(x, vi1, vi2, "efg");
-SubstringEqual(x, vi3, vi4, "bef");

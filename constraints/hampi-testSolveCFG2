@@ -1,0 +1,7 @@
+String(v);
+FixedLength(v, 18);
+CFG(S, "(" ")" | S S | "(" S ")");
+Regex(Sbound, Fix(S, 18));
+AssertIn(v, Sbound);
+Contains(v, ")(())(");
+SolveAll();

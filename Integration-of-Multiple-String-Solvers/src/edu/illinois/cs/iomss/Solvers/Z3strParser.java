@@ -24,12 +24,14 @@ import edu.illinois.cs.iomss.MainLanguage.MLessOrEqual;
 import edu.illinois.cs.iomss.MainLanguage.MLessThan;
 import edu.illinois.cs.iomss.MainLanguage.MNot;
 import edu.illinois.cs.iomss.MainLanguage.MNotContains;
+import edu.illinois.cs.iomss.MainLanguage.MNotEqual;
 import edu.illinois.cs.iomss.MainLanguage.MPlus;
 import edu.illinois.cs.iomss.MainLanguage.MRegex;
 import edu.illinois.cs.iomss.MainLanguage.MReplace;
 import edu.illinois.cs.iomss.MainLanguage.MStartsWith;
 import edu.illinois.cs.iomss.MainLanguage.MStatement;
 import edu.illinois.cs.iomss.MainLanguage.MString;
+import edu.illinois.cs.iomss.MainLanguage.MStringDecl;
 import edu.illinois.cs.iomss.MainLanguage.MStringLIT;
 import edu.illinois.cs.iomss.MainLanguage.MSubstring;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
@@ -120,6 +122,14 @@ public class Z3strParser extends Parser {
             res = "(assert (= (Length " + statementToString(fixe.string_expression1) + ") "
                     + statementToString(fixe.int_expression2) + "))";
             break;
+        case RangedLength:
+            // MRangedLength range = (MRangedLength) statement;
+            // res = "(assert (>= (Length " + statementToString(range.id1) + " )
+            // " + statementToString(range.int2) + "));"
+            // + newLine;
+            // res += "(assert (<= (Length " + statementToString(range.id1) + "
+            // ) " + statementToString(range.int3) + "))";
+            break;
         case AssertInRegex:
             throw new Exception("Error: Z3str can't handle " + statement.type);
         case Alias:
@@ -146,6 +156,11 @@ public class Z3strParser extends Parser {
         case Equal:
             MEqual equ = (MEqual) statement;
             res = "(assert (= " + statementToString(equ.expression1) + " " + statementToString(equ.expression2) + "))";
+            break;
+        case NotEqual:
+            MNotEqual nequ = (MNotEqual) statement;
+            res = "(assert (not (= " + statementToString(nequ.expression1) + " " + statementToString(nequ.expression2)
+                    + ")))";
             break;
         case LessThan:
             MLessThan lt = (MLessThan) statement;
@@ -235,6 +250,14 @@ public class Z3strParser extends Parser {
         case Plus:
             MPlus plus = (MPlus) statement;
             res = "(+ " + statementToString(plus.int_expression1) + " " + statementToString(plus.int_expression2) + ")";
+            break;
+        case CFG:
+            throw new Exception("Error: Z3str can't handle " + statement.type);
+        case StringDecl:
+            MStringDecl strd = (MStringDecl) statement;
+            res = "(declare-variable " + statementToString(strd.id1) + " String);" + newLine;
+            res += "(assert (= " + statementToString(strd.id1) + " " + statementToString(strd.string_expression2)
+                    + "))";
             break;
         default:
             throw new Exception(statement.toString() + ": " + statement.type);

@@ -1,5 +1,0 @@
-String(x);
-String(z);
-FixedLength(x, 3);
-Not(StartsWith(x, "nba");
-SolveAll();

@@ -1,0 +1,10 @@
+//created from CFGAnalyzer file 010.cfg (see there for origin info)
+String(hampiStringVar);
+FixedLength(hampiStringVar, 7);
+CFG(S, C A | A B);
+CFG(A, "a");
+CFG(B, "b" | A B | B C);
+CFG(C, "b" | "a" B);
+Regex(limit, Fix(S, 7));
+AssertIn(hampiStringVar, limit);
+SolveAll();

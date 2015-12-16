@@ -1,0 +1,6 @@
+String(x);
+String(y);
+RangedLength(x, 0, 100);
+Regex(a, "abc");
+AssertIn(x, a);
+SolveAll();

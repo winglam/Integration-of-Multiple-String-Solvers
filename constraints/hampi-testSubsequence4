@@ -1,0 +1,6 @@
+String(a);
+FixedLength(a, 6);
+StringDecl(b, Substring(a, 2, 3));
+Contains(b, "abc");
+Contains(a, "x");
+SolveAll();

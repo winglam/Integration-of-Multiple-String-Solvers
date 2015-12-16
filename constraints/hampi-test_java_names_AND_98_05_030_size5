@@ -1,0 +1,23 @@
+//CFG Analyzer, version 03/12/2007
+//A word in the intersection of L(G1) ... L(G2) is, e.g., "i.i.i" of length 5
+String(hampiStringVar);
+FixedLength(hampiStringVar, 5);
+CFG(exp0, lvalue0 | lvalue0 "a" exp0 | "i" "[" exp0 "]" "o" exp0);
+CFG(lvalue0, "i" | lvalue0 "[" exp0 "]" | lvalue0 "." "i");
+Regex(limit0, Fix(exp0, 5));
+AssertIn(hampiStringVar, limit0);
+CFG(Type1, TypeName1);
+CFG(TypeName1, "i" | PackageName1 "." "i");
+CFG(PackageName1, "i" | PackageName1 "." "i");
+CFG(MethodName1, "i" | AmbiguousName1 "." "i");
+CFG(AmbiguousName1, "i" | AmbiguousName1 "." "i");
+CFG(BlockStatement1, LocalVariableDeclarationStatement1 | Statement1);
+CFG(Statement1, MethodInvocation1);
+CFG(LocalVariableDeclarationStatement1, Type1 VariableDeclarators1 ";");
+CFG(VariableDeclarators1, VariableDeclarator1 | VariableDeclarators1 "," VariableDeclarator1);
+CFG(VariableDeclarator1, VariableDeclaratorId1 | VariableDeclaratorId1 "=" "v");
+CFG(VariableDeclaratorId1, "i" | VariableDeclaratorId1 "[" "]");
+CFG(MethodInvocation1, MethodName1 "(" "a" ")");
+Regex(limit1,Fix(Type1, 5));
+AssertIn(hampiStringVar, limit1);
+SolveAll();

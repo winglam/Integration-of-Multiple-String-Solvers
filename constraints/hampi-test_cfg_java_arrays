@@ -1,0 +1,16 @@
+//created from CFGAnalyzer file java_arrays.cfg (see there for origin info)
+String(hampiStringVar);
+FixedLength(hampiStringVar, 7);
+CFG(Type, "n" | ReferenceType);
+CFG(ReferenceType, ArrayType);
+CFG(ArrayType, Type "[" "]");
+CFG(BlockStatement, Assignment | LocalVariableDeclarationStatement);
+CFG(LocalVariableDeclarationStatement, LocalVariableDeclaration ";");
+CFG(LocalVariableDeclaration, Type "v");
+CFG(ArrayAccess, "n" "[" "e" "]");
+CFG(Assignment, LeftHandSide AssignmentOperator "a");
+CFG(LeftHandSide, ArrayAccess);
+CFG(AssignmentOperator, "=");
+Regex(limit, Fix(Type, 7));
+AssertIn(hampiStringVar, limit);
+SolveAll();

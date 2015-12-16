@@ -1,7 +1,0 @@
-String(x);
-SolveFor(x);
-SolLength(x, 0);
-Reg(emp, "aaaaaaaaa");
-AssertIn(x, emp);
-Reg(c, star("ced"));
-AssertIn(x, c);

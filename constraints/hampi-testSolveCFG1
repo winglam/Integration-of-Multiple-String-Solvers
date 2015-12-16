@@ -1,0 +1,8 @@
+String(v);
+FixedLength(v, 10);
+CFG(S,  "a" "a" | "b" "b" | "a" S "a" | "b" S "b");
+Regex(Sbound, Fix(S, 10));
+AssertIn(v, Sbound);
+Contains(v, "baba");
+Contains(v, "abba");
+SolveAll();

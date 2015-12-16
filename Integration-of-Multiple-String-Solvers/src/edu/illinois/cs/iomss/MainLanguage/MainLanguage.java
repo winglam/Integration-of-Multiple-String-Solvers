@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import edu.illinois.cs.iomss.util.StringUtil;
+
 public class MainLanguage {
 
     public enum StatementType {
-        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, AssertNotIn, ConcatRegex, FixedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, NotContains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID, Not, Plus;
+        BaseType, Concat, Star, Fix, Or, Expression, STR_LIT, INT_LIT, String, Int, Regex, AssertIn, AssertNotIn, ConcatRegex, FixedLength, RangedLength, AssertInRegex, Alias, Push, Pop, Solve, SolveAll, Show, ShowString, IsIn, CharAt, Equal, NotEqual, LessThan, GreaterThan, LessOrEqual, GreaterOrEqual, Substring, StartsWith, EndsWith, Contains, NotContains, ConcatString, Replace, Length, IndexOf, LastIndexOf, ID, Not, Plus, CFG, StringDecl;
     }
 
     private List<MStatement> statements;
@@ -28,7 +30,7 @@ public class MainLanguage {
             line = line.trim();
             code += line;
         }
-        String[] cond = code.split(";");
+        String[] cond = StringUtil.splitCode(code);
         for (String subcond : cond) {
             subcond = subcond.trim();
             if (subcond.length() > 0) {

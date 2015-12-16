@@ -26,6 +26,8 @@ public class MIntExpression extends MExpression {
             return new MID(parameters);
         case INT_LIT:
             return new MIntLIT(parameters);
+        case Plus:
+            return new MPlus(parameters);
         default:
             throw new Exception();
         }

@@ -1,7 +1,0 @@
-var x : 16;
-reg v1 := "abcdabcdabcdabcd";
-assert x in v1;
-reg v2 := "abcdcde";
-assert x in v2;
-reg c := star(or("abcd", "cde"));
-assert x in c;

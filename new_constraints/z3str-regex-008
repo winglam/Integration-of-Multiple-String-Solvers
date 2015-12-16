@@ -1,6 +1,0 @@
-String(x);
-String(y);
-FixedLength(x, 3);
-Regex(a, "abc");
-AssertIn(x, a);
-SolveAll();

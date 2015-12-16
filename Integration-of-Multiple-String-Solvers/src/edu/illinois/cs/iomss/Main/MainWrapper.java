@@ -16,6 +16,8 @@ import edu.illinois.cs.iomss.util.Globals;
 
 public class MainWrapper {
 
+    private static double totalTime;
+
     public static void main(String[] args) throws Exception {
         // System.out.println(System.getProperties().getProperty("java.class.path",
         // null));
@@ -33,7 +35,7 @@ public class MainWrapper {
         } else {
             try {
                 MainLanguage input = new MainLanguage(args[0]);
-                System.out.println(input);
+                // System.out.println(input);
                 boolean parseOnly = (args.length > 1 && args[1].equals("-p"));
 
                 // Generate HAMPI constraints
@@ -55,7 +57,9 @@ public class MainWrapper {
                         commandList.add(args[0] + ".hampi");
                         String[] envp = new String[1];
                         envp[0] = "LD_LIBRARY_PATH=" + hampiPath + "lib";
+                        totalTime = 0.0;
                         executeCommand(commandList, envp);
+                        System.out.printf("Time taken: %.9f sec\n", totalTime);
                     }
                 } catch (Exception e) {
                     System.out.println("Error in generating HAMPI");
@@ -76,7 +80,9 @@ public class MainWrapper {
                         List<String> commandList = new LinkedList<String>();
                         commandList.add(sb.toString() + "dprle" + Globals.fileSep + "bin" + Globals.fileSep + "dprle");
                         commandList.add(args[0] + ".dprle");
+                        totalTime = 0.0;
                         executeCommand(commandList);
+                        System.out.printf("Time taken: %.9f sec\n", totalTime);
                     }
                 } catch (Exception e) {
                     System.out.println("Error in generating DPRLE");
@@ -97,6 +103,7 @@ public class MainWrapper {
                         commandList.add(sb.toString() + "Z3-str" + Globals.fileSep + "Z3-str.py");
                         commandList.add("-f");
                         commandList.add(args[0] + ".z3str");
+                        totalTime = 0.0;
                         executeCommand(commandList);
 
                         String[] outputFileArr = args[0].split(Globals.fileSep);
@@ -106,6 +113,7 @@ public class MainWrapper {
                         commandList.add(sb.toString() + "tmp" + Globals.fileSep + "z3_str_convert" + Globals.fileSep
                                 + outputFileArr[outputFileArr.length - 1] + ".z3str");
                         executeCommand(commandList);
+                        System.out.printf("Time taken: %.9f sec\n", totalTime);
                     }
                 } catch (Exception e) {
                     System.out.println("Error in generating Z3str");
@@ -133,7 +141,8 @@ public class MainWrapper {
 
         System.out.println();
         System.out.println("Command ran: " + commandList);
-        System.out.printf("Time taken: %.9f sec", runningTime);
+        // System.out.printf("Time taken: %.9f sec", runningTime);
+        totalTime += runningTime;
         System.out.println();
     }
 }

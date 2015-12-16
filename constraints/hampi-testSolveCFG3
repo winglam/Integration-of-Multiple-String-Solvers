@@ -1,0 +1,9 @@
+String(v);
+FixedLength(v, 7);
+CFG(S, (Letter)+);
+CFG(Letter, ['a'-'z']);
+Regex(Sbound, Fix(S, 7));
+AssertIn(v, Sbound);
+Contains(v, "fred");
+Contains(v, "woof");
+SolveAll();

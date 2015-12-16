@@ -26,6 +26,8 @@ public class MStringExpression extends MExpression {
             return new MID(parameters);
         case STR_LIT:
             return new MStringLIT(parameters);
+        case Substring:
+            return new MSubstring(parameters);
         default:
             throw new Exception();
         }

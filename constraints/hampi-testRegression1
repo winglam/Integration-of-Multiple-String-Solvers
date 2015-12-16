@@ -1,0 +1,8 @@
+String(v);
+FixedLength(v, 3);
+CFG(S, "a" | T );
+CFG(T, T | "b" | A );
+CFG(A, "a" "a" "b" | "a" "b" );
+Regex(limit, Fix(S, 3));
+AssertIn(v, limit);
+SolveAll();

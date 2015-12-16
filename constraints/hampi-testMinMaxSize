@@ -1,0 +1,6 @@
+String(v);
+RangedLength(v, 1, 100);
+Contains(v, "abc");
+Contains(v, "cde");
+Contains(v, "deg");
+SolveAll();

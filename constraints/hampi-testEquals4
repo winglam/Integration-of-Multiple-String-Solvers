@@ -1,0 +1,10 @@
+String(v);
+FixedLength(v, 6);
+StringDecl(prefix, Substring(v, 0, 3));
+StringDecl(suffix, Substring(v, 3, 2));
+Regex(r1, Star(Or("a", "b")));
+Regex(r2, Star("b"));
+AssertIn(prefix, r1);
+AssertIn(suffix, r2);
+Equal(prefix, suffix);
+SolveAll();

@@ -1,0 +1,6 @@
+String(x);
+String(y);
+String(n);
+FixedLength(x, 5);
+Equal(ConcatString("abc", n), ConcatString(x, y));
+SolveAll();

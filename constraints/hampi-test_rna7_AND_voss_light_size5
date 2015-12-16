@@ -1,0 +1,17 @@
+//CFG Analyzer, version 03/12/2007
+//A word in the intersection of L(G1) ... L(G2) is, e.g., "((.))" of length 5
+String(hampiStringVar);
+FixedLength(hampiStringVar, 5);
+CFG(S0, "(" S0 ")" | "." L0 | R0 "." | L0 S0);
+CFG(L0, "(" S0 ")" | "." L0);
+CFG(R0, R0 "." |);
+Regex(limit0, Fix(S0, 5));
+AssertIn(hampiStringVar, limit0);
+CFG(S1, "(" P1 ")" | "." L1 | R1 "." | L1 S1);
+CFG(L1, "(" P1 ")" | "." L1);
+CFG(R1, R1 "." |);
+CFG(P1, "(" P1 ")" | "(" N1 ")");
+CFG(N1, "." L1 | R1 "." | L1 S1);
+Regex(limit1, Fix(S1, 5));
+AssertIn(hampiStringVar, limit1);
+SolveAll();

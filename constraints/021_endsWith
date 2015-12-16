@@ -1,5 +1,0 @@
-String(x);
-String(z);
-SolveFor(x);
-SolLength(x, 4);
-EndsWith(x, "nba");

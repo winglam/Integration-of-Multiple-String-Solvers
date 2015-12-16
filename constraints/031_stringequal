@@ -1,7 +1,0 @@
-String(x);
-SolveFor(x);
-Reg(c1, "abc");
-Reg(c2, "d");
-SolLength(x, 4);
-Reg(c3, concat(c1, c2));
-StringEqual(x, "abcd");

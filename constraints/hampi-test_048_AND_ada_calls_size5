@@ -1,0 +1,23 @@
+//CFG Analyzer, version 03/12/2007
+//The intersection of L(G1) ... L(G2) is empty when restricted  to words of length k with 5 <= k <= 5.
+String(hampiStringVar);
+FixedLength(hampiStringVar, 5);
+CFG(P0, "p" | P0 R0 Q0);
+CFG(R0, "r" R0 | "r" | "p" "r");
+CFG(Q0, "r" "q" | "q" Q0 | "q");
+Regex(limit0, Fix(P0, 5));
+AssertIn(hampiStringVar, limit0);
+CFG(simple_statement1, procedure_call_statement1 | assignment_statement1);
+CFG(procedure_call_statement1, procedure_name1 actual_parameter_part_opt1 ";");
+CFG(procedure_name1, "i");
+CFG(actual_parameter_part_opt1, | actual_parameter_part1);
+CFG(actual_parameter_part1, "(" parameter_association_list1 ")");
+CFG(parameter_association_list1, parameter_association_list1 "," parameter_association1 | parameter_association1);
+CFG(parameter_association1, "e" | variable_name1);
+CFG(assignment_statement1, variable_name1 "a" "e" ";");
+CFG(variable_name1, "i" | indexed_component1);
+CFG(indexed_component1, "i" "(" expression_list1 ")");
+CFG(expression_list1, expression_list1 "," "e" | "e");
+Regex(limit1, Fix(simple_statement1, 5));
+AssertIn(hampiStringVar, limit1);
+SolveAll();

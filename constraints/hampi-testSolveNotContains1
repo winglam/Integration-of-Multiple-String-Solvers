@@ -1,0 +1,7 @@
+String(v);
+FixedLength(v, 1);
+Regex(r1, Or("a", "b"));
+AssertIn(v, r1);
+NotContains(v, "a");
+SolveAll();
+//v="b" is the only solution
