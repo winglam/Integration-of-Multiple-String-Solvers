@@ -1,0 +1,5 @@
+String(v);
+RangedLength(v, 1, 1000);
+Contains(v, "abc");
+Contains(v, "cde");
+Contains(v, "deg");

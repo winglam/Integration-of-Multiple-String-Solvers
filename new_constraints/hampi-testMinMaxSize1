@@ -1,0 +1,6 @@
+String(v);
+RangedLength(v, 1, 2);
+CFG(E, "()" | "(" E ")" | E E);
+Regex(R, Star("()"));
+AssertIn(v, E);
+AssertIn(v, R);

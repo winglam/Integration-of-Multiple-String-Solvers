@@ -1,0 +1,21 @@
+//CFG Analyzer, version 03/12/2007
+//A word in the intersection of L(G1) ... L(G2) is, e.g., "99990" of length 5
+String(hampiStringVar);
+FixedLength(hampiStringVar, 5);
+CFG(E0, E0 "+" E0 | E0 "*" E0 | "(" E0 ")" | Z0);
+CFG(Z0, "0" | N0 V0);
+CFG(U0, "0" | N0);
+CFG(N0, "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9");
+CFG(V0, U0 V0 |);
+Regex(limit0, Fix(E0, 5));
+AssertIn(hampiStringVar, limit0);
+CFG(E1, T1 | E1 "+" T1);
+CFG(T1, F1 | T1 "*" F1);
+CFG(F1, Z1 | "(" E1 ")");
+CFG(Z1, "0" | N1 V1);
+CFG(U1, "0" | N1);
+CFG(N1, "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9");
+CFG(V1, U1 V1 |);
+Regex(limit1, Fix(E1, 5));
+AssertIn(hampiStringVar, limit1);
+SolveAll();

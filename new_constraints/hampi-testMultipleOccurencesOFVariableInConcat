@@ -1,0 +1,5 @@
+String(a);
+FixedLength(a, 6);
+StringDecl(compose, ConcatString("a", ConcatString(a, ConcatString("b", a))));
+Contains(compose, "aaabaa");
+SolveAll();

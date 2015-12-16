@@ -1,0 +1,11 @@
+String(v);
+FixedLength(v, 12);
+CFG(SqlSmall, "SELECT " (Letter)+ " FROM " (Letter)+ " WHERE " Cond);
+CFG(Cond, Val "=" Val | Cond " OR " Cond);
+CFG(Val, (Letter)+ | "'" (Ascii)* "'" | (Digit)+);
+CFG(Digit, ['0'-'9']);
+CFG(Letter, ['a'-'z'] | ['A'-'Z']);
+CFG(Ascii, Letter | Digit | " " | "'");
+StringDecl(q, ConcatString("SELECT msg FROM messages WHERE topicid='", ConcatString(v, "'")));
+Contains(v, "OR '1'='1'");
+AssertIn(q, SqlSmall);

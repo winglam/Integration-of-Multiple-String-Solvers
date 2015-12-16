@@ -63,6 +63,8 @@ public class MStatement {
             return new MIsIn(parameters);
         case Equal:
             return new MEqual(parameters);
+        case NotEqual:
+            return new MNotEqual(parameters);
         case LessThan:
             return new MLessThan(parameters);
         case GreaterThan:
@@ -71,8 +73,6 @@ public class MStatement {
             return new MLessOrEqual(parameters);
         case GreaterOrEqual:
             return new MGreaterOrEqual(parameters);
-        case Substring:
-            return new MSubstring(parameters);
         case StartsWith:
             return new MStartsWith(parameters);
         case EndsWith:
@@ -83,8 +83,18 @@ public class MStatement {
             return new MNotContains(parameters);
         case FixedLength:
             return new MFixedLength(parameters);
+        case RangedLength:
+            return new MRangedLength(parameters);
         case Not:
             return new MNot(parameters);
+        case CFG:
+            int ind = s.indexOf(",");
+            parameters.clear();
+            parameters.add(s.substring(4, ind));
+            parameters.add(s.substring(ind + 1, s.length() - 1).trim());
+            return new MCFG(parameters);
+        case StringDecl:
+            return new MStringDecl(parameters);
         default:
             throw new Exception("Invalid statement: " + s);
         }

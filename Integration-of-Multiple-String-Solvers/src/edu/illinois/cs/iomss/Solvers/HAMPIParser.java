@@ -5,25 +5,31 @@ import java.util.List;
 
 import edu.illinois.cs.iomss.MainLanguage.MAssertIn;
 import edu.illinois.cs.iomss.MainLanguage.MAssertNotIn;
+import edu.illinois.cs.iomss.MainLanguage.MCFG;
 import edu.illinois.cs.iomss.MainLanguage.MConcat;
 import edu.illinois.cs.iomss.MainLanguage.MConcatRegex;
+import edu.illinois.cs.iomss.MainLanguage.MConcatString;
 import edu.illinois.cs.iomss.MainLanguage.MContains;
+import edu.illinois.cs.iomss.MainLanguage.MEqual;
 import edu.illinois.cs.iomss.MainLanguage.MExpression;
 import edu.illinois.cs.iomss.MainLanguage.MFix;
 import edu.illinois.cs.iomss.MainLanguage.MFixedLength;
 import edu.illinois.cs.iomss.MainLanguage.MID;
 import edu.illinois.cs.iomss.MainLanguage.MIntLIT;
 import edu.illinois.cs.iomss.MainLanguage.MNotContains;
+import edu.illinois.cs.iomss.MainLanguage.MNotEqual;
 import edu.illinois.cs.iomss.MainLanguage.MOr;
+import edu.illinois.cs.iomss.MainLanguage.MRangedLength;
 import edu.illinois.cs.iomss.MainLanguage.MRegex;
 import edu.illinois.cs.iomss.MainLanguage.MStar;
 import edu.illinois.cs.iomss.MainLanguage.MStatement;
+import edu.illinois.cs.iomss.MainLanguage.MStringDecl;
 import edu.illinois.cs.iomss.MainLanguage.MStringLIT;
+import edu.illinois.cs.iomss.MainLanguage.MSubstring;
 import edu.illinois.cs.iomss.MainLanguage.MainLanguage;
+import edu.illinois.cs.iomss.util.StringUtil;
 
 public class HAMPIParser extends Parser {
-
-    private String solveFor; // variable we want to solve;
 
     public HAMPIParser() {
         super();
@@ -113,6 +119,11 @@ public class HAMPIParser extends Parser {
             MFixedLength fixe = (MFixedLength) statement;
             res = "var " + statementToString(fixe.string_expression1) + " : " + statementToString(fixe.int_expression2);
             break;
+        case RangedLength:
+            MRangedLength range = (MRangedLength) statement;
+            res = "var " + statementToString(range.id1) + " : " + statementToString(range.int2) + " .. "
+                    + statementToString(range.int3);
+            break;
         case AssertInRegex:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
             // MAssertInRegex assertin = (MAssertInRegex) statement;
@@ -138,7 +149,13 @@ public class HAMPIParser extends Parser {
         case CharAt:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case Equal:
-            throw new Exception("Error: HAMPI can't handle " + statement.type);
+            MEqual eq = (MEqual) statement;
+            res = "assert " + statementToString(eq.expression1) + " equals " + statementToString(eq.expression2);
+            break;
+        case NotEqual:
+            MNotEqual neq = (MNotEqual) statement;
+            res = "assert " + statementToString(neq.expression1) + " not equals " + statementToString(neq.expression2);
+            break;
         case LessThan:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case GreaterThan:
@@ -148,7 +165,10 @@ public class HAMPIParser extends Parser {
         case GreaterOrEqual:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case Substring:
-            throw new Exception("Error: HAMPI can't handle " + statement.type);
+            MSubstring sub = (MSubstring) statement;
+            res = statementToString(sub.string_expression1) + "[" + statementToString(sub.int_expression2) + ":"
+                    + statementToString(sub.int_expression3) + "]";
+            break;
         case StartsWith:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case EndsWith:
@@ -164,7 +184,10 @@ public class HAMPIParser extends Parser {
                     + statementToString(notcont.string_expression2);
             break;
         case ConcatString:
-            throw new Exception("Error: HAMPI can't handle " + statement.type);
+            MConcatString concstr = (MConcatString) statement;
+            res = "concat(" + statementToString(concstr.string_expression1) + ","
+                    + StringUtil.splitConcatHampi(statementToString(concstr.string_expression2)) + ")";
+            break;
         case Replace:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case Length:
@@ -181,6 +204,14 @@ public class HAMPIParser extends Parser {
             throw new Exception("Error: HAMPI can't handle " + statement.type);
         case Plus:
             throw new Exception("Error: HAMPI can't handle " + statement.type);
+        case CFG:
+            MCFG cfg = (MCFG) statement;
+            res = "cfg " + statementToString(cfg.id1) + " := " + cfg.cfg_def;
+            break;
+        case StringDecl:
+            MStringDecl strd = (MStringDecl) statement;
+            res = "val " + statementToString(strd.id1) + " := " + statementToString(strd.string_expression2);
+            break;
         default:
             throw new Exception(statement.toString() + ": " + statement.type);
         }

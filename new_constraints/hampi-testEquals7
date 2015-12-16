@@ -1,0 +1,7 @@
+String(v);
+FixedLength(v, 6);
+StringDecl(vSub1, Substring(v, 0, 3));
+StringDecl(vSub2, Substring(v, 3, 3));
+Contains(vSub1, "de");
+Contains(vSub2, "ef");
+Equal(vSub1, vSub2);

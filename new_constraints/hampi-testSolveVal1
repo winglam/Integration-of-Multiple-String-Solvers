@@ -1,0 +1,6 @@
+//this tests the ability to create new variables and put constraints on them
+String(v);
+FixedLength(v, 1);
+StringDecl(xx, ConcatString("ab", v));
+Contains(xx, "bc");
+SolveAll();

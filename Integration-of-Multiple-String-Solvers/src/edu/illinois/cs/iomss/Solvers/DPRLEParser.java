@@ -94,6 +94,8 @@ public class DPRLEParser extends Parser {
             res = getLengthConstraint(statementToString(fixe.string_expression1),
                     Integer.parseInt(statementToString(fixe.int_expression2)));
             break;
+        case RangedLength:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
         case AssertInRegex:
             MAssertInRegex asse1 = (MAssertInRegex) statement;
             res = statementToString(asse1.regex_expression1) + " < " + statementToString(asse1.regex_expression2);
@@ -132,6 +134,8 @@ public class DPRLEParser extends Parser {
         case CharAt:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         case Equal:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
+        case NotEqual:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         case LessThan:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
@@ -177,6 +181,10 @@ public class DPRLEParser extends Parser {
         case Not:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         case Plus:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
+        case CFG:
+            throw new Exception("Error: DPRLE can't handle " + statement.type);
+        case StringDecl:
             throw new Exception("Error: DPRLE can't handle " + statement.type);
         default:
             throw new Exception(statement.toString() + ": " + statement.type);

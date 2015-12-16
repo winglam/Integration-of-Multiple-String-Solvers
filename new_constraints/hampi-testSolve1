@@ -1,0 +1,5 @@
+String(v);
+FixedLength(v, 3);
+Contains(v, "foo");
+SolveAll();
+//EXPECT v = "foo"

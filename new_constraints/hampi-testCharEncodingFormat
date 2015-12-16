@@ -1,0 +1,6 @@
+FixedLength(v, 3);
+CFG(S, \097 | \099 T);              //cfg S :=  a | c T
+CFG(T, \098 | A);                   //cfg T :=  b | A ;
+CFG(A, \097 "k");                   //cfg A :=  ak ;
+Regex(limit, Fix(S, 3));
+AssertIn(v, limit);
