@@ -1,7 +1,0 @@
-String(str);
-String(x);
-Int(var2);
-Int(var3);
-Equal("*", CharAt(str, var2));
-Equal(var2, 3);
-SolveAll();
