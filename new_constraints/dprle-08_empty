@@ -1,6 +1,0 @@
-Regex(a, "");
-String(V);
-FixedLength(V, 0);
-AssertIn(V, a);
-Solve();
-ShowString();

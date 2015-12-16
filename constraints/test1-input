@@ -1,6 +1,0 @@
-// test1
-var v1 : 1;
-reg c1 := concat("a");
-assert v1 in c1;
-
-

@@ -1,8 +1,0 @@
-(declare-variable x String)
-(define-fun c1 () Regex (Str2Reg "abc"))
-(define-fun c2 () Regex (Str2Reg "d"))
-(assert (= (Length x) 4))
-(define-fun c3 () Regex (RegexConcat (Str2Reg "abc") (Str2Reg "d")))
-(assert (= x "abcd"))
-(check-sat)
-(get-model)

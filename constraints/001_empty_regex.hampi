@@ -1,3 +1,0 @@
-var v1 : 0;
-reg c1 := "";
-assert v1 in c1;

@@ -1,0 +1,5 @@
+String(x);
+String(z);
+RangedLength(x, 0, 100);
+Not(StartsWith(x, "nba"));
+SolveAll();

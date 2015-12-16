@@ -1,0 +1,5 @@
+String(x);
+RangedLength(x, 0, 100);
+NotContains(x, "ef");
+Contains(x, "efg");
+SolveAll();

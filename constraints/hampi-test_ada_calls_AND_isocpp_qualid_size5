@@ -1,0 +1,27 @@
+//CFG Analyzer, version 03/12/2007
+//The intersection of L(G1) ... L(G2) is empty when restricted  to words of length k with 5 <= k <= 5.
+String(hampiStringVar);
+FixedLength(hampiStringVar, 5);
+CFG(simple_statement0,  procedure_call_statement0 | assignment_statement0);
+CFG(procedure_call_statement0,  procedure_name0 actual_parameter_part_opt0 ";");
+CFG(procedure_name0,  "i");
+CFG(actual_parameter_part_opt0,  | actual_parameter_part0);
+CFG(actual_parameter_part0,  "(" parameter_association_list0 ")");
+CFG(parameter_association_list0,  parameter_association_list0 "," parameter_association0 | parameter_association0);
+CFG(parameter_association0,  "e" | variable_name0);
+CFG(assignment_statement0,  variable_name0 "a" "e" ";");
+CFG(variable_name0,  "i" | indexed_component0);
+CFG(indexed_component0,  "i" "(" expression_list0 ")");
+CFG(expression_list0,  expression_list0 "," "e" | "e");
+Regex(limit0, Fix(simple_statement0, 5));
+AssertIn(hampiStringVar, limit0);
+CFG(id_expression1, unqualified_id1 | qualified_id1);
+CFG(unqualified_id1, "i" | template_id1);
+CFG(qualified_id1, nested_name_specifier1 unqualified_id1);
+CFG(nested_name_specifier1, class_name1 "c" nested_name_specifier1 | class_name1 "c");
+CFG(class_name1, "i" | template_id1);
+CFG(template_id1, "i" "<" template_argument1 ">");
+CFG(template_argument1, id_expression1);
+Regex(limit1, Fix(id_expression1, 5));
+AssertIn(hampiStringVar, limit1);
+SolveAll();

@@ -1,6 +1,0 @@
-(declare-variable v1 String)
-(assert (= (Length v1) 3))
-(define-fun c1 () Regex (RegexConcat (Str2Reg ".") (RegexStar (Str2Reg "a."))))
-(assert (RegexIn v1 c1))
-(check-sat)
-(get-model)

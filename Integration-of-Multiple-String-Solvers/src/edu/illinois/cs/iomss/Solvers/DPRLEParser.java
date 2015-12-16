@@ -95,7 +95,7 @@ public class DPRLEParser extends Parser {
                     Integer.parseInt(statementToString(fixe.int_expression2)));
             break;
         case RangedLength:
-            throw new Exception("Error: DPRLE can't handle " + statement.type);
+            break;
         case AssertInRegex:
             MAssertInRegex asse1 = (MAssertInRegex) statement;
             res = statementToString(asse1.regex_expression1) + " < " + statementToString(asse1.regex_expression2);

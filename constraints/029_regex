@@ -1,5 +1,0 @@
-String(x);
-SolveFor(x);
-Reg(c1, star(or("abcd", "123")));
-AssertIn(x, c1);
-Length(x, =, 5);

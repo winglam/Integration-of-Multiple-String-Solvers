@@ -1,0 +1,14 @@
+String(v);
+FixedLength(v, 9);
+StringDecl(vSub1, Substring(v, 0, 3)); //substring of v (offset 2, length 3)
+StringDecl(vSub2, Substring(v, 3, 3));
+StringDecl(vSub3, Substring(v, 6, 3));
+StringDecl(vSub4, Substring(v, 2, 2));
+StringDecl(c, "deg");
+Contains(vSub1, "de");
+Contains(vSub2, "ef");
+Equal(vSub1, c);
+NotEqual(vSub1, vSub4);
+NotEqual(vSub4, c);
+NotEqual(v, c);
+SolveAll();

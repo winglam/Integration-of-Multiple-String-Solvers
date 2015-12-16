@@ -1,9 +1,0 @@
-var v : 5;
-reg c1 := concat("q", star("r"));
-reg c2 := concat("r", concat("r", "s"));
-reg c3 := concat("q", concat(star("r"), "s"));
-reg c4 := star("t");
-reg c5 := concat("q", concat("r", concat("r", concat("s", "t"))));
-reg c6 := concat(concat("q", star("r")), concat(concat("r", concat("r", "s")), star("t")));
-assert v in c6;
-assert v in c5;

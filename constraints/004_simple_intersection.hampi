@@ -1,5 +1,0 @@
-var v1 : 2;
-reg c1 := concat(star(or("w", or("x", or("y", "z")))), concat("w", star(or("w", or("x", or("y", "z"))))));
-reg c2 := star("wx");
-assert v1 in c1;
-assert v1 in c2;

@@ -1,6 +1,0 @@
-(declare-variable x String)
-(define-fun c1 () Regex (RegexStar (RegexUnion (Str2Reg "abcd") (Str2Reg "123"))))
-(assert (RegexIn x c1))
-(assert (= (Length x) 5))
-(check-sat)
-(get-model)

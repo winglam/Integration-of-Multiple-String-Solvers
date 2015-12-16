@@ -1,3 +1,0 @@
-var v1 : 3;
-reg c1 := concat(".", star("a."));
-assert v1 in c1;

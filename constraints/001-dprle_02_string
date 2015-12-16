@@ -1,7 +1,0 @@
-Push();
-Regex(A, "");
-Solve();
-Pop();
-Regex(A, ".a");
-Solve();
-Strings();

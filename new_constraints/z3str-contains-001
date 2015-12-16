@@ -1,4 +1,0 @@
-String(x);
-FixedLength(x, 3);
-Contains(x, "efg");
-SolveAll();

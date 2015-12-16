@@ -1,7 +1,0 @@
-var x : 0;
-reg v1 := star("ab");
-reg v2 := star("abab");
-reg v3 := star("ababac");
-assert x in v1;
-assert x in v2;
-assert x in v3;

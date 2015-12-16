@@ -1,0 +1,15 @@
+//created from CFGAnalyzer file 018.cfg (see there for origin info)
+String(hampiStringVar);
+FixedLength(hampiStringVar, 7);
+CFG(S, P Q);
+CFG(P, "a" | R O T);
+CFG(R, M P);
+CFG(O, "a" "b" | "a");
+CFG(T, "b" "b" | "b");
+CFG(M, "a");
+CFG(Q, C "e" D);
+CFG(C, "a" "b" | "a");
+CFG(D, "e" "d" | "d");
+Regex(limit, Fix(S, 7));
+AssertIn(hampiStringVar, limit);
+SolveAll();

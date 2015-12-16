@@ -1,0 +1,8 @@
+String(v);
+FixedLength(v, 10);
+CFG(program, "FOO" | "FOO" trailing_spaces);
+CFG(trailing_spaces, " " | trailing_spaces " ");
+// Hampi can only deal with bounded CFGs
+Regex(Pbound, Fix(program, 10));
+AssertIn(v, Pbound);
+SolveAll();

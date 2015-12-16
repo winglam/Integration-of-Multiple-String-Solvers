@@ -1,0 +1,8 @@
+//created from CFGAnalyzer file sml_patterns.cfg (see there for origin info)
+String(hampiStringVar);
+FixedLength(hampiStringVar, 7);
+CFG(pat, "v" | pat ":" "t" | "v" tyop "a" pat);
+CFG(tyop, ":" "t" |);
+Regex(limit, Fix(pat, 7));
+AssertIn(hampiStringVar, limit);
+SolveAll();

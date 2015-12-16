@@ -1,8 +1,0 @@
-c1 < [ s: a
-       f: c
-       d: a -> b on {'a'}
-       e: b -> c on {'b'}
-     ];
-v1 < c1;
-solve();
-strings(v1);

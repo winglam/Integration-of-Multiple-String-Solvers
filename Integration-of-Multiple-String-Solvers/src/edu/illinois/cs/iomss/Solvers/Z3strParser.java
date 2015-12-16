@@ -26,7 +26,6 @@ import edu.illinois.cs.iomss.MainLanguage.MNot;
 import edu.illinois.cs.iomss.MainLanguage.MNotContains;
 import edu.illinois.cs.iomss.MainLanguage.MNotEqual;
 import edu.illinois.cs.iomss.MainLanguage.MPlus;
-import edu.illinois.cs.iomss.MainLanguage.MRangedLength;
 import edu.illinois.cs.iomss.MainLanguage.MRegex;
 import edu.illinois.cs.iomss.MainLanguage.MReplace;
 import edu.illinois.cs.iomss.MainLanguage.MStartsWith;
@@ -124,10 +123,12 @@ public class Z3strParser extends Parser {
                     + statementToString(fixe.int_expression2) + "))";
             break;
         case RangedLength:
-            MRangedLength range = (MRangedLength) statement;
-            res = "(assert (>= (Length " + statementToString(range.id1) + " ) " + statementToString(range.int2) + "));"
-                    + newLine;
-            res += "(assert (<= (Length " + statementToString(range.id1) + " ) " + statementToString(range.int3) + "))";
+            // MRangedLength range = (MRangedLength) statement;
+            // res = "(assert (>= (Length " + statementToString(range.id1) + " )
+            // " + statementToString(range.int2) + "));"
+            // + newLine;
+            // res += "(assert (<= (Length " + statementToString(range.id1) + "
+            // ) " + statementToString(range.int3) + "))";
             break;
         case AssertInRegex:
             throw new Exception("Error: Z3str can't handle " + statement.type);

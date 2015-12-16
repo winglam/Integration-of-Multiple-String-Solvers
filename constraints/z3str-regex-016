@@ -1,0 +1,8 @@
+String(x);
+String(y);
+FixedLength(x, 11);
+Regex(a, Star(Or("abcd", "123")));
+AssertIn(x, a);
+Not(Equal(x, "abcd123abcd"));
+Not(Equal(x, "abcdabcd123"));
+SolveAll();

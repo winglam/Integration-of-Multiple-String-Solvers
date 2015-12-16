@@ -1,0 +1,7 @@
+String(v);
+FixedLength(v, 19);
+CFG(S, "!" | "a" S "b" | "b" S "a");
+StringDecl(q, ConcatString("aba", ConcatString(v, "bab")));
+Contains(q, "baba!");
+AssertIn(q, S); //limit should be inferred
+SolveAll();

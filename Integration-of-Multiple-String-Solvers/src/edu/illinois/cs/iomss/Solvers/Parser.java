@@ -28,7 +28,7 @@ public abstract class Parser {
         System.out.println("Generating: " + filename);
         PrintWriter outfile = new PrintWriter(filename);
         for (String line : result) {
-            System.out.println(line);
+            // System.out.println(line);
             outfile.println(line);
         }
         outfile.close();

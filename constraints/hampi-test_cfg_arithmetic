@@ -1,0 +1,11 @@
+//created from CFGAnalyzer file arithmetic.cfg (see there for origin info)
+String(hampiStringVar);
+FixedLength(hampiStringVar, 7);
+CFG(E, E "+" E | E "*" E | "(" E ")" | Z);
+CFG(Z, "0" | N V);
+CFG(U, "0" | N);
+CFG(N, "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9");
+CFG(V, U V |);
+Regex(limit, Fix(E, 7));
+AssertIn(hampiStringVar, limit);
+SolveAll();

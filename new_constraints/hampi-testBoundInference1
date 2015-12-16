@@ -1,4 +1,0 @@
-String(v);
-FixedLength(v, 15);
-CFG(S, "!" | "a" S "b" | "b" S "a");
-AssertIn(v, S); //limit should be inferred

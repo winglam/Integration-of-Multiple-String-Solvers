@@ -1,0 +1,11 @@
+// comment
+   // more comment
+String(V);
+Regex(A, ""); // comment
+RangedLength(V, 0, 100);
+AssertIn(V, A);
+// more comment
+
+Solve();
+
+// more comment

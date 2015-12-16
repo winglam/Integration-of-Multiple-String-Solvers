@@ -1,0 +1,10 @@
+Push();
+Regex(A, "");
+RangedLength(A, 0, 100);
+Solve();
+Pop();
+Regex(A, ".");
+Solve();
+ShowString();
+
+

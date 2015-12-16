@@ -1,0 +1,6 @@
+Regex(a, "");
+String(V);
+RangedLength(V, 0, 100);
+AssertIn(V, a);
+Solve();
+ShowString();

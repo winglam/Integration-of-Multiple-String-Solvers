@@ -1,7 +1,0 @@
-String(A);
-Regex(A, "");
-FixLength(A, 0);
-Push();
-Solve();
-Pop();
-SolveAll();

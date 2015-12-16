@@ -1,5 +1,0 @@
-(declare-variable x String)
-(assert (= (Length x) 10))
-(assert (Contains x "abcdefg"))
-(check-sat)
-(get-model)

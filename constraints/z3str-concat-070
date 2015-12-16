@@ -1,0 +1,7 @@
+String(X);
+String(Y);
+String(I);
+String(J);
+FixedLength(X, 0);
+Equal(ConcatString("a", ConcatString(X, ConcatString(Y, "b"))), ConcatString(I, ConcatString("c", J)));
+SolveAll();
