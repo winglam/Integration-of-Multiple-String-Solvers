@@ -1,1 +1,11 @@
-
+String(x);
+String(y);
+FixedLength(x, 7);
+Regex(a, Star(Concat(Star("a"), "b")));
+AssertIn(x, a);
+Regex(b, Star(Concat(Star("a"), "b")));
+AssertIn(y, b);
+Equal(Length(x), Length(y));
+Not(Equal(x, y));
+Equal(Length(x), 7);
+SolveAll();

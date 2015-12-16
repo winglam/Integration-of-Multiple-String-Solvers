@@ -1,0 +1,5 @@
+String(X);
+String(Y);
+Equal(ConcatString(X, ConcatString("ab", Y)), ConcatString(Y, ConcatString("ba", X)));
+Equal(2, Length(X));
+SolveAll();

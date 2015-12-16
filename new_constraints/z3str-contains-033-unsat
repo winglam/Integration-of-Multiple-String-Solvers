@@ -1,1 +1,11 @@
-
+String(x1);
+String(x2);
+String(y1);
+String(y2);
+String(z1);
+String(z2);
+Contains(x1, x2);
+NotContains(x1, y1);
+Contains(x2, y2);
+Equal(y1, y2);
+SolveAll();

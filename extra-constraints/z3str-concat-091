@@ -1,0 +1,3 @@
+String(x);
+Equal(ConcatString(x, "b"), ConcatString("a", x));
+SolveAll();

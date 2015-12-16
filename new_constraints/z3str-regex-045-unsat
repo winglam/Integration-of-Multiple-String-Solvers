@@ -1,1 +1,8 @@
-
+String(x);
+String(y);
+String(m);
+String(n);
+Regex(a, Star("abc"));
+Not(AssertIn(x, a));
+Equal(x, "abc");
+SolveAll();

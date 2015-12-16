@@ -1,1 +1,5 @@
-
+String(x);
+Int(i);
+Equal(Length("abcd"), i);
+GreaterThan(Length(x), Plus(i, 1));
+SolveAll();

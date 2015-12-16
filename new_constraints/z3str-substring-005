@@ -1,1 +1,11 @@
-
+Int(vi1);
+Int(vi2);
+Int(vi3);
+Int(vi4);
+Int(vi5);
+String(x);
+Equal("efg", Substring(x, vi1, vi2));
+Equal("bef", Substring(x, vi3, vi4));
+Equal("*v*", Substring(x, vi5, 3));
+LessOrEqual(Length(x), 9);
+SolveAll();

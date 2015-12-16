@@ -1,1 +1,9 @@
-
+String(x);
+String(y);
+String(m);
+String(n);
+Equal(ConcatString(x, y), ConcatString(m, n));
+Regex(a, Star("abc"));
+AssertIn(n, a);
+LessThan(Length(x), Length(m));
+SolveAll();

@@ -1,1 +1,5 @@
-
+String(x);
+String(y);
+Equal(y, Replace(x, "efg", "abcd"));
+Equal(y, "abcd");
+SolveAll();

@@ -6,4 +6,4 @@ AssertIn(x, a);
 Equal(11, Length(x));
 Not(Equal(x, "abcd123abcd"));
 Not(Equal(x, "abcdabcd123"));
-
+SolveAll();

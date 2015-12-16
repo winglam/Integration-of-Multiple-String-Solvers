@@ -1,0 +1,9 @@
+String(y2);
+String(t_str5);
+String(m2);
+String(t_str2);
+String(z);
+Equal(z, ConcatString("ef", y2));
+Equal(z, ConcatString(t_str5, ConcatString("ce", m2)));
+Equal(z, ConcatString(t_str2, "abc@"));
+SolveAll();

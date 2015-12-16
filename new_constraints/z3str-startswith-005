@@ -1,1 +1,4 @@
-
+String(x);
+String(z);
+StartsWith("nba", "nba");
+SolveAll();

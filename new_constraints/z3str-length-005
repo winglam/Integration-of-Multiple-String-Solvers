@@ -1,1 +1,6 @@
-
+String(x);
+String(y);
+Equal("abcd", ConcatString(x, y));
+GreaterOrEqual(Length(y), 3);
+GreaterOrEqual(Length(x), 1);
+SolveAll();

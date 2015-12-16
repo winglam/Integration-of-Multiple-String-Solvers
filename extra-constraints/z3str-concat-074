@@ -1,0 +1,13 @@
+String(x1);
+String(y);
+String(z);
+String(m);
+String(k);
+String(n1);
+String(n2);
+Equal(z, ConcatString(x, "gkhi"));
+Equal(z, ConcatString(y, "hi"));
+Equal(z, ConcatString("abcd", m));
+Equal(z, ConcatString("ab", k));
+Equal(z, ConcatString(n1, n2));
+SolveAll();

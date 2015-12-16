@@ -8,5 +8,4 @@ String(m2);
 Equal(z, ConcatString(x1, ConcatString("abc", x2)));
 Equal(z, ConcatString(y1, ConcatString("ef", y2)));
 Equal(z, ConcatString(m1, ConcatString("ce", m2)));
-Equal(Length(z), 8);
 SolveAll();

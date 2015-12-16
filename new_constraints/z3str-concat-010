@@ -1,1 +1,5 @@
-
+String(a);
+String(b);
+String(z);
+Equal(ConcatString("test",  ConcatString(a, "num")), "testhellonum");
+SolveAll();

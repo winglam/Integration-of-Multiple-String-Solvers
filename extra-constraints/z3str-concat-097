@@ -2,5 +2,5 @@ String(x);
 String(y);
 String(n);
 Equal(ConcatString("abc", n), ConcatString(x, y));
-Equal(Length(x), 5);
+Equal(Length(x), 1);
 SolveAll();

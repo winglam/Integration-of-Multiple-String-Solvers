@@ -1,1 +1,9 @@
-
+String(str);
+Int(var1);
+Int(var2);
+Int(var3);
+Equal(str, "Hello world!");
+Equal(var1, LastIndexOf(str, "Hello"));
+Equal(var2, LastIndexOf(str, "World"));
+Equal(var3, LastIndexOf(str, "world"));
+SolveAll();
