@@ -24,7 +24,7 @@ After \imss takes a input constraint in \imss's format, it constructs an AST rep
 Each AST node stores its type, according to the grammar, and pointers to its child nodes.
 For example, the AST of \CodeIn{LessThan(a, 2)} consists of three nodes. The root node is of type
 \CodeIn{LessThan} and that node has two children. In this example, the first child is of type \CodeIn{ID} (variable name), and
-the second child is of type \CodeIn{INT_LIT}. We infer the types from \imss's grammar.
+the second child is of type \CodeIn{INT_LIT} (integer literal). We infer the types from \imss's grammar.
 With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing
 on the tree and recursively constructing the input constraints for each of the three languages.
