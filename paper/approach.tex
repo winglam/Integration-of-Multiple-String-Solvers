@@ -76,12 +76,12 @@ language=C,captionpos=b,caption={Input constraint in \imss format}]
 This is a constraint to solve for a string that contains the substring $abc$, and
 the string is a member of a regular expression, $(ab|cd)*$.
 One of the strings which satisfy this constraint is ``abcd''. The string can be of any length
-between 1 and 100. \imss will parse the input into an AST according to Grammar~\ref{fig:grammar}.
+between 1 and 100. \imss will parse the input into an AST (Figure~\ref{fig:exp-ast}) according to Grammar~\ref{fig:grammar}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.35]{example-ast}
-    \caption{\label{fig:imss}Abstract syntax tree of the example Code~\ref{code:example}.}
+    \caption{\label{fig:exp-ast}Abstract syntax tree of the example Code~\ref{code:example}.}
 \end{figure}
 
 Then, \imss will translate the AST into all the three input formats by traversing the tree and
