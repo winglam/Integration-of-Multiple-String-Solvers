@@ -1,3 +1,39 @@
+\begin{figure}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Constraint solver} & \dprle & \hampi & \zstr \\
+        \hline
+        \multicolumn{4}{|l|}{}  \\
+        \multicolumn{4}{|l|}{\textbf{\dprle tests}}  \\
+        \hline
+        SAT & 14 & 2 & 2 \\
+        UNSAT & 0 & 0 & 0 \\
+        Incompatible & 2 & 14 & 14 \\
+        \hline
+        \multicolumn{4}{|l|}{}  \\
+        \multicolumn{4}{|l|}{\textbf{\hampi tests}}  \\
+        \hline
+        SAT & 3 & 49 & 12 \\
+        UNSAT & 0 & 20 & 2 \\
+        Incompatible & 66 & 0 & 55 \\
+        \hline
+        \multicolumn{4}{|l|}{}  \\
+        \multicolumn{4}{|l|}{\textbf{\zstr tests}}  \\
+        \hline
+        SAT & 5 & 3 & 38 \\
+        UNSAT & 0 & 1 & 8 \\
+        Incompatible & 41 & 42 & 0 \\
+        \hline
+    \end{tabular}
+    \caption{
+        For each solver's set of tests, this table shows the number of tests each solver
+        is incompatible with and for compatible tests, what the output of those tests
+        are.
+    }
+    \label{tab:solvercompareresults}
+\end{figure}
+
 \section{evaluation}
 \label{sec:evaluation}
 \begin{figure}
@@ -6,15 +42,18 @@
         \hline
         \textbf{Constraint solver} & \dprle & \hampi & \zstr \\
         \hline
-        \dprle & - & 30.5 & 13.0 \\
-        \hampi &  & .0? & .0? \\
-        \zstr & .0? & .0? & .0? \\
+        \dprle & 1.00 & 30.52 & 13.03 \\
+        \hampi & 0.04 & 1.00 & 0.40 \\
+        \zstr & 0.31 & 11.91 & 1.00 \\
         \hline
     \end{tabular}
     \caption{
-        The test prioritorization algorithms may choose a
-        different test order than the oroginal prioritorization algorithms.
-        This table shows the decrease in the APFD value, which is a metric of
-        prioritorization quality.}
-    \label{tab:enhancedprioresult}
+        This table shows the increase or decrease in time for the solvers to solve the
+        same constraints.
+        The data in each cell is calculated by taking the average time the solver
+        represented by the row took to solve the tests belonging to the solver represented
+        by the column over the average time the solver represented by the column
+        took to solve the same tests. A number less than 1 represents a decrease in time.
+    }
+    \label{tab:solvercomparetime}
 \end{figure}
