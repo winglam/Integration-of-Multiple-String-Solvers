@@ -1,20 +1,20 @@
 \section{related works}
 \label{sec:related}
 
-
 Boolector~\cite{boolector2009} is an efficient SMT solver for the quantifier-free theory
 of bit-vectors in combination with the extensional theory of arrays.
 Boolector depends on term rewriting and bit-blasting for bit-vectors. It
 takes a formula expressed in the SMT-LIB format~\cite{smtlib2015}, or alternatively in
 the BTOR format~\cite{btor2008}, as input.
-The BTOR format is a low-level bit-vector format
-with clean semantics that is easy to parse. Additionally, BTOR supports bit-vector
-arrays and model checking of safety properties.
-Aside from being an SMT solver, Boolector contained contained a feature known as
-Pretty Printer. The pretty printer allows Boolector to convert formulas from BTOR to
-SMT-LIB format and vice versa. The pretty printer can be combined with Boolector’s
+The BTOR format is a low-level bit-vector format with clean semantics that is easy to
+parse. Additionally, BTOR supports bit-vector arrays and model checking of safety
+properties.
+Aside from being an SMT solver, Boolector contains a tool known as
+Pretty Printer. Pretty Printer allows Boolector to convert formulas from BTOR to
+SMT-LIB format and vice versa. The Pretty Printer can be combined with Boolector’s
 rewriting module to internally simplify the formula before conversion.
-
+Besides \imss, Pretty Printer is the only existing tool that we know of capable of
+converting from one language format to another for constraint solving purposes.
 
 A library has been developed to assist users from having to learn the language that
 corresponds to the constraint solvers they would like to use.
