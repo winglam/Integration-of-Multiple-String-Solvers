@@ -1,6 +1,6 @@
 \section{background}
 \label{sec:background}
-\ping{TODO: add intro paragraph}
+\ping{TODO: add intro paragraph - in order to}
 
 \begin{figure}
     \centering
@@ -22,6 +22,19 @@
     \label{tab:solvers}
 \end{figure}
 
-\subsection{Abstract Syntax Tree}
-ddddd
+\subsection{\hampi, \dprle, and \zstr}
 
+
+\subsection{Abstract Syntax Tree}
+Compilers typically consist of five main steps: lexical analysis, syntactic analysis, semantic
+analysis, code generation, optimization. Lexical analysis parses a source code which contains
+a sequence of characters into a sequence of tokens. Then syntactic analysis will build a
+Abstract Syntax Tree (AST) from the sequence of tokens. AST is used to represent the structure
+of a program. Each node of the tree denotes a statement or an expression in the source code.
+The AST of a source code will be passed to the next step, semantic analysis.
+Semantic analysis, code generation, and optimization will do semantic checking, such as type checking,
+then generate a machine code instructions in the end. Our tool, \imss, contains only the first two steps.
+The tool does not do any type checking nor code generation (\imss takes a input constraint which can be
+viewed as a source code). The first two steps gives us an AST.
+Later, we translate this AST (which captures all information of the source code) into three input formats
+for the three solvers.
