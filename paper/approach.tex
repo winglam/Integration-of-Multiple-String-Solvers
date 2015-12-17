@@ -2,13 +2,11 @@
 \label{sec:approach}
 
 \subsection{Overview Design of \imss}
-
 \begin{figure}[H]
-    \centering
+    \center
     \includegraphics[scale=0.45]{imss}
     \caption{\label{fig:imss}Schematic view of \imss.}
 \end{figure}
-
 \imss finds a string that satisfies constraints specified in the input,
 or decides that no satisfying string exists. \imss utilizes three different
 string solvers: \hampi, \dprle, \zstr to solve string
@@ -63,7 +61,7 @@ The input format to \imss is specified by the grammar in Grammar~\ref{fig:gramma
 
 In order to demonstrate the four steps of \imss, consider the example below:
 \renewcommand\lstlistingname{Code}
-\begin{lstlisting}[label={code:example},frame=bt,numbers=none,basicstyle=\ttfamily\scriptsize,
+\begin{lstlisting}[label={code:example},frame=bt,numbers=none,basicstyle=\ttfamily\small,
 language=C,captionpos=b,caption={Input constraint in \imss format}]
 1.  String(v);
 2.  RangedLength(v, 1, 100);
