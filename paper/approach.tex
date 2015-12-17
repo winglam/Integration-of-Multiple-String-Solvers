@@ -45,6 +45,7 @@ The input format to \imss is specified by the grammar in Grammar~\ref{fig:gramma
         <AssertStm> ::= AssertIn(<ID>,<ID>)         \hfill membership
                 \alt Equal(<Exp>,<Exp>)             \hfill string equality
                 \alt Contains(<StrExp>,<StrExp>)    \hfill string contains
+                \alt LessThan(<IntExp>,<IntExp>)    \hfill integer comparison
 
         <Exp> ::= <IntExp>                          \hfill integer expression
                 \alt <StrExp>                       \hfill string expression
