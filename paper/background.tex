@@ -2,25 +2,6 @@
 \label{sec:background}
 \ping{TODO: add intro paragraph - in order to}
 
-\begin{figure}
-    \centering
-    \begin{tabular}{|l|r|r|r|l|}
-        %\toprule
-        \hline
-        \textbf{Constraint solver} & \textbf{LOC} & \textbf{Tests} & \textbf{Version} \\
-        \hline
-        \dprle & 2992 & 16 & 0.5.0\\
-        \hampi & 14197 & 379 & 20120213\\
-        \zstr & 8616 & 245 & 1.0.0\\
-        \hline
-    \end{tabular}
-    \caption{Constraint solvers supported by \imss.
-        Column ``LOC'' represents the number of lines in the constraint solver's source code.
-        Column ``Tests'' represents the number of tests provided by the developers of
-        the constraint solvers.
-    }
-    \label{tab:solvers}
-\end{figure}
 
 \subsection{\hampi, \dprle, and \zstr}
 \imss combines three different solvers, \hampi, \dprle, and \zstr in order to gain more
@@ -56,3 +37,24 @@ The tool does not do any type checking nor code generation (\imss takes a input 
 viewed as a source code). The first two steps gives us an AST.
 Later, we translate this AST (which captures all information of the source code) into three input formats
 for the three solvers.
+
+\subsection{Statistics for number of tests for each solver}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|l|r|r|r|l|}
+        %\toprule
+        \hline
+        \textbf{Constraint solver} & \textbf{LOC} & \textbf{Tests} & \textbf{Version} \\
+        \hline
+        \dprle & 2992 & 16 & 0.5.0\\
+        \hampi & 14197 & 379 & 20120213\\
+        \zstr & 8616 & 245 & 1.0.0\\
+        \hline
+    \end{tabular}
+    \caption{Constraint solvers supported by \imss.
+        Column ``LOC'' represents the number of lines in the constraint solver's source code.
+        Column ``Tests'' represents the number of tests provided by the developers of
+        the constraint solvers.
+    }
+    \label{tab:solvers}
+\end{figure}

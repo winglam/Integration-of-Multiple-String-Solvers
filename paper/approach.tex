@@ -3,13 +3,27 @@
 
 \subsection{Overview Design of \imss}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[scale=0.45]{imss}
     \caption{\label{fig:imss}Schematic view of \imss.}
 \end{figure}
 
-\begin{Grammar}
+\imss finds a string that satisfies constraints specified in the input,
+or decides that no satisfying string exists. \imss utilizes three different
+string solvers: \hampi, \dprle, \zstr to solve string
+constraints. In summary, \imss works in the following four steps (Figure~\ref{fig:imss}):
+\begin{enumerate}
+    \item Parse the input constraints into an abstract syntax tree (AST)
+    representation of the \imss language.
+    \item Translate the AST into the formats that corresponds to the three different solvers.
+    \item Execute all the three solvers in parallel.
+    \item Gather all the results. If none of the solvers can solve the constraints
+    specified in the input, report that the constraints are incompatitble.
+\end{enumerate}
+The input format to \imss is specified by the grammar in Grammar~\ref{fig:grammar}.
+
+\begin{Grammar}[H]
     \setlength{\grammarindent}{5em} % increase separation between LHS/RHS
     \begin{grammar}
         <Input> ::= <Statement>*                    \hfill \imss input
@@ -44,20 +58,6 @@
  string constraints.}
  \end{Grammar}
 
-\imss finds a string that satisfies constraints specified in the input,
-or decides that no satisfying string exists. \imss utilizes three different
-string solvers: \hampi, \dprle, \zstr to solve string
-constraints. In summary, \imss works in the following four steps (Figure~\ref{fig:imss}):
-\begin{enumerate}
-    \item Parse the input constraints into an abstract syntax tree (AST)
-    representation of the \imss language.
-    \item Translate the AST into the formats that corresponds to the three different solvers.
-    \item Execute all the three solvers in parallel.
-    \item Gather all the results. If none of the solvers can solve the constraints
-    specified in the input, report that the constraints are incompatitble.
-\end{enumerate}
-The input format to \imss is specified by the grammar in Grammar~\ref{fig:grammar}.
-
 \subsection{Example}
 
 In order to demonstrate the four steps of \imss, consider the example below:
@@ -86,5 +86,5 @@ between 1 and 100. \imss will parse the input into an AST (Figure~\ref{fig:exp-a
 Then, \imss will translate the AST into all three input formats by traversing the tree and
 translating each tree node into the string format for each language. If a language does not support
 some functionality (\imss cannot translate some node into that specific language),
-then translation to that language will fail and \imss will output ``incompatible'' for that language. After the translations, \imss executes all of the generated input formats 
+then translation to that language will fail and \imss will output ``incompatible'' for that language. After the translations, \imss executes all of the generated input formats
 on its corresponding solver in parallel and outputs the fastest solution (or all solutions depending on the configuration for \imss).
