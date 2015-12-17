@@ -66,9 +66,8 @@ language=C,captionpos=b,caption={Input constraint in \imss format}]
 1.  String(v);
 2.  RangedLength(v, 1, 100);
 3.  Contains(v, "abc");
-5.  Regex(r, Star(Or("ab", "cd")))
-6.  Contains(v, "deg");
-7.  AssertIn(v, r);
+4.  Regex(r, Star(Or("ab", "cd")))
+5.  AssertIn(v, r);
 6.  SolveAll();
 \end{lstlisting}
 This is a constraint for a string that contains the substring $abc$, and
