@@ -14,28 +14,28 @@
     \begin{grammar}
         <Input> ::= <Statement>*                    \hfill \imss input
 
-        <Statement> ::= String(<Id>)                \hfill string
-                \alt Int(<Id>)                      \hfill int
-                \alt StringDecl(<Id>, <STR_LIT>)    \hfill string witn value
-                \alt Regex(<Id>, <RegStm>)          \hfill regex lang.
-                \alt CFG(<Id>, <CFGStm>)            \hfill CFG lang.
+        <Statement> ::= String(<ID>)                \hfill string
+                \alt Int(<ID>)                      \hfill int
+                \alt StringDecl(<ID>, <STR_LIT>)    \hfill string witn value
+                \alt Regex(<ID>, <RegStm>)          \hfill regex lang.
+                \alt CFG(<ID>, <CFGStm>)            \hfill CFG lang.
                 \alt <AssertStm>                    \hfill assert statement
 
         <RegStm> ::= <STR_LIT>                      \hfill string literal
-                \alt <Id>                           \hfill variable name
-                \alt Fix(<Id>, <INT_LIT>)           \hfill CFG fixed-sizing
+                \alt <ID>                           \hfill variable name
+                \alt Fix(<ID>, <INT_LIT>)           \hfill CFG fixed-sizing
                 \alt Or(<RegStm>*)                  \hfill union
                 \alt Concat(<RegStm>*)              \hfill concatenation
                 \alt Star(<RegStm>)                 \hfill Kleene star
 
-        <AssertStm> ::= AssertIn(<Id>,<Id>)         \hfill membership
+        <AssertStm> ::= AssertIn(<ID>,<ID>)         \hfill membership
                 \alt Equal(<Exp>,<Exp>)             \hfill string equality
                 \alt Contains(<StrExp>,<StrExp>)    \hfill string contains
 
         <Exp> ::= <IntExp>                          \hfill integer expression
                 \alt <StrExp>                       \hfill string expression
                 \alt <RegExp>                       \hfill regex expression
-                \alt <Id>                           \hfill variable name
+                \alt <ID>                           \hfill variable name
 
     \end{grammar}
  \caption{\label{fig:grammar}Summary of \imss's input language, shown in BNF grammars.
@@ -46,7 +46,7 @@
 
 \imss finds a string that satisfies constraints specified in the input,
 or decides that no satisfying string exists. \imss utilizes three different
-string solvers: \CodeIn{HAMPI}, \CodeIn{DPRLE}, \CodeIn{Z3str} to solve string
+string solvers: \hampi, \dprle, \zstr to solve string
 constraints. Overally, \imss works in the following four steps (Figure~\ref{fig:imss}):
 \begin{enumerate}
     \item Parse the input constraints into an abstract syntax tree (AST)
