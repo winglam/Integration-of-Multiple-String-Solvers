@@ -23,7 +23,25 @@
 \end{figure}
 
 \subsection{\hampi, \dprle, and \zstr}
+\imss combines three different solvers, \hampi, \dprle, and \zstr in order to gain more
+language expressiveness and solve various kinds of constraints.
 
+\hampi is a string constraint solver over fixed-size string variables.\hampi constraints can express
+membership and may contain context-free language definition, strings, regular-language
+definitions~\cite{hampi2009}. Even though \hampi is a string solver over fixed-size string variables,
+users can specify a range of lengths to \hampi, and \hampi will try all the lengths in the given range
+and output the shortest string that satisfies the constraints.
+
+\dprle is a decision procedure that solves constraints over regular languages. The regular languages
+in \dprle are represented in forms of finite state automata.\dprle constraints can express
+membership and concatenation of regular languages~\cite{dprle2009}.
+
+\zstr, an extension of Z3 SMT solver, is a string constraint solver that treats strings
+as a primitive type and also supports booleans, integers, and string constants.
+\zstr constraint can express variety of functionality such as concatenation, substring,
+indexof, and replace~\cite{z32013}.
+
+Given a set of constraints, these three string solvers will output a string that satisfies the given constraints, or reports that it is unsatisfiable.
 
 \subsection{Abstract Syntax Tree}
 Compilers typically consist of five main steps: lexical analysis, syntactic analysis, semantic
