@@ -5,7 +5,7 @@ an implementation of our approach. The architecture of \imss is shown
 in Figure~\ref{fig:imss}. The tool takes string constraints in \imss format
 and generates a string that satisfies the given constraints. \imss is
 implemented in Java and uses the three different solvers to the constraints.
-We briefly describe the details in the following three different sections.
+We briefly describe the details in the following sections.
 
 \subsection{\imss's Grammar}
 Since, \hampi, \dprle, and \zstr take inputs in
@@ -25,7 +25,7 @@ Each AST node stores its type according to the grammar and pointers to its child
 For example, the AST of \CodeIn{LessThan(a, 2)} consists of three nodes. The root node is of type
 \CodeIn{LessThan} and has two children. The first child is of type \CodeIn{ID} (variable name), and
 the second child is of type \CodeIn{INT_LIT}. We infer the types from the \imss's grammar.
-With this method, every tree node has an associated type. Given the type information of
+With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing
 on the tree and recursively construct input constraints for each languages.
 
