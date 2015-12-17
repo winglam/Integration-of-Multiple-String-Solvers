@@ -1,34 +1,34 @@
 \section{implementation}
 \label{sec:implementation}
-We introduce \imss (Integration of Multiple String Solvers) tool as
-an implementation of our approach. The architecture of \imss is shown
+In this section we will explain in-depth the implementation of \imss.
+The architecture of \imss is shown
 in Figure~\ref{fig:imss}. The tool takes string constraints in \imss format
-and generates a string that satisfies the given constraints. \imss is
-implemented in Java and uses the three different solvers to the constraints.
-We briefly describe the details in the following sections.
+and generates at least one output that satisfies the given constraints if the constraints are satisfiable.
+\imss is implemented in Java and uses three different solvers to satisfy its input constraints.
+
 
 \subsection{\imss's Grammar}
-Since, \hampi, \dprle, and \zstr take inputs in
- different languages. These three languages do not have the equivalent expressiveness.
- We cannot use one language and translate it into the other two languages. For example,
+Since, \hampi, \dprle, and \zstr takes their inputs in
+ different languages. These three languages do not have the same expressiveness.
+ We cannot use translate everything from one language into the other two languages. For example,
  \dprle, requires automata descriptions for its input~\cite{lazystrings2010}.
  To define a string, we have to construct a finite automaton representing that string.
  Also, \dprle, does not support a constraint which has a context-free grammar,
  but \hampi does. However, \dprle, can check whether one regular expression language
- contains another regular expression language. Each language has some functionalities which
+ contains another regular expression language. Each language has some functionalities the
  other solvers do not have. Thus, we construct a new grammar (Grammar~\ref{fig:grammar}) that is expressive enough to
  cover all the functionalities in all three languages by combining their grammars.
 
 \subsection{Input Format Translation}
-After \imss takes a input constraint in \imss's format, it constructs a AST representing the input.
-Each AST node stores its type according to the grammar and pointers to its child nodes.
+After \imss takes a input constraint in \imss's format, it constructs an AST representation of the input.
+Each AST node stores its type, according to the grammar, and pointers to its child nodes.
 For example, the AST of \CodeIn{LessThan(a, 2)} consists of three nodes. The root node is of type
-\CodeIn{LessThan} and has two children. The first child is of type \CodeIn{ID} (variable name), and
-the second child is of type \CodeIn{INT_LIT}. We infer the types from the \imss's grammar.
+\CodeIn{LessThan} and that node has two children. In this example, the first child is of type \CodeIn{ID} (variable name), and
+the second child is of type \CodeIn{INT_LIT}. We infer the types from \imss's grammar.
 With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing
-on the tree and recursively construct input constraints for each languages.
+on the tree and recursively constructing the input constraints for each of the three languages.
 
 \subsection{Result Aggregation}
 After \imss generates the input constraints for each language, it executes the three solvers concurrently, and
-reports a string that satisfies the given constraint, if at least one solver can handle the input.
+reports a string that satisfies the given constraint, assuming at least one solver can handle the input.
