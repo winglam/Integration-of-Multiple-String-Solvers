@@ -78,11 +78,11 @@ the string is a member of a regular expression, $(ab|cd)*$.
 One of the strings which satisfy this constraint is ``abcd''. The string can be of any length
 between 1 and 100. \imss will parse the input into an AST (Figure~\ref{fig:exp-ast}) according to Grammar~\ref{fig:grammar}.
 
-\begin{figure}[H]
+\begin{figure*}
     \centering
-    \includegraphics[scale=0.35]{example-ast}
+    \includegraphics[scale=0.65]{example-ast}
     \caption{\label{fig:exp-ast}Abstract syntax tree of the example Code~\ref{code:example}.}
-\end{figure}
+\end{figure*}
 
 Then, \imss will translate the AST into all the three input formats by traversing the tree and
 translate each tree node into a string format of each language. If a solver language does not support
