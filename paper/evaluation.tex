@@ -1,6 +1,22 @@
 \section{evaluation}
 \label{sec:evaluation}
-
+\subsection{Evaluation Setup}
+We test our tool with the constraints derived from the tests from the three solvers.
+There are 640 tests in total (Figure~\ref{tab:solvers}). We picked 131 tests:
+all 16 tests from \dprle, 46 from \zstr, and 69 from \hampi. In selecting tests from \zstr and \hampi,
+we use the following approach:
+\begin{enumerate}
+    \item Go through all the tests and categorize them based on their testing functionality.
+    \item Count the number of tests in each category.
+    \item Reduce tests:
+        \begin{itemize}
+            \item If the number of tests is less or equal to 10, pick the first, middle, and last tests.
+            \item If the number of tests is less or equal to 50, pick only 20\% of them.
+            \ping{TODO: Wing, I don't know how to explain: picking 1, 20, 30, ... here}
+            \item Otherwise, pick only 10\% of them.
+        \end{itemize}
+\end{enumerate}
+After we have the set of tests, we run \imss on each of them and collect the results.
 \begin{figure}[H]
     \centering
     \begin{tabular}{|l|c|c|c|}
