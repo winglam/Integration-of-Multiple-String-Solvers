@@ -6,7 +6,7 @@
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{imss}
-    \caption{\label{fig:imss}Schematic view of the \imss.}
+    \caption{\label{fig:imss}Schematic view of \imss.}
 \end{figure}
 
 \begin{Grammar}
@@ -38,20 +38,20 @@
                 \alt <ID>                           \hfill variable name
 
     \end{grammar}
- \caption{\label{fig:grammar}Summary of \imss's input language, shown in BNF grammars.
- Non-terminals are shown in angle brackets. \imss input consists of a list of statements.
- Statements can be variable declaration statements or assertion statements which represent
+ \caption{\label{fig:grammar}Subset of \imss's input language, shown in BNF grammars.
+ Non-terminals are shown in angle brackets. \imss's input consists of a list of statements.
+ Statements can be variable declaration or assertion statements which represent
  string constraints.}
  \end{Grammar}
 
 \imss finds a string that satisfies constraints specified in the input,
 or decides that no satisfying string exists. \imss utilizes three different
 string solvers: \hampi, \dprle, \zstr to solve string
-constraints. Overally, \imss works in the following four steps (Figure~\ref{fig:imss}):
+constraints. In summary, \imss works in the following four steps (Figure~\ref{fig:imss}):
 \begin{enumerate}
     \item Parse the input constraints into an abstract syntax tree (AST)
     representation of the \imss language.
-    \item Translate the AST into three input formats of the tree different solvers.
+    \item Translate the AST into the formats that corresponds to the three different solvers.
     \item Execute all the three solvers in parallel.
     \item Gather all the results. If none of the solvers can solve the constraints
     specified in the input, report that the constraints are incompatitble.
@@ -60,8 +60,7 @@ The input format to \imss is specified by the grammar in Grammar~\ref{fig:gramma
 
 \subsection{Example}
 
-In order to demonstrate the four steps in \imss, let's consider an example of a input constraint
-below:
+In order to demonstrate the four steps of \imss, consider the example below:
 \renewcommand\lstlistingname{Code}
 \begin{lstlisting}[label={code:example},frame=bt,numbers=none,basicstyle=\ttfamily\scriptsize,
 language=C,captionpos=b,caption={Input constraint in \imss format}]
@@ -73,8 +72,8 @@ language=C,captionpos=b,caption={Input constraint in \imss format}]
 7.  AssertIn(v, r);
 6.  SolveAll();
 \end{lstlisting}
-This is a constraint to solve for a string that contains the substring $abc$, and
-the string is a member of a regular expression, $(ab|cd)*$.
+This is a constraint for a string that contains the substring $abc$, and
+the string is a member of the regular expression, $(ab|cd)*$.
 One of the strings which satisfy this constraint is ``abcd''. The string can be of any length
 between 1 and 100. \imss will parse the input into an AST (Figure~\ref{fig:exp-ast}) according to Grammar~\ref{fig:grammar}.
 
@@ -84,9 +83,8 @@ between 1 and 100. \imss will parse the input into an AST (Figure~\ref{fig:exp-a
     \caption{\label{fig:exp-ast}Abstract syntax tree of the example Code~\ref{code:example}.}
 \end{figure*}
 
-Then, \imss will translate the AST into all the three input formats by traversing the tree and
-translate each tree node into a string format of each language. If a solver language does not support
+Then, \imss will translate the AST into all three input formats by traversing the tree and
+translating each tree node into the string format for each language. If a language does not support
 some functionality (\imss cannot translate some node into that specific language),
-the translation to that language will fail. If all the three translation fail, \imss
-reports ``incompatible''. After that, \imss executes all the generated input formats on the
-corresponding solvers in parallel and reports the solution.
+then translation to that language will fail and \imss will output ``incompatible'' for that language. After the translations, \imss executes all of the generated input formats 
+on its corresponding solver in parallel and outputs the fastest solution (or all solutions depending on the configuration for \imss).
