@@ -6,3 +6,17 @@
 
 
 \newcommand{\imss}{\CodeIn{IMSS}\xspace}
+
+\AtBeginEnvironment{grammar}{\small}
+
+\DeclareFloatingEnvironment[
+  % the file extension for the file used to create the list:
+  fileext   = logr,% don't use log here!
+  % the heading for the list:
+  listname  = {List of Grammars},
+  % the name used in captions:
+  name      = Grammar,
+  % the default floating parameters if the environment is used
+  % without optional argument:
+  placement = htp
+]{Grammar}
