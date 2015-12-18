@@ -20,7 +20,8 @@ Since, \hampi, \dprle, and \zstr takes their inputs in
  cover all the functionalities in all three languages by combining their grammars.
 
 \subsection{Input Format Translation}
-After \imss takes a input constraint in \imss's format, it constructs an AST representation of the input.
+After \imss takes a input constraint in \imss's format, it does lexical analysis to parse
+the text-based input into tokens and constructs an AST representation of the input.
 Each AST node stores its type, according to the grammar, and pointers to its child nodes.
 For example, the AST of \CodeIn{LessThan(a, 2)} consists of three nodes. The root node is of type
 \CodeIn{LessThan} and that node has two children. In this example, the first child is of type \CodeIn{ID} (variable name), and
@@ -28,6 +29,16 @@ the second child is of type \CodeIn{INT_LIT} (integer literal). We infer the typ
 With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing
 on the tree and recursively constructing the input constraints for each of the three languages.
+For some cases, there is no direct mapping from \imss language function to a solver's function.
+For example, \dprle does not have \CodeIn{StartsWith} function. We need to come up with an equivalent
+expression in \dprle.
+
+\CodeIn{StartsWith($a$, "abc")} $\iff$ $a <$ Automaton of Regex $abc(.)^{*}$
+
+In \dprle, we can say that $a$ is a member of a regular language that starts with $abc$, $abc(.)^{*}$.
+
+If it is not possible to express some function in a language, \imss will not generate an input
+for that language. In other words, the input constraint is incompatible with that language.
 
 \subsection{Result Aggregation}
 After \imss generates the input constraints for each language, it executes the three solvers concurrently, and
