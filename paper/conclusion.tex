@@ -1,19 +1,26 @@
 \section{conclusion}
 \label{sec:conclusion}
 We presented \imss, a solver for string constraints. \imss is the integration of
-multiple solvers: \hampi, \dprle, and \zstr. \imss constraints can express
-membership and string function such as replace, length, contains, and substring. The constraints
+multiple solvers. More specifically, \hampi, \dprle and \zstr. The inputs to \imss can express
+membership and string functions such as replace, length, contains and substring. The constraints
 can contain arbitrary string variables, context-free language definitions, integers,
 and regular language definitions. Given string constraints, \imss outputs
-a string that satisfies the constraints, or reports that the constraints are incompatible.
-By using \imss, users do not have to decide which solver from the three solvers
+a string that satisfies the constraints, or reports that the constraints are incompatible with the list of supported solvers of \imss.
+As long as one of \imss's solvers can solve the constraints, users do not have to decide which solver
 they should use to solve their constraints.
 
-We evaluated \imss on the 131 derived tests we picked such that they contain all the functionalities
-that the three solvers have together. Our experiment shows that \imss can solve all the tests
-within a reasonable running time.
+We evaluated \imss on \pickedtests tests. These tests are known to contain all of the functionalities
+tests of the three solvers check for. Our experiments shows that \imss can solve all of the tests
+with no noticeable overhead.
 
-\dprle is the fastest solver, but it lacks of many functionalities. \zstr can solve
-the most number of string constraints without context-free grammar definitions which only
-\hampi supports.
-\ping{Wing, talk about future works}
+\dprle is the fastest solver, but it lacks many of the functionalities other solvers have. \zstr can solve
+the greatest number of string constraints without context-free grammar definitions. For constraints with context-free grammer, \hampi is the only solver capable of solving such constraints.
+
+Due to the time limit we had to complete the implementation, evaluation and write up for \imss, multiple tasks were planned but delayed.
+In the future, we plan to improve \imss in the following ways:
+\begin{enumerate}
+    \item For the solvers that \imss supports, we would like the feature to translate constraints written in such solver's language to \imss's language.
+    \item We plan to accept SMT-LIB's format as input so that all solvers that support SMT-LIB can be used by \imss.
+    \item We plan to add other constraints solvers that do not support SMT-LIB such as Kaluza~\cite{kaluza2010} to \imss.
+    \item We plan to use a constraint generator to provide additional test cases to better understand the strengths and weakness of the solvers supported by \imss.
+\end{enumerate}

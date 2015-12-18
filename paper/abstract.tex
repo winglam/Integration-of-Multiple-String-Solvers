@@ -1,28 +1,15 @@
 \begin{abstract}
 Many constraint solvers exist, each with their own strengths and weaknesses.
-The burden to determine which solver is better equipped to handle regular expressions,
-concatenations, context free grammar, and more has been on the users of these constraint
-solvers. Not only are users expected to determine which solver may be compatible with
-the constraints they would like to solve, users must learn how to express the
-constraints they would like to solve in the language that corresponds to the constraint
-solvers they would like to use.
-
-A library has been developed to assist users from having to learn the language that
-corresponds to the constraint solvers they would like to use.
-This library proposes a common input and output for all constraint solvers.
-However, this library requires the
-developers of constraint solvers to integrate the library with their solvers.
-The requirement of this cumbersome integration by developers results in
-the limited adoption of this library. Not to mention the fact that even if a
-constraint solver integrates such a library, it still continues to burden users to
-determine which solver is best at solving particular constraints.
+Users of constraint solvers have been expected to determine which solver is best for
+the constraints they would like to solve and they must learn how to express the
+constraints they would like to solve in the language that corresponds to the
+solver they would like to use.
 
 We designed and implemented \imss (Integration of Multiple String Solvers), a tool that
 leverages the functionality of existing
 constraint solvers to solve any constraint that existing solvers can solve in the
-shortest amount of time. \imss accepts a set of constraints as input and translates the
-input constraints into the language for other constraint solvers. Once the input
-constraints are translated, \imss runs the constraint solvers it supports concurrently
+shortest amount of time. \imss translates the input
+constraints and runs the constraint solvers it supports concurrently
 to return satisfied or unsatisfied results to the user in the shortest amount of time.
 
 \imss is lightweight and efficient, and can be easily enhanced to support

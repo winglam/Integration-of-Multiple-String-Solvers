@@ -36,41 +36,56 @@ format supported by \imss and run \imss on each of them to collect the following
 The machine we used to run \imss has the following specifications: 2.8 GHz Intel Core i7, 4.8GB of RAM, and 4 processors in version 14.04 LTS of Ubuntu Desktop.
 
 \subsection{Results}
-The three solvers have different strengths and weaknesses. One solver may be able to support
-some functionalities that others cannot. We can compare the three solvers in the two aspects below:
+The three solvers each have different strengths and weaknesses. In this subsection we compare the three solvers in terms of their running time and expressiveness. When comparing the running time of the solvers we only
+evaluated tests that the solver was compatible with (produced either SAT or UNSAT result). The complete list of tests that were evaluated for a particular
+solver can be found on our project website~\cite{imss}.
+
 \begin{figure}[H]
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|c|c|c|}
         \hline
-        \textbf{Constraint solver} & \dprle & \hampi & \zstr \\
+        \dprle & \hampi & \zstr \\
         \hline
-        \dprle & 1.00 & 30.52 & 13.03 \\
-        \hampi & 0.04 & 1.00 & 0.40 \\
-        \zstr & 0.31 & 11.91 & 1.00 \\
+        \multicolumn{3}{|l|}{}  \\
+        \multicolumn{3}{|l|}{\textbf{\dprle tests}}  \\
+        \hline
+        1.00 & 30.52 & 13.03 \\
+        \hline
+        \multicolumn{3}{|l|}{}  \\
+        \multicolumn{3}{|l|}{\textbf{\hampi tests}}  \\
+        \hline
+        0.04 & 1.00 & 0.40 \\
+        \hline
+        \multicolumn{3}{|l|}{}  \\
+        \multicolumn{3}{|l|}{\textbf{\zstr tests}}  \\
+        \hline
+        0.31 & 11.91 & 1.00 \\
         \hline
     \end{tabular}
     \caption{
         This table shows the increase or decrease in time for the solvers to solve the
         same constraints.
         The data in each cell is calculated by taking the average time the solver
-        represented by the row took to solve the tests belonging to the solver represented
-        by the column over the average time the solver represented by the column
-        took to solve the same tests. A number less than 1 represents a decrease in time.
-        \ping{I think you got it switched: it should be columns representing solvers, not
-        rows representing solvers}
+        represented by the column took to solve the tests over the average time the solver who these tests belong to took.
+        A number less than 1 represents the fact that the solver represented by the column was able to solve the tests faster than the solver that these
+        tests were created for.
     }
     \label{tab:solvercomparetime}
 \end{figure}
-\textbf{Running Time:}
-According to the table in Figure~\ref{tab:solvercomparetime}, in most cases, \hampi takes more
-time to solve constraints as it takes 30.52 times increasing in solving \dprle's tests and 11.91 times
-increasing in solving \zstr. Moreover, both \zstr and \dprle take less time solving \hampi's tests.
-One of the main reasons is that \hampi is fixed-size string solver. If we do not have a constraint on
+
+\textbf{Running Time}
+According to the table in Figure~\ref{tab:solvercomparetime}, \hampi on average takes more
+time to solve constraints than \dprle or \zstr. More specifically, \hampi takes
+30.52 times longer than \dprle did when solving \dprle's tests and 11.91 times
+longer than \zstr did when solving \zstr's tests. Moreover, \hampi took longer than both \zstr and \dprle even when solving its own tests.
+One of the main reasons for this is that \hampi is a fixed-size string solver. If a test does not have a constraint on
 the solution's length, \hampi needs to try different lengths. And if the constraint is unsatisfiable,
-\hampi will end up trying to fix the length from 0 to 100 (The length of 50 is a reasonable upperbound~\cite{hampi2009}, but we use 100 in our implementation). We can tell from the table as well that
-\zstr takes more time to solve constraints than \dprle, because \dprle takes less time to solve
-all the three test sets than \zstr does. One reason is that \zstr uses Z3 SMT solver's plug-in interface.
-It needs to convert its input format into the \zstr's format first. This adds up more time to run \zstr.
+\hampi will end up trying to fix the length from 0 to 100 (the length of 50 is a reasonable upperbound~\cite{hampi2009}, but we use 100 in our implementation).
+
+On the other hand, \dprle was the fastest constraint solver we evaluated.
+We hypothesize that this is because \hampi has to try different lengths and
+\zstr needs to use Z3 SMT solver's plug-in interface.
+Since \zstr needs to convert its input format into the Z3 SMT solver's format, this inevitably adds more time to run \zstr.
 
 \begin{figure}[H]
     \centering
@@ -109,17 +124,19 @@ It needs to convert its input format into the \zstr's format first. This adds up
 \end{figure}
 
 \textbf{Expressiveness}
-From the previous section, \dprle is the fastest solver, and \hampi is the slowest solver
-in the aspect of their running time. However, there is a trade-off in their functionalities.
+From the previous section, it is apparent that \dprle is the fastest solver, and \hampi is the slowest solver
+in terms of their run time. However, there is a trade-off in their functionalities.
 Even though, \hampi is the slowest, it is the only solver from these three solvers that supports
 context-free grammar definitions. We can see from the table in Figure~\ref{tab:solvercompareresults} that
-\dprle and \zstr cannot solve many \hampi's tests, because they do not support context-free grammars.
-\dprle, the fastest solver, can solve very few tests: 3 \hampi's tests, and 5 \zstr's tests, because
-it only supports regular languages represented in automata. Without context-free grammars,
-\zstr is the most expressive solver as it can solve the highest number of constraints. Also, \zstr
-supports a variety of string functionality that the other two solvers do not, such as replace,
-substring, length.
+\dprle and \zstr cannot solve the majority of \hampi's tests, because they do not support context-free grammars like \hampi does.
+\dprle was the fastest solver but can solve the fewest number of tests; only 3 of \hampi's tests and 5 of \zstr's tests. This is because
+\dprle only supports regular languages represented in an automata.
 
-For all the \pickedtests tests we evaluated our tool on, \imss can solve them all (For each test,
-at least one solver from the three solvers can solve). So we achieve our goal to implement \imss
-that is more expressive than the other three solvers.
+If we disregard tests with context-free grammars,
+\zstr is the most expressive solver as it can solve the highest number of constraints. Also, \zstr
+supports a variety of string functionality that the other two solvers do not, such as replace, substring, and length.
+
+For the \pickedtests tests we evaluated our tool on, using any one or combination of the three solvers we selected to evaluate this set of tests would have resulted
+in multiple tests being unsolvable. On the other hand, by combining the
+expressiveness of all three solvers, \imss can solve them all (for each test,
+at least one solver from the three solvers will output SAT or UNSAT).
