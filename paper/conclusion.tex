@@ -1,4 +1,19 @@
 \section{conclusion}
 \label{sec:conclusion}
-conclusion
-Hi Ping!
+We presented \imss, a solver for string constraints. \imss is the integration of
+multiple solvers: \hampi, \dprle, and \zstr. \imss constraints can express
+membership and string function such as replace, length, contains, and substring. The constraints
+can contain arbitrary string variables, context-free language definitions, integers,
+and regular language definitions. Given string constraints, \imss outputs
+a string that satisfies the constraints, or reports that the constraints are incompatible.
+By using \imss, users do not have to decide which solver from the three solvers
+they should use to solve their constraints.
+
+We evaluated \imss on the 131 derived tests we picked such that they contain all the functionalities
+that the three solvers have together. Our experiment shows that \imss can solve all the tests
+within a reasonable running time.
+
+\dprle is the fastest solver, but it lacks of many functionalities. \zstr can solve
+the most number of string constraints without context-free grammar definitions which only
+\hampi supports.
+\ping{Wing, talk about future works}
