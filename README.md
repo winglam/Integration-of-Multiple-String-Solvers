@@ -7,3 +7,5 @@ java -cp Integration-of-Multiple-String-Solvers/bin edu.illinois.cs.iomss.Main.M
 To run only parser
 
 java -cp Integration-of-Multiple-String-Solvers/bin edu.illinois.cs.iomss.Main.MainWrapper [input file] -p
+
+For more information about our evaluation results please visit: https://docs.google.com/spreadsheets/d/1bOTf2iFZZzreuaGkFwTmUb57UwIhxWErvoXbRw7kwmc/
