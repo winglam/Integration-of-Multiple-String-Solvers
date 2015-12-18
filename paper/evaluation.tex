@@ -1,22 +1,41 @@
 \section{evaluation}
+\newcommand{\totaltests}{640\xspace}
+\newcommand{\pickedtests}{131\xspace}
+\newcommand{\dprlePtests}{16\xspace}
+\newcommand{\hampiPtests}{69\xspace}
+\newcommand{\zPtests}{46\xspace}
+
+This section describes the setup we evaluated \imss in and the results of our evaluation procedure. More details about the tests we selected for evaluation and their results are made available on our project website~\cite{imss}.
+
 \label{sec:evaluation}
 \subsection{Evaluation Setup}
-We test our tool with the constraints derived from the tests from the three solvers.
-There are 640 tests in total (Figure~\ref{tab:solvers}). We picked 131 tests:
-all 16 tests from \dprle, 46 from \zstr, and 69 from \hampi. In selecting tests from \zstr and \hampi,
+We evaluated our tool with the constraints derived from the tests of the three solvers.
+There are \totaltests tests in total (Figure~\ref{tab:solvers}). Of the \totaltests
+tests, we evaluated \pickedtests tests. The \pickedtests tests are composed of
+\dprlePtests tests from \dprle, \hampiPtests tests from \hampi, and \zPtests from \zstr.
+We evaluated only a subset of tests from \hampi and \zstr because the remaining tests
+from these two solvers test the same functionality but with different values.
+Since the goal of \imss is to ensure that all functionality that is available
+from the three constraint solvers is made available through \imss as well, we
+omitted tests that did not test additional functionality than the ones we have
+selected.
+
+In selecting tests from \zstr and \hampi,
 we use the following approach:
 \begin{enumerate}
     \item Go through all the tests and categorize them based on their testing functionality.
     \item Count the number of tests in each category.
     \item Reduce tests:
         \begin{itemize}
-            \item If the number of tests is less or equal to 10, pick the first, middle, and last tests.
-            \item If the number of tests is less or equal to 50, pick only 20\% of them.
-            \ping{TODO: Wing, I don't know how to explain: picking 1, 20, 30, ... here}
-            \item Otherwise, pick only 10\% of them.
+            \item If the tests contains a functionality or a combination of functionalities that have not been covered, select those tests for evaluation.
+            \item Otherwise, omit them from the list of tests for evaluation.
         \end{itemize}
 \end{enumerate}
-After we have the set of tests, we run \imss on each of them and collect the results.
+After we have the set of tests, we manually translate each of the tests to be in the
+format supported by \imss and run \imss on each of them to collect the following results.
+The machine we used to run \imss has the following specifications: 2.8 GHz Intel Core i7, 4.8GB of RAM, and 4 processors in version 14.04 LTS of Ubuntu Desktop.
+
+\subsection{Results}
 \begin{figure}[H]
     \centering
     \begin{tabular}{|l|c|c|c|}
