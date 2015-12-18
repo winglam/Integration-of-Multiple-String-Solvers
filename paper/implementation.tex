@@ -29,16 +29,19 @@ the second child is of type \CodeIn{INT_LIT} (integer literal). We infer the typ
 With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing
 on the tree and recursively constructing the input constraints for each of the three languages.
-For some cases, there is no direct mapping from \imss language function to a solver's function.
-For example, \dprle does not have \CodeIn{StartsWith} function. We need to come up with an equivalent
+For some cases, there is no direct mapping from \imss language to the language of
+a solver.
+For example, \dprle does not have a \CodeIn{StartsWith} function. Therefore \imss needs to come up with an equivalent
 expression in \dprle.
 
 \CodeIn{StartsWith($a$, "abc")} $\iff$ $a <$ Automaton of Regex $abc(.)^{*}$
 
-In \dprle, we can say that $a$ is a member of a regular language that starts with $abc$, $abc(.)^{*}$.
+\imss's output for the \CodeIn{StartsWith} example above says that $a$ is a member of a regular language that starts with $abc$, the subsequent expression symbols $(.)^{*}$
+indicates that the satisfying string can have any other characters after the characters
+$abc$.
 
-If it is not possible to express some function in a language, \imss will not generate an input
-for that language. In other words, the input constraint is incompatible with that language.
+If it is not possible to map a particular function from \imss to the language(s) of the solvers that we support, \imss will not generate an input
+for that solver. In other words, the input constraint is incompatible with that solver.
 
 \subsection{Result Aggregation}
 After \imss generates the input constraints for each language, it executes the three solvers concurrently, and
