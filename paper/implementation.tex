@@ -20,11 +20,11 @@ Since, \hampi, \dprle, and \zstr takes their inputs in
  cover all the functionalities in all three languages by combining their grammars.
 
 \subsection{Input Format Translation}
-After \imss takes a input constraint in \imss's format, it does lexical analysis to parse
+After \imss takes an input constraint in \imss's format, it does lexical analysis to parse
 the text-based input into tokens and constructs an AST representation of the input.
 Each AST node stores its type, according to the grammar, and pointers to its child nodes.
 For example, the AST of \CodeIn{LessThan(a, 2)} consists of three nodes. The root node is of type
-\CodeIn{LessThan} and that node has two children. In this example, the first child is of type \CodeIn{ID} (variable name), and
+\CodeIn{LessThan} and has two children. In this example, the first child is of type \CodeIn{ID} (variable name), and
 the second child is of type \CodeIn{INT_LIT} (integer literal). We infer the types from \imss's grammar.
 With this approach, every tree node has an associated type. Given the type information of
 each AST node, we can easily translate this tree into the three different languages by traversing

@@ -65,7 +65,7 @@ Abstract Syntax Tree (AST) from the sequence of tokens. The AST is used to repre
 of the program. Each node of the tree denotes a statement or an expression in the source code.
 The AST of the source code will be used in the next step, semantic analysis.
 Semantic analysis, code generation, and optimization will do semantic checking, such as type checking,
-then generate machine code instructions for the AST. Our tool, \imss, performs the first two steps.
+then generate machine code instructions. Our tool, \imss, performs the first two steps.
 The tool does not do type checking or code generation. Instead \imss takes a input constraint which can be
 viewed as source code and translates it to a different format for the same source code.
 It does this through lexical and syntactic analysis to generate an AST and then translating the AST (which captures all information of the source code) into three input formats
