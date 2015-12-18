@@ -5,7 +5,7 @@
 \newcommand{\hampitests}{379\xspace}
 \newcommand{\ztests}{245\xspace}
 
-This section describes the constraint solvers \imss supports and the concepts we used to develop \imss. The details of these solvers and and our tools are released on our project website~\cite{imss}.
+This section describes the constraint solvers \imss supports and the concepts we used to develop \imss. The details of these solvers and our tools are released on our project website~\cite{imss}.
 
 \subsection{\hampi, \dprle, and \zstr}
 
@@ -30,7 +30,7 @@ This section describes the constraint solvers \imss supports and the concepts we
 \end{figure}
 
 \imss combines three different constraint solvers, \hampi, \dprle, and \zstr in order to
-accept a wider range of languages as input and solve a greater variety of constraints.
+accept a wide range of languages as input and solve a great variety of constraints.
 
 \dprle is a decision procedure that solves constraints over regular languages. Regular languages
 in \dprle are represented in the form of finite state automatas. \dprle constraints can express
@@ -39,7 +39,7 @@ membership and concatenation of regular languages~\cite{dprle2009}.
 includes \dprletests tests and all \dprletests tests were evaluated by \imss for our evaluation.
 
 \hampi is a string constraint solver over fixed-size string variables. \hampi constraints can express
-membership and may contain context-free language definition, strings, and regular-language
+membership and may contain context-free language definitions, strings, and regular-language
 definitions~\cite{hampi2009}. Even though \hampi is a string solver over fixed-size string variables,
 users can specify a range of lengths to \hampi, and \hampi will try all the lengths in the given range
 and output the shortest string that satisfies the constraints.
@@ -48,7 +48,7 @@ includes \hampitests tests and a subset of the \hampitests tests were evaluated 
 
 \zstr, an extension of the Z3 SMT solver, is a string constraint solver that treats strings
 as a primitive type and also supports booleans, integers, and string constants.
-\zstr constraints can express variety of functionality such as concatenation, substring,
+\zstr constraints can express a variety of functionality such as concatenation, substring,
 indexof, and replace~\cite{z32013}.
 \imss currently supports the latest stable release of \zstr that was built with version
 4.1.1 of Z3 (the most up to date version of Z3 \zstr is recommended to be built with).
@@ -59,8 +59,8 @@ Given a set of constraints to \imss, \imss will translate the constraints to the
 
 \subsection{Abstract Syntax Tree}
 Compilers typically consist of five main steps: lexical analysis, syntactic analysis, semantic
-analysis, code generation, and optimization. Lexical analysis parses the source code which converting
-a sequence of characters into a sequence of tokens. Then syntactic analysis will build a
+analysis, code generation, and optimization. Lexical analysis parses the source code and converts the
+sequence of characters into a sequence of tokens. Then syntactic analysis will build a
 Abstract Syntax Tree (AST) from the sequence of tokens. The AST is used to represent the structure
 of the program. Each node of the tree denotes a statement or an expression in the source code.
 The AST of the source code will be used in the next step, semantic analysis.
@@ -68,5 +68,5 @@ Semantic analysis, code generation, and optimization will do semantic checking, 
 then generate machine code instructions. Our tool, \imss, performs the first two steps.
 The tool does not do type checking or code generation. Instead \imss takes a input constraint which can be
 viewed as source code and translates it to a different format for the same source code.
-It does this through lexical and syntactic analysis to generate an AST and then translating the AST (which captures all information of the source code) into three input formats
+It does this through lexical and syntactic analysis to generate an AST and then translating the AST (which captures all of the information of the source code) into three input formats
 for the three solvers.

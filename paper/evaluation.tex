@@ -12,16 +12,14 @@ This section describes the setup we evaluated \imss in and the results of our ev
 We evaluated our tool with the constraints derived from the tests of the three solvers.
 There are \totaltests tests in total (Figure~\ref{tab:solvers}). Of the \totaltests
 tests, we evaluated \pickedtests tests. The \pickedtests tests are composed of
-\dprlePtests tests from \dprle, \hampiPtests tests from \hampi, and \zPtests from \zstr.
+\dprlePtests tests from \dprle, \hampiPtests tests from \hampi, and \zPtests tests from \zstr.
 We evaluated only a subset of tests from \hampi and \zstr because the remaining tests
 from these two solvers test the same functionality but with different values.
 Since the goal of \imss is to ensure that all functionality that is available
 from the three constraint solvers is made available through \imss as well, we
 omitted tests that did not test additional functionality than the ones we have
-selected.
-
-In selecting tests from \zstr and \hampi,
-we use the following approach:
+selected. When selecting tests from \zstr and \hampi,
+we used the following approach:
 \begin{enumerate}
     \item Go through all the tests and categorize them based on their testing functionality.
     \item Count the number of tests in each category.
@@ -85,7 +83,7 @@ the solution's length, \hampi needs to try different lengths. And if the constra
 On the other hand, \dprle was the fastest constraint solver we evaluated.
 We hypothesize that this is because \hampi has to try different lengths and
 \zstr needs to use Z3 SMT solver's plug-in interface.
-Since \zstr needs to convert its input format into the Z3 SMT solver's format, this inevitably adds more time to run \zstr.
+Since \zstr needs to convert its input format into the Z3 SMT solver's format, this inevitably increases the time to run \zstr.
 
 \begin{figure}[H]
     \centering
@@ -138,5 +136,5 @@ supports a variety of string functionality that the other two solvers do not, su
 
 For the \pickedtests tests we evaluated our tool on, using any one or combination of the three solvers we selected to evaluate this set of tests would have resulted
 in multiple tests being unsolvable. On the other hand, by combining the
-expressiveness of all three solvers, \imss can solve them all (for each test,
+expressiveness of all three solvers, \imss can solve all of them (for each test,
 at least one solver from the three solvers will output SAT or UNSAT).

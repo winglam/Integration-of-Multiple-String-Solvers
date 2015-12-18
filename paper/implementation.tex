@@ -8,12 +8,12 @@ and generates at least one output that satisfies the given constraints if the co
 
 
 \subsection{\imss's Grammar}
-Since, \hampi, \dprle, and \zstr takes their inputs in
- different languages. These three languages do not have the same expressiveness.
+Since \hampi, \dprle, and \zstr takes their inputs in
+ different languages, these three languages do not have the same expressiveness.
  We cannot translate everything from one language into the other two languages. For example,
  \dprle, requires automata descriptions for its input~\cite{lazystrings2010}.
  To define a string, we have to construct a finite automaton representing that string.
- Also, \dprle, does not support a constraint which has a context-free grammar,
+ Also, \dprle, does not support constraints which uses context-free grammar,
  but \hampi does. However, \dprle, can check whether one regular expression language
  contains another regular expression language. Each language has some functionalities the
  other solvers do not have. Thus, we construct a new grammar (Grammar~\ref{fig:grammar}) that is expressive enough to
@@ -31,7 +31,7 @@ each AST node, we can easily translate this tree into the three different langua
 on the tree and recursively constructing the input constraints for each of the three languages.
 For some cases, there is no direct mapping from \imss language to the language of
 a solver.
-For example, \dprle does not have a \CodeIn{StartsWith} function. Therefore \imss needs to come up with an equivalent
+For example, \dprle does not have a \CodeIn{StartsWith} function. Luckily \imss is capable of coming up with an equivalent
 expression in \dprle.
 
 \CodeIn{StartsWith($a$, "abc")} $\iff$ $a <$ Automaton of Regex $abc(.)^{*}$

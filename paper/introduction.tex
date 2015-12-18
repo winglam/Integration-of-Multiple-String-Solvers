@@ -4,13 +4,12 @@ Many constraint solvers exist~\cite{solvers}, each with their own strengths and 
 
 Existing libraries such as SMT-LIB~\cite{smtlib2015} has been developed to assist users from having to learn the language that corresponds to the constraint solvers they would like to use. However, such libraries require the developers of constraint solvers to integrate such libraries with their solvers. If the developer of the constraint solver does not perform the integration, users are forced to learn the language compatible with the solver they are trying to use. Not to mention the fact that even if a constraint solver integrates such libraries, it still continues to burden users to determine which solver is best at solving particular constraints.
 
-We designed and implemented IMSS (Integration of Multiple String Solvers), a tool that leverages the functionality of existing constraint solvers to solve any constraint that existing solvers can solve in the shortest amount of time. IMSS accepts a set of constraints as input and translates the input constraints into the language for other constraint solvers. Once the input constraints are translated, IMSS runs the constraint solvers it supports concurrently to return satisfied or unsatisfied results to the user in the shortest amount of time.
+We designed and implemented IMSS (Integration of Multiple String Solvers), a tool that leverages the functionality of existing constraint solvers to solve any constraint that existing solvers can solve in the shortest amount of time. IMSS accepts a set of constraints as input and translates the input constraints into the language for other constraint solvers. Once the input constraints are translated, IMSS concurrently runs the constraint solvers it supports  to return satisfied or unsatisfied results to the user in the shortest amount of time.
 
 \textbf{Contributions}
 \begin{itemize}
-    \item We implemented \imss, a string constraint solver that utilizes three constraint solvers:
-    \hampi, \dprle, and \zstr. \imss's source code and documentation can be downloaded at
-    \url{https://github.com/winglam/Integration-of-Multiple-String-Solvers/}.
+    \item We implemented \imss, a collection of tools that utilizes three constraint solvers:
+    \hampi, \dprle, and \zstr.
     \item Experimental evaluation for various constraints derived from the three solvers' tests.
 \end{itemize}
 

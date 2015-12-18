@@ -13,13 +13,13 @@ produces its output from a particular input.
 \end{figure}
 \imss finds a string that satisfies constraints specified in the input,
 or decides that no satisfying string exists. \imss utilizes three different
-string solvers: \hampi, \dprle, \zstr to solve string
+string solvers: \hampi, \dprle, and \zstr to solve string
 constraints. In summary, \imss works in the following four steps (Figure~\ref{fig:imss}):
 \begin{enumerate}
     \item Parse the input constraints into an abstract syntax tree (AST)
     representation of the \imss language.
     \item Translate the AST into the formats that corresponds to the three different solvers.
-    \item Execute all the three solvers in parallel.
+    \item Execute all three solvers concurrently.
     \item Gather all the results. If none of the solvers can solve the constraints
     specified in the input, report that the constraints are incompatible.
 \end{enumerate}
